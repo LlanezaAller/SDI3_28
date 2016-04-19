@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:view locale="#{settings.locale}">
+	<h:head>
+		<title><ui:insert name="titulo">#{msgs.title}</ui:insert></title>
+		<h:outputStylesheet library="css" name="styles.css" />
+	</h:head>
+	<h:body>
+		<p:growl id="growl" showDetail="false" sticky="true" />  
+		<h:form id="form-menu">
+			<p:menubar id="menu-bar">
+				<p:menuitem id="linkTrips" value="#{msgs.tripsTitle}" outcome="/index.xhtml"/>
+				<p:menuitem id="linkCreateTrip" value="#{msgs.createTripTitle}"
+					outcome="/user/createTrip.xhtml"
+					rendered="#{not empty user}" />
+				<p:menuitem id="linkMyTrips" value="#{msgs.myTripsTitle}"
+					rendered="#{not empty user}" outcome="/user/myTrips.xhtml"/>
+				<f:facet name="options">
+					<p:commandButton id="linkLogout" value="#{msgs.logoutTitle}"
+						 action="#{users.logout}"
+						rendered="#{not empty user}" />
+					<p:commandButton id="linkSignIn" value="#{msgs.signInTitle}"
+						onclick="PF('signInDialog').show();" rendered="#{empty user}" />
+					<p:commandButton id="linkSignUp" value="#{msgs.signUpTitle}"
+						onclick="PF('signUpDialog').show();" rendered="#{empty user}" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+		<ui:insert name="cuerpo">#{msgs.tituloDefectoCuerpo}</ui:insert>
+
+		<h:form id="form-footer">
+			<p:toolbar>
+				<f:facet name="left">
+					<p:commandButton id="resetDBBt" value="#{msgs.resetDB}"
+						action="#{settings.resetDB}" />
+						#{msgs.footerDesigners}
+				</f:facet>
+				<f:facet name="right">
+					<p:commandButton id="linkespa" value="#{msgs.enlaceIdiomaES}"
+						actionListener="#{settings.setSpanish}" update="@all" />
+					<p:commandButton id="linkingles" value="#{msgs.enlaceIdiomaEN}"
+						actionListener="#{settings.setEnglish}" update="@all" />
+				</f:facet>
+			</p:toolbar>
+		</h:form>
+		<p:dialog rendered="#{empty user}" header="#{msgs.signInTitle}"
+			widgetVar="signInDialog" modal="true" resizable="false">
+			<h:form id="signInForm">
+				<p:messages id="signInFormMessages" showDetail="true"
+					autoUpdate="true" closable="true" />
+				<h:panelGrid columns="2" columnClasses="label, value">
+					<h:outputText for="loginUser" value="#{msgs.userLabel}: *" />
+					<p:inputText id="loginUser" required="true"
+						label="#{msgs.userLabel}" value="#{users.user.login}" />
+
+					<h:outputText for="loginPass" value="#{msgs.passwordLabel}: *" />
+					<p:password id="loginPass" required="true"
+						label="#{msgs.passwordLabel}" value="#{users.user.password}" />
+
+					<f:facet name="footer">
+						<p:commandButton value="#{msgs.signInTitle}" update="signInForm"
+							action="#{users.login}"/>
+					</f:facet>
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+		<p:dialog rendered="#{empty user}" header="#{msgs.signUpTitle}"
+			widgetVar="signUpDialog" modal="true" resizable="false">
+			<h:form id="signUpForm">
+				<p:messages id="signUpFormMessages" autoUpdate="true"
+					closable="true" />
+				<h:panelGrid columns="2" columnClasses="label, value">
+					<h:outputText for="registerUser" value="#{msgs.userLabel}: *" />
+					<p:inputText id="registerUser" required="true"
+						label="#{msgs.userLabel}" value="#{users.user.login}">
+						<f:validator validatorId="com.sdi.presentation.validators.LoginValidator" />
+					</p:inputText>
+
+					<h:outputText for="registerName" value="#{msgs.nameLabel}: *" />
+					<p:inputText id="registerName" required="true"
+						label="#{msgs.nameLabel}" value="#{users.user.name}"/>
+
+					<h:outputText for="registerSurname" value="#{msgs.surnameLabel}: *" />
+					<p:inputText id="registerSurname" required="true"
+						label="#{msgs.surnameLabel}" value="#{users.user.surname}"/>
+
+					<h:outputText for="registerEmail" value="#{msgs.emailLabel}: *" />
+					<p:inputText id="registerEmail" required="true"
+						label="#{msgs.emailLabel}" value="#{users.user.email}">
+						<f:validator validatorId="com.sdi.presentation.validators.EmailValidator" />
+					</p:inputText>
+
+					<h:outputText for="registerPass" value="#{msgs.passwordLabel}: *" />
+					<p:password id="registerPass" required="true"
+						label="#{msgs.passwordLabel}" feedback="true"
+						match="registerPassConf" value="#{users.user.password}"/>
+
+					<h:outputText for="registerPassConf"
+						value="#{msgs.passwordConfLabel}: *" />
+					<p:password id="registerPassConf" required="true"
+						label="#{msgs.passwordConfLabel}" />
+
+					<f:facet name="footer">
+						<p:commandButton value="#{msgs.signUpTitle}" update="signUpForm"
+							action="#{users.register}" />
+					</f:facet>
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+	</h:body>
+</f:view>
+</html>
