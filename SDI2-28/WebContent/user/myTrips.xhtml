@@ -1,0 +1,84 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template-general.xhtml">
+
+
+	<ui:define name="cuerpo">
+		<f:event listener="#{tripList.loadUserTrips}" type="preRenderView" />
+		<h:form id="form-tabla">
+			<p:dataTable id="tabla-mytrips" var="t" value="#{tripList.tripsRelation}"
+				emptyMessage="#{msgs.noTripsFound}"
+				selection="#{tripList.selectedTripsRelation}" rowKey="#{t.trip.id}"
+				paginator="true" rows="10"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				rowsPerPageTemplate="5,10,15"
+				sortMode="multiple">
+				<p:column selectionMode="multiple"
+					style="width:16px;text-align:center" />
+				<p:column headerText="#{msgs.tripOrigin}"
+					filterBy="#{t.trip.departure.city}"
+					sortBy="#{t.trip.departure.city}" filterMatchMode="contains">
+					<h:outputText value="#{t.trip.departure.city}" />
+				</p:column>
+				<p:column headerText="#{msgs.tripDestination}"
+					filterBy="#{t.trip.destination.city}"
+					sortBy="#{t.trip.destination.city}" filterMatchMode="contains">
+					<h:outputText value="#{t.trip.destination.city}" />
+				</p:column>
+				<p:column headerText="#{msgs.tripClosingDatetime}"
+					filterBy="#{t.trip.closingDate}" sortBy="#{t.trip.closingDate}"
+					filterMatchMode="contains">
+					<h:outputText value="#{t.trip.closingDate}" />
+				</p:column>
+				<p:column headerText="#{msgs.tripDepartureDatetime}"
+					filterBy="#{t.trip.departureDate}" sortBy="#{t.trip.departureDate}"
+					filterMatchMode="contains">
+					<h:outputText value="#{t.trip.departureDate}" />
+				</p:column>
+				<p:column headerText="#{msgs.tripArrivalDatetime}"
+					filterBy="#{t.trip.arrivalDate}" sortBy="#{t.trip.arrivalDate}"
+					filterMatchMode="contains">
+					<h:outputText value="#{t.trip.arrivalDate}" />
+				</p:column>
+				<p:column headerText="#{msgs.tripPromoter}"
+					filterBy="#{t.trip.promoter.login}"
+					sortBy="#{t.trip.promoter.login}" filterMatchMode="contains">
+					<h:outputText value="#{t.trip.promoter.login}" />
+				</p:column>
+				<p:column headerText="#{msgs.tripUserStatus}"
+					filterBy="#{t.relation}" sortBy="#{t.relation}"
+					filterMatchMode="contains">
+					<h:outputText value="#{t.relation}" />
+				</p:column>
+				<p:column headerText="#{msgs.tripStatus}"
+					filterBy="#{t.trip.status}" sortBy="#{t.trip.status}"
+					filterMatchMode="contains">
+					<h:outputText value="#{msgs.tripCancelled}"
+						rendered="#{t.trip.status == 'CANCELLED'}" />
+					<h:outputText value="#{msgs.tripClosed}"
+						rendered="#{t.trip.status == 'CLOSED'}" />
+					<h:outputText value="#{msgs.tripOpened}"
+						rendered="#{t.trip.status == 'OPEN'}" />
+					<h:outputText value="#{msgs.tripDone}"
+						rendered="#{t.trip.status == 'DONE'}" />
+				</p:column>
+				<p:column style="width:32px;text-align: center;">
+					<p:link outcome="/user/viewTrip.xhtml" value="#{msgs.viewTrip}">
+						<f:param name="trip" value="#{t.trip.id}" />
+					</p:link>
+				</p:column>
+				<f:facet name="footer">
+					<p:commandButton id="cancelTripsSelected"
+						value="#{msgs.tripCancelSelected}"
+						actionListener="#{tripList.cancelTrips}" update="tabla-mytrips growl" />
+				</f:facet>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>
+

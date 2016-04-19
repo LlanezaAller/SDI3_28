@@ -1,0 +1,113 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<h:outputText id="tripComment" value="#{trip.trip.comments}" />
+			<p:panelGrid id="tripDetails"  cellpadding="5">
+				<p:row>
+					<p:column></p:column>
+					<p:column>
+						<h3>#{msgs.tripOrigin}</h3>
+					</p:column>
+					<p:column>
+						<h3>#{msgs.tripDestination}</h3>
+					</p:column>
+				</p:row>
+
+				<p:row>
+					<p:column>
+						<h3>#{msgs.tripCountry}</h3>
+					</p:column>
+					<p:column>
+						<h:outputText value="#{trip.trip.departure.country}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{trip.trip.destination.country}" />
+					</p:column>
+				</p:row>
+
+				<p:row>
+					<p:column>
+						<h3>#{msgs.tripState}</h3>
+					</p:column>
+					<p:column>
+						<h:outputText value="#{trip.trip.departure.state}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{trip.trip.destination.state}" />
+					</p:column>
+				</p:row>
+
+				<p:row>
+					<p:column>
+						<h3>#{msgs.tripCity}</h3>
+					</p:column>
+					<p:column>
+						<h:outputText value="#{trip.trip.departure.city}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{trip.trip.destination.city}" />
+					</p:column>
+				</p:row>
+
+				<p:row>
+					<p:column>
+						<h3>#{msgs.tripZip}</h3>
+					</p:column>
+					<p:column>
+						<h:outputText value="#{trip.trip.departure.zipCode}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{trip.trip.destination.zipCode}" />
+					</p:column>
+				</p:row>
+
+				<p:row>
+					<p:column>
+						<h3>#{msgs.tripStreet}</h3>
+					</p:column>
+					<p:column>
+						<h:outputText value="#{trip.trip.departure.address}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{trip.trip.destination.address}" />
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<h3>#{msgs.tripTime}</h3>
+					</p:column>
+					<p:column>
+						<h:outputText value="#{trip.trip.departureDate}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{trip.trip.arrivalDate}" />
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<h3>#{msgs.tripClosingDatetime}</h3>
+					</p:column>
+					<p:column colspan="2">
+						<h:outputText value="#{trip.trip.closingDate}" />
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<h3>#{msgs.tripTotalCost}</h3>
+					</p:column>
+					<p:column colspan="2">
+						<h:outputText value="#{trip.trip.estimatedCost}" />
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<h3>#{msgs.tripTotalSeats}</h3>
+					</p:column>
+					<p:column colspan="2">
+						<h:outputText value="#{trip.trip.maxPax}" />
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+</ui:composition>

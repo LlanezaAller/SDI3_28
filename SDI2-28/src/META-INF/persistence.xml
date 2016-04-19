@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="SDI2-28" transaction-type="RESOURCE_LOCAL">
+		<jta-data-source>java:jboss/datasources/NotaneitorDS</jta-data-source>
+
+		<properties>
+			<property name="hibernate.enable_lazy_load_no_trans" value="true"/>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
+			<property name="jboss.entity.manager.factory.jndi.name" value="java:/ForumJpaFactory"/>
+			<property name="jdbc.initial.size" value="1"/>
+
+			 <!-- 
+			<property name="hibernate.hbm2ddl.auto" value="create"/> 
+				  -->
+			
+
+<!-- 
+			<property name="hibernate.show_sql" value="true"/>
+			<property name="hibernate.format_sql" value="true"/>
+			<property name="use_sql_comments" value="true" />
+ -->
+		</properties>
+	</persistence-unit>
+</persistence>

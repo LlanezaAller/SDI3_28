@@ -1,0 +1,93 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template-general.xhtml">
+
+
+	<ui:define name="cuerpo">
+		<p:panel id="horizontal">
+			<h2>#{msgs.tripDetails}</h2>
+			<h:panelGroup id="tripDetailsWrapper">
+				<h:panelGroup rendered="#{not trip.isEditing}">
+					<ui:include src="../snippets/tripDetails.xhtml" />
+				</h:panelGroup>
+			</h:panelGroup>
+			<h:form id="editForm"
+				rendered="#{user.id == trip.trip.promoter.id and trip.isEditable==true}">
+				<h:panelGroup id="editFormWrapper" rendered="#{trip.isEditing}">
+					<ui:include src="../snippets/tripEdit.xhtml" />
+				</h:panelGroup>
+				<p:commandButton actionListener="#{trip.modifyTrip}"
+					update="@form tripDetailsWrapper" value="#{msgs.edit}" rendered="#{trip.isEditing == false and user.id == trip.trip.promoter.id}"/>
+			</h:form>
+			<h:form id="applicationForm"
+				rendered="#{user.id != trip.trip.promoter.id}">
+				<p:commandButton actionListener="#{trip.applyForSeat}"
+					update="@form applicationsTableForm" value="#{msgs.applyForTrip}"
+					rendered="#{trip.isEditable==true and trip.hasApplication==false and trip.hasSeat==false}" />
+				<p:commandButton actionListener="#{trip.cancelMyApplication}"
+					update="@form applicationsTableForm seatsTableForm"
+					value="#{msgs.cancelMyApplication}"
+					rendered="#{trip.isEditable==true and (trip.hasApplication==true or trip.hasSeat==true)}" />
+			</h:form>
+			<h:form id="seatsTableForm">
+				<h2>#{msgs.travellers}</h2>
+				<p:dataTable var="s" value="#{trip.trip.seats}">
+					<p:column headerText="#{msgs.nameLabel}">
+						<h:outputText value="#{s.user.name}" />
+					</p:column>
+					<p:column headerText="#{msgs.surnameLabel}">
+						<h:outputText value="#{s.user.surname}" />
+					</p:column>
+					<p:column headerText="#{msgs.userLabel}" >
+						<h:outputText value="#{s.user.login}" />
+					</p:column>
+					<p:column headerText="#{msgs.tripUserStatus}"
+						>
+						<h:outputText value="#{msgs.seatAccepted}"
+							rendered="#{s.trip.promoter.id != s.user.id and s.status=='ACCEPTED'}" />
+						<h:outputText value="#{msgs.seatRejected}"
+							rendered="#{s.trip.promoter.id != s.user.id and s.status=='EXCLUDED'}" />
+						<h:outputText value="#{msgs.tripPromoter}"
+							rendered="#{s.trip.promoter.id == s.user.id}" />
+						<p:commandButton actionListener="#{trip.rejectSeat(s)}"
+							update="@form" value="#{msgs.reject}"
+							rendered="#{trip.isEditable==true and s.trip.promoter.id == user.id and s.status=='ACCEPTED' and s.trip.promoter.id != s.user.id}" />
+						<p:commandButton actionListener="#{trip.confirmSeat(s)}"
+							update="@form" value="#{msgs.accept}"
+							rendered="#{trip.isEditable==true and s.trip.promoter.id == user.id and s.status=='EXCLUDED' and s.trip.promoter.id != s.user.id}" />
+					</p:column>
+				</p:dataTable>
+			</h:form>
+			<h:form id="applicationsTableForm">
+				<h2>#{msgs.tripApplications}</h2>
+				<p:dataTable var="u" value="#{trip.trip.applications}">
+					<p:column headerText="#{msgs.nameLabel}">
+						<h:outputText value="#{u.name}" />
+					</p:column>
+					<p:column headerText="#{msgs.surnameLabel}">
+						<h:outputText value="#{u.surname}" />
+					</p:column>
+					<p:column headerText="#{msgs.userLabel}" >
+						<h:outputText value="#{u.login}" />
+					</p:column>
+					<p:column rendered="#{user.id == trip.trip.promoter.id}"
+						headerText="#{msgs.tripUserStatus}" >
+						<p:commandButton actionListener="#{trip.rejectApplication(u)}"
+							update="@form seatsTableForm" value="#{msgs.reject}"
+							rendered="#{trip.isEditable}" />
+						<p:commandButton actionListener="#{trip.confirmApplication(u)}"
+							update="@form seatsTableForm" value="#{msgs.accept}"
+							rendered="#{trip.isEditable}" />
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</p:panel>
+
+	</ui:define>
+
+
+</ui:composition>
+

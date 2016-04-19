@@ -1,0 +1,61 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template-general.xhtml">
+
+	<ui:define name="cuerpo">
+		<f:event listener="#{tripList.loadOpenedTrips}" type="preRenderView" />
+		<h:form id="form-tabla">
+			<p:dataTable var="t" value="#{tripList.trips}"
+				emptyMessage="#{msgs.noTripsFound}" selectionMode="single"
+				selection="#{tripList.selectedTrip}" rowKey="#{t.id}"
+				paginator="true" rows="10"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				rowsPerPageTemplate="5,10,15"
+				sortMode="multiple">
+				<p:ajax event="rowSelect" listener="#{tripList.viewTrip}" />
+				<p:column headerText="#{msgs.tripOrigin}"
+					filterBy="#{t.departure.city}" sortBy="#{t.departure.city}"
+					filterMatchMode="contains">
+					<h:outputText value="#{t.departure.city}" />
+				</p:column>
+				<p:column headerText="#{msgs.tripDestination}"
+					filterBy="#{t.destination.city}" sortBy="#{t.destination.city}"
+					filterMatchMode="contains">
+					<h:outputText value="#{t.destination.city}" />
+				</p:column>
+				<p:column headerText="#{msgs.tripClosingDatetime}"
+					filterBy="#{t.closingDate}" sortBy="#{t.closingDate}"
+					filterMatchMode="contains">
+					<h:outputText value="#{t.closingDate}" />
+				</p:column>
+				<p:column headerText="#{msgs.tripDepartureDatetime}"
+					filterBy="#{t.departureDate}" sortBy="#{t.departureDate}"
+					filterMatchMode="contains">
+					<h:outputText value="#{t.departureDate}" />
+				</p:column>
+				<p:column headerText="#{msgs.tripArrivalDatetime}"
+					filterBy="#{t.arrivalDate}" sortBy="#{t.arrivalDate}"
+					filterMatchMode="contains">
+					<h:outputText value="#{t.arrivalDate}" />
+				</p:column>
+				<p:column headerText="#{msgs.tripMaxSeats}"
+					filterBy="#{t.availablePax}" sortBy="#{t.availablePax}"
+					filterMatchMode="contains">
+					<h:outputText value="#{t.availablePax}/#{t.maxPax}" />
+				</p:column>
+				<p:column headerText="#{msgs.tripPromoter}"
+					rendered="#{not empty user}" filterBy="#{t.promoter.login}"
+					sortBy="#{t.promoter.login}" parser="string"
+					filterMatchMode="contains">
+					<h:outputText value="#{t.promoter.login}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>
+
