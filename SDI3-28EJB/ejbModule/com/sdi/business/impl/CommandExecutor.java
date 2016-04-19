@@ -10,7 +10,8 @@ import com.sdi.persistence.util.Jpa;
 
 public class CommandExecutor {
 	public Object execute(Command command) throws BusinessException {
-		EntityManager em = Jpa.createEntityManager();
+		
+		EntityManager em = Jpa.getManager();
 		EntityTransaction trx = em.getTransaction();
 		trx.begin();
 
