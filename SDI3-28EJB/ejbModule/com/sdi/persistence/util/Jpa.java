@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 
 @Stateless
 public class Jpa {
+	//TODO comprobar que la clave sea la misma
 	private static final String EJB_JPA_KEY = "java:/ForumJpaFactory";
 
 	@PersistenceContext private EntityManager mapper;

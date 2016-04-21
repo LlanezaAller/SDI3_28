@@ -46,7 +46,7 @@ public class BeanTrip implements Serializable {
 			if (tripID != null) {
 				Log.info("Intentando cargar el viaje con id %s", tripID);
 				Long id = Long.parseLong(tripID);
-				trip = Factories.business.createViajesService().findTrip(id);
+				trip = Factories.business.getViajesService().findTrip(id);
 				if (trip != null) {
 					checkHasApplication();
 					checkHasSeat();
@@ -69,7 +69,7 @@ public class BeanTrip implements Serializable {
 		Log.info("Rechazando asiento...");
 		if (user != null) {
 			if (s.getTrip().getPromoter().getId().equals(user.getId())) {
-				trip = Factories.business.createAsientosService()
+				trip = Factories.business.getAsientosService()
 						.cambiarEstadoAsiento(s, user.getLogin());
 			} else {
 				Log.error(
@@ -89,7 +89,7 @@ public class BeanTrip implements Serializable {
 		Log.info("Confirmando asiento...");
 		if (user != null) {
 			if (s.getTrip().getPromoter().getId().equals(user.getId())) {
-				trip = Factories.business.createAsientosService()
+				trip = Factories.business.getAsientosService()
 						.cambiarEstadoAsiento(s, user.getLogin());
 			} else {
 				Log.error(
@@ -119,7 +119,7 @@ public class BeanTrip implements Serializable {
 		User user = (User) session.get("user");
 		if (user != null) {
 			if (trip.getPromoter().getId().equals(user.getId())) {
-				trip = Factories.business.createUsuariosService()
+				trip = Factories.business.getUsuariosService()
 						.promoterManageApplication(status, u.getLogin(),
 								trip.getId());
 			} else {
@@ -137,7 +137,7 @@ public class BeanTrip implements Serializable {
 				.getExternalContext().getSessionMap();
 		User user = (User) session.get("user");
 		if (user != null) {
-			trip = Factories.business.createUsuariosService().aplicar(
+			trip = Factories.business.getUsuariosService().aplicar(
 					user.getLogin(), trip.getId());
 
 			hasApplication = SdiUtil.assertHasApplication(user, trip);
@@ -153,9 +153,9 @@ public class BeanTrip implements Serializable {
 		User user = (User) session.get("user");
 		if (user != null) {
 			try {
-				Factories.business.createUsuariosService().cancelarAplicacion(
+				Factories.business.getUsuariosService().cancelarAplicacion(
 						user.getLogin(), trip.getId());
-				trip = Factories.business.createViajesService().findTrip(
+				trip = Factories.business.getViajesService().findTrip(
 						trip.getId());
 			} catch (EntityNotFoundException e) {
 				Log.error("Viaje no encontrado");
@@ -176,7 +176,7 @@ public class BeanTrip implements Serializable {
 			try {
 				trip.setPromoter(user);
 
-				Factories.business.createViajesService().saveTrip(trip);
+				Factories.business.getViajesService().saveTrip(trip);
 
 				return "EXITO";
 			} catch (EntityAlreadyExistsException e) {
@@ -208,7 +208,7 @@ public class BeanTrip implements Serializable {
 		User user = (User) session.get("user");
 		if (user != null && trip.getPromoter().getId().equals(user.getId())) {
 
-			Factories.business.createViajesService().update(trip);
+			Factories.business.getViajesService().update(trip);
 
 			isEditing = false;
 			Log.info("Trip editado con éxito");

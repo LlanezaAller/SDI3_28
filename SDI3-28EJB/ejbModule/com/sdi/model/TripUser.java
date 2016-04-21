@@ -1,6 +1,12 @@
 package com.sdi.model;
 
-public class TripUser {
+import java.io.Serializable;
+
+public class TripUser implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Trip trip;
 	private String relation;
 
