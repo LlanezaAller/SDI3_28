@@ -7,7 +7,9 @@ import com.sdi.persistence.impl.JpaPersistenceFactory;
 
 public class Factories {
 
-	public static PersistenceFactory persistence = new JpaPersistenceFactory();
-
-	public static ServicesFactory business = new LocalEjbServicesLocator();
+	private static String CONFIG_FILE = "/factories.properties";
+	public static ServicesFactory business = (ServicesFactory) FactoriesHelper
+			.createFactory(CONFIG_FILE, "SERVICES_FACTORY");
+	public static PersistenceFactory persistence = (PersistenceFactory) FactoriesHelper
+			.createFactory(CONFIG_FILE, "PERSISTENCE_FACTORY");
 }
