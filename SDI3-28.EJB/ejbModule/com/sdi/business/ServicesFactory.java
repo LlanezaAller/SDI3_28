@@ -2,11 +2,11 @@ package com.sdi.business;
 
 public interface ServicesFactory {
 
-	public UsuariosService createUsuariosService();
+	public UsuariosService getUsuariosService();
 
-	public ViajesService createViajesService();
+	public ViajesService getViajesService();
 
-	public AsientosService createAsientosService();
+	public AsientosService getAsientosService();
 
-	public SystemService createSystemService();
+	public SystemService getSystemService();
 }

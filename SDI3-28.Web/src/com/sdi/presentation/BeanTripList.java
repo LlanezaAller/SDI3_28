@@ -37,7 +37,7 @@ public class BeanTripList implements Serializable {
 	private List<TripUser> selectedTripsRelation;
 
 	public void loadOpenedTrips(ComponentSystemEvent event) {
-		List<Trip> openedTrips = Factories.business.createViajesService()
+		List<Trip> openedTrips = Factories.business.getViajesService()
 				.findAllByStatus(TripStatus.OPEN);
 		trips = new ArrayList<>();
 		Log.info("Cargado lista de viajes disponibles...");
@@ -60,7 +60,7 @@ public class BeanTripList implements Serializable {
 				.getResourceBundle(facesContext, "msgs");
 		if (user != null) {
 			List<Trip> notConfirmedTrips = Factories.business
-					.createViajesService().findAllAplicantsByUserId(
+					.getViajesService().findAllAplicantsByUserId(
 							user.getId());
 			for (Trip t : notConfirmedTrips) {
 				if (t.getStatus() == TripStatus.CANCELLED) {
@@ -74,7 +74,7 @@ public class BeanTripList implements Serializable {
 							.getString("seatFull")));
 				}
 			}
-			List<Seat> seats = Factories.business.createAsientosService()
+			List<Seat> seats = Factories.business.getAsientosService()
 					.findByUser(user.getId());
 			for (Seat s : seats) {
 				if (user.getId().equals(s.getTrip().getPromoter().getId())) {
@@ -121,7 +121,7 @@ public class BeanTripList implements Serializable {
 		User user = (User) session.get("user");
 
 		if (user != null) {
-			int cancelledTrips = Factories.business.createViajesService()
+			int cancelledTrips = Factories.business.getViajesService()
 					.cancelTrips(selectedTripsRelation, user);
 
 			FacesContext context = FacesContext.getCurrentInstance();

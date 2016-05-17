@@ -1,5 +1,6 @@
 package com.sdi.model;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,7 +19,7 @@ import com.sdi.model.type.UserStatus;
 
 @Entity
 @Table(name = "TUSERS")
-public class User {
+public class User implements Serializable{
 	@Id
 	@GeneratedValue
 	private Long id;

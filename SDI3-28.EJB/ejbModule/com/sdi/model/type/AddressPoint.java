@@ -1,10 +1,12 @@
 package com.sdi.model.type;
 
+import java.io.Serializable;
+
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 
 @Embeddable
-public class AddressPoint {
+public class AddressPoint implements Serializable{
 
 	private String address;
 	private City city;

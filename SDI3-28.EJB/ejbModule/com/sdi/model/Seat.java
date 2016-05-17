@@ -1,5 +1,6 @@
 package com.sdi.model;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +21,7 @@ import com.sdi.model.type.SeatStatus;
 @Entity
 @Table(name = "TSEATS")
 @IdClass(SeatKey.class)
-public class Seat {
+public class Seat implements Serializable{
 
 	@Id
 	@ManyToOne

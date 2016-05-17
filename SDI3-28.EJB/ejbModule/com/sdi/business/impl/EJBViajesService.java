@@ -2,7 +2,8 @@ package com.sdi.business.impl;
 
 import java.util.List;
 
-import com.sdi.business.ViajesService;
+import javax.ejb.Stateless;
+
 import com.sdi.business.exception.EntityAlreadyExistsException;
 import com.sdi.business.exception.EntityNotFoundException;
 import com.sdi.business.impl.classes.viajes.CancelarViajes;
@@ -18,7 +19,8 @@ import com.sdi.model.TripUser;
 import com.sdi.model.User;
 import com.sdi.model.type.TripStatus;
 
-public class SimpleViajesService implements ViajesService {
+@Stateless
+public class EJBViajesService implements RemoteViajesService, LocalViajesService {
 
 	@Override
 	public Trip findTrip(Long id) throws EntityNotFoundException {

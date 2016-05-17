@@ -1,5 +1,7 @@
 package com.sdi.model.type;
 
-public enum TripStatus {
+import java.io.Serializable;
+
+public enum TripStatus implements Serializable{
 	OPEN, CLOSED, CANCELLED, DONE
 }

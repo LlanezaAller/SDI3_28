@@ -2,7 +2,8 @@ package com.sdi.business.impl;
 
 import java.util.List;
 
-import com.sdi.business.AsientosService;
+import javax.ejb.Stateless;
+
 import com.sdi.business.exception.EntityAlreadyExistsException;
 import com.sdi.business.exception.EntityNotFoundException;
 import com.sdi.business.impl.classes.asientos.AsientoAlta;
@@ -12,7 +13,8 @@ import com.sdi.business.impl.classes.asientos.CambiarEstadoAsiento;
 import com.sdi.model.Seat;
 import com.sdi.model.Trip;
 
-public class SimpleAsientosService implements AsientosService {
+@Stateless
+public class EJBAsientosService implements LocalAsientosService, RemoteAsientosService {
 
 	@Override
 	public void saveSeat(Seat seat) throws EntityAlreadyExistsException {

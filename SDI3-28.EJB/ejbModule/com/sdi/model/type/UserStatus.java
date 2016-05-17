@@ -1,5 +1,7 @@
 package com.sdi.model.type;
 
-public enum UserStatus {
+import java.io.Serializable;
+
+public enum UserStatus implements Serializable{
 	ACTIVE, CANCELLED
 }

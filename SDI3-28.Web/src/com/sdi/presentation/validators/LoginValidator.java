@@ -22,7 +22,7 @@ public class LoginValidator implements Validator {
 	public void validate(FacesContext context, UIComponent component,
 			Object value) throws ValidatorException {
 		try {
-			User u = Factories.business.createUsuariosService().findUser(
+			User u = Factories.business.getUsuariosService().findUser(
 					value.toString());
 			if (u != null) {
 				FacesContext facesContext = FacesContext.getCurrentInstance();

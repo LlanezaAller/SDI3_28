@@ -9,23 +9,23 @@ import com.sdi.business.ViajesService;
 public class SimpleServicesFactory implements ServicesFactory {
 
 	@Override
-	public UsuariosService createUsuariosService() {
-		return new SimpleUsuariosService();
+	public UsuariosService getUsuariosService() {
+		return new EJBUsuariosService();
 	}
 
 	@Override
-	public ViajesService createViajesService() {
-		return new SimpleViajesService();
+	public ViajesService getViajesService() {
+		return new EJBViajesService();
 	}
 
 	@Override
-	public AsientosService createAsientosService() {
-		return new SimpleAsientosService();
+	public AsientosService getAsientosService() {
+		return new EJBAsientosService();
 	}
 
 	@Override
-	public SystemService createSystemService() {
-		return new SimpleSystemService();
+	public SystemService getSystemService() {
+		return new EJBSystemService();
 	}
 
 }

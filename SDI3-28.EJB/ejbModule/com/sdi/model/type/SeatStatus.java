@@ -1,5 +1,7 @@
 package com.sdi.model.type;
 
-public enum SeatStatus {
+import java.io.Serializable;
+
+public enum SeatStatus implements Serializable{
 	ACCEPTED, EXCLUDED
 }

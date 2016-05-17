@@ -1,5 +1,6 @@
 package com.sdi.model;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
@@ -28,7 +29,7 @@ import com.sdi.model.type.TripStatus;
 
 @Entity
 @Table(name = "TTRIPS")
-public class Trip {
+public class Trip implements Serializable{
 
 	@Id
 	@GeneratedValue

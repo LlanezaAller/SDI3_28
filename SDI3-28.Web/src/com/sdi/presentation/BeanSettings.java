@@ -35,7 +35,7 @@ public class BeanSettings implements Serializable {
 	}
 
 	public String resetDB() {
-		Factories.business.createSystemService().resetDB();
+		Factories.business.getSystemService().resetDB();
 		return "EXITO";
 	}
 

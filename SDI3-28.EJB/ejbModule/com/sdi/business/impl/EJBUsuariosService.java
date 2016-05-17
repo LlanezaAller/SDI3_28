@@ -2,7 +2,8 @@ package com.sdi.business.impl;
 
 import java.util.Set;
 
-import com.sdi.business.UsuariosService;
+import javax.ejb.Stateless;
+
 import com.sdi.business.exception.EntityAlreadyExistsException;
 import com.sdi.business.exception.EntityNotFoundException;
 import com.sdi.business.impl.classes.usuarios.Aplicar;
@@ -15,7 +16,8 @@ import com.sdi.model.Trip;
 import com.sdi.model.User;
 import com.sdi.model.type.SeatStatus;
 
-public class SimpleUsuariosService implements UsuariosService {
+@Stateless
+public class EJBUsuariosService implements RemoteUsuariosService, LocalUsuariosService {
 
 	@Override
 	public void saveUser(User user) throws EntityAlreadyExistsException {

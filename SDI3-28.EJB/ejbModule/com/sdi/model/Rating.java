@@ -1,5 +1,7 @@
 package com.sdi.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -8,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "TRATING")
-public class Rating {
+public class Rating implements Serializable{
 
 	@Id
 	@GeneratedValue

@@ -1,6 +1,8 @@
 package com.sdi.model.type;
 
-public enum City {
+import java.io.Serializable;
+
+public enum City implements Serializable{
 	Albacete,
 	Alicante,
 	Almería,

@@ -1,9 +1,11 @@
 package com.sdi.model.type;
 
+import java.io.Serializable;
+
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class Waypoint {
+public class Waypoint implements Serializable{
 
 	private Double lat;
 	private Double lon;

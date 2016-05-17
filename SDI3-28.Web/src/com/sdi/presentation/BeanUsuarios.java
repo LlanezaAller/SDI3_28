@@ -25,7 +25,7 @@ public class BeanUsuarios implements Serializable {
 
 	public String register() {
 		try {
-			Factories.business.createUsuariosService().saveUser(user);
+			Factories.business.getUsuariosService().saveUser(user);
 			login();
 		} catch (EntityAlreadyExistsException e) {
 			return "FRACASO";
@@ -43,7 +43,7 @@ public class BeanUsuarios implements Serializable {
 			if (SdiUtil.assertCampos(user.getPassword(), user.getLogin())) {
 				User u;
 				try {
-					u = Factories.business.createUsuariosService().findUser(
+					u = Factories.business.getUsuariosService().findUser(
 							user.getLogin());
 					FacesContext context = FacesContext.getCurrentInstance();
 					ResourceBundle bundle = context.getApplication()

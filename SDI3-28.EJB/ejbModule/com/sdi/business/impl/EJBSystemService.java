@@ -1,10 +1,12 @@
 package com.sdi.business.impl;
 
-import com.sdi.business.SystemService;
+import javax.ejb.Stateless;
+
 import com.sdi.business.impl.classes.system.ResetDB;
 import com.sdi.business.impl.classes.system.Unlink;
 
-public class SimpleSystemService implements SystemService {
+@Stateless
+public class EJBSystemService implements LocalSystemService, RemoteSystemService {
 
 	@Override
 	public void resetDB() {

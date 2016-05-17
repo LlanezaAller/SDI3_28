@@ -1,0 +1,66 @@
+package com.sdi.business.impl;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
+import com.sdi.business.AsientosService;
+import com.sdi.business.ServicesFactory;
+import com.sdi.business.SystemService;
+import com.sdi.business.UsuariosService;
+import com.sdi.business.ViajesService;
+
+public class RemoteEJBServicesLocator implements ServicesFactory {
+	private static final String USUARIOS_SERVICE_JNDI_KEY = "java:global/"
+			+ "SDI3-28/" + "SDI3-28.EJB/" + "EJBUsuariosService!"
+			+ "com.sdi.business.impl.RemoteUsuariosService";
+	private static final String VIAJES_SERVICE_JNDI_KEY = "java:global/"
+			+ "SDI3-28/" + "SDI3-28.EJB/" + "EJBViajesService!"
+			+ "com.sdi.business.impl.RemoteViajesService";
+	private static final String ASIENTOS_SERVICE_JNDI_KEY = "java:global/"
+			+ "SDI3-28/" + "SDI3-28.EJB/" + "EJBAsientosService!"
+			+ "com.sdi.business.impl.RemoteAsientosService";
+	private static final String SYSTEM_SERVICE_JNDI_KEY = "java:global/"
+			+ "SDI3-28/" + "SDI3-28.EJB/" + "EJBSystemService!"
+			+ "com.sdi.business.impl.RemoteSystemService";
+	@Override
+	public UsuariosService getUsuariosService() {
+		try {
+			Context ctx = new InitialContext();
+			return (UsuariosService) ctx.lookup(USUARIOS_SERVICE_JNDI_KEY);
+		} catch (NamingException e) {
+			throw new RuntimeException("JNDI problem", e);
+		}
+	}
+
+	@Override
+	public ViajesService getViajesService() {
+		try {
+			Context ctx = new InitialContext();
+			return (ViajesService) ctx.lookup(VIAJES_SERVICE_JNDI_KEY);
+		} catch (NamingException e) {
+			throw new RuntimeException("JNDI problem", e);
+		}
+	}
+
+	@Override
+	public AsientosService getAsientosService() {
+		try {
+			Context ctx = new InitialContext();
+			return (AsientosService) ctx.lookup(ASIENTOS_SERVICE_JNDI_KEY);
+		} catch (NamingException e) {
+			throw new RuntimeException("JNDI problem", e);
+		}
+	}
+
+	@Override
+	public SystemService getSystemService() {
+		try {
+			Context ctx = new InitialContext();
+			return (SystemService) ctx.lookup(SYSTEM_SERVICE_JNDI_KEY);
+		} catch (NamingException e) {
+			throw new RuntimeException("JNDI problem", e);
+		}
+	}
+
+}

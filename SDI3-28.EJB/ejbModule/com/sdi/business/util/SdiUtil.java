@@ -54,7 +54,7 @@ public class SdiUtil {
 					result = true;
 				}
 			}
-			Factories.business.createUsuariosService().aplicar(apps, trip);
+			Factories.business.getUsuariosService().aplicar(apps, trip);
 		}
 		return result;
 	}
