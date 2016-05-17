@@ -1,0 +1,1 @@
+java -classpath ../EarContent/lib/hsqldb.jar org.hsqldb.Server
