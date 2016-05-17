@@ -6,6 +6,7 @@ import java.util.Locale;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
+import javax.transaction.Transactional;
 
 import com.sdi.infraestructure.factories.Factories;
 
@@ -33,6 +34,7 @@ public class BeanSettings implements Serializable {
 		locale = ENGLISH;
 	}
 
+	@Transactional
 	public String resetDB() {
 		Factories.business.createSystemService().resetDB();
 		return "EXITO";
