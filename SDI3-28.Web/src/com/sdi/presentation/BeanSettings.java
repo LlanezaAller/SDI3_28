@@ -34,7 +34,6 @@ public class BeanSettings implements Serializable {
 		locale = ENGLISH;
 	}
 
-	@Transactional
 	public String resetDB() {
 		Factories.business.createSystemService().resetDB();
 		return "EXITO";
