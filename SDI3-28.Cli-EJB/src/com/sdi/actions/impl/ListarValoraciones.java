@@ -16,16 +16,16 @@ public class ListarValoraciones implements Action {
 		System.out.println("Ciudad destino\tUsuario valorado\tAutor valoración\tValoración\tComentario");
 		ViajesService tripService = Factories.business.getViajesService();
 		Date limitDate = new Date(System.currentTimeMillis() - 30 * 24 * 60 * 60 * 1000);
-		for (Rating r : tripService.findValoraciones()) {// TODO findValoraciones() ordenadas de más reciente a más antigua
+		/**for (Rating r : tripService.findValoraciones()) {// TODO findValoraciones() ordenadas de más reciente a más antigua
 			if(r.getAboutSeat().getTrip().getArrivalDate().before(limitDate))
 					return;
-			System.out.println(r.getAboutSeat().getTrip().getDestination()
+			System.out.println(r.getId() + "\t" + r.getAboutSeat().getTrip().getDestination()
 					.getCity()
 					+ "\t" + r.getAboutSeat().getUser().getName()
 					+ "\t" + r.getFromSeat().getUser().getName()
 					+ "\t" + r.getValue()
 					+ "\t" + r.getComment());
-		}
+		}*/
 	}
 
 	@Override

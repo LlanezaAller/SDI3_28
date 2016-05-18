@@ -19,4 +19,6 @@ public interface RatingFinder {
 
 	Rating findByAboutFromAndTripID(Long fromUserId, Long fromTripId);
 
+	void deleteRating(Rating rating);
+
 }

@@ -52,5 +52,9 @@ public class RatingFinderImpl implements RatingFinder {
 	public void updateRating(Rating rating) {
 		Jpa.getManager().merge(rating);
 	}
-
+	
+	@Override
+	public void deleteRating(Rating rating) {
+		Jpa.getManager().remove(rating);
+	}
 }
