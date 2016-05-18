@@ -17,7 +17,7 @@ public class ListarUsuarios implements Action{
 		System.out.println("Nick\t\tNombre\t\tApellidos\t\tNº Viajes creados \t\t Nº Viajes Participados");
 		UsuariosService userService = Factories.business.getUsuariosService();
 		ViajesService tripService = Factories.business.getViajesService();
-		List<User> users =null;//TODO = userService.findAll();
+		List<User> users =userService.findAll();
 
 		for(User u:users){
 			System.out.println(u.getLogin() + "\t" +u.getName() + "\t" + u.getSurname() + "\t");// + tripService.findPromotedTrips() + \t + tripService.findParticipatedTrips);

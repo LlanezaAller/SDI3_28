@@ -1,11 +1,13 @@
 package com.sdi.business.impl;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.ejb.Stateless;
 
 import com.sdi.business.exception.EntityAlreadyExistsException;
 import com.sdi.business.exception.EntityNotFoundException;
+import com.sdi.business.impl.classes.usuarios.AllUsuariosFinder;
 import com.sdi.business.impl.classes.usuarios.Aplicar;
 import com.sdi.business.impl.classes.usuarios.AplicarUsuarios;
 import com.sdi.business.impl.classes.usuarios.CancelarAplicacion;
@@ -28,6 +30,12 @@ public class EJBUsuariosService implements RemoteUsuariosService, LocalUsuariosS
 	public User findUser(String user) throws EntityNotFoundException {
 		return (User) new UsuariosFinder(user).execute();
 	}
+	@Override
+	public List<User> findAll(){
+		return (List<User>) new AllUsuariosFinder().execute();
+	}
+	
+	
 
 	@Override
 	public Trip cancelarAplicacion(String login, Long tripId) {

@@ -1,5 +1,6 @@
 package com.sdi.business;
 
+import java.util.List;
 import java.util.Set;
 
 import com.sdi.business.exception.EntityAlreadyExistsException;
@@ -21,5 +22,7 @@ public interface UsuariosService {
 	Trip promoterManageApplication(SeatStatus status, String login, Long tripId);
 
 	void aplicar(Set<User> apps, Trip trip);
+
+	List<User> findAll();
 
 }
