@@ -4,6 +4,7 @@ import com.sdi.business.AsientosService;
 import com.sdi.business.ServicesFactory;
 import com.sdi.business.SystemService;
 import com.sdi.business.UsuariosService;
+import com.sdi.business.ValoracionesService;
 import com.sdi.business.ViajesService;
 
 public class SimpleServicesFactory implements ServicesFactory {
@@ -26,6 +27,11 @@ public class SimpleServicesFactory implements ServicesFactory {
 	@Override
 	public SystemService getSystemService() {
 		return new EJBSystemService();
+	}
+	
+	@Override
+	public ValoracionesService getValoracionesService(){
+		return new EJBValoracionesService();
 	}
 
 }

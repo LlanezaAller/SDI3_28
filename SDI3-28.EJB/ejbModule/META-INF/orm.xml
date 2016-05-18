@@ -158,6 +158,26 @@
 		</query>
 	</named-query>
 
+	<named-query name="Rating.findAllRatingsOrdered">
+		<query>
+			<![CDATA[
+				select r
+					from Rating r
+					order by r.fromSeat.trip.departureDate
+			]]>
+		</query>
+	</named-query>
+	<named-query name="Rating.findByID">
+		<query>
+			<![CDATA[
+				select r
+					from Rating r
+					where r.id = ?1
+			]]>
+		</query>
+	</named-query>
+	
+	
 	<!-- System queries -->
 	<named-query name="System.dropUsers">
 		<query>

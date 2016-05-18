@@ -8,6 +8,7 @@ import com.sdi.business.AsientosService;
 import com.sdi.business.ServicesFactory;
 import com.sdi.business.SystemService;
 import com.sdi.business.UsuariosService;
+import com.sdi.business.ValoracionesService;
 import com.sdi.business.ViajesService;
 
 public class LocalEJBServicesLocator implements ServicesFactory {
@@ -58,6 +59,16 @@ public class LocalEJBServicesLocator implements ServicesFactory {
 		try {
 			Context ctx = new InitialContext();
 			return (SystemService) ctx.lookup(SYSTEM_SERVICE_JNDI_KEY);
+		} catch (NamingException e) {
+			throw new RuntimeException("JNDI problem", e);
+		}
+	}
+
+	@Override
+	public ValoracionesService getValoracionesService() {
+		try {
+			Context ctx = new InitialContext();
+			return (ValoracionesService) ctx.lookup(SYSTEM_SERVICE_JNDI_KEY);
 		} catch (NamingException e) {
 			throw new RuntimeException("JNDI problem", e);
 		}

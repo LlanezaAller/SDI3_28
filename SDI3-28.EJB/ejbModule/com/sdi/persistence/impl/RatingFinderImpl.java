@@ -42,6 +42,13 @@ public class RatingFinderImpl implements RatingFinder {
 				.createNamedQuery("Rating.findRatingsByUserFromId",
 						Rating.class).setParameter(1, id).getResultList();
 	}
+	@Override
+	public List<Rating> findAllOrdered() {
+		return Jpa
+				.getManager()
+				.createNamedQuery("Rating.findAllRatingsOrdered",
+						Rating.class).getResultList();
+	}
 
 	@Override
 	public void newRating(Rating rating) {
@@ -57,4 +64,13 @@ public class RatingFinderImpl implements RatingFinder {
 	public void deleteRating(Rating rating) {
 		Jpa.getManager().remove(rating);
 	}
+
+	@Override
+	public Rating findById(long id) {
+		List<Rating> ratings = Jpa.getManager()
+				.createNamedQuery("Rating.findByID", Rating.class)
+				.setParameter(1, id).getResultList();
+		return (ratings.size() > 0) ? ratings.get(0) : null;
+	}
+
 }

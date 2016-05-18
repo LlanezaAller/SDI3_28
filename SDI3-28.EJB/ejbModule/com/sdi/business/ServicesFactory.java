@@ -7,6 +7,8 @@ public interface ServicesFactory {
 	public ViajesService getViajesService();
 
 	public AsientosService getAsientosService();
+	
+	public ValoracionesService getValoracionesService();
 
 	public SystemService getSystemService();
 }

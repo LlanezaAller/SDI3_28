@@ -21,4 +21,8 @@ public interface RatingFinder {
 
 	void deleteRating(Rating rating);
 
+	List<Rating> findAllOrdered();
+
+	Rating findById(long id);
+
 }
