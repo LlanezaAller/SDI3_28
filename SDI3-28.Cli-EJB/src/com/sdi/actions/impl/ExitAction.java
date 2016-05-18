@@ -6,8 +6,8 @@ public class ExitAction implements Action{
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Adios!");
+		System.exit(0);
 	}
 	@Override
 	public String describe() {

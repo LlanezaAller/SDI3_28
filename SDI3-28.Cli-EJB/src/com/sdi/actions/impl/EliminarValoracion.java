@@ -6,8 +6,9 @@ public class EliminarValoracion  implements Action{
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Introduzca el id de la valoración a eliminar...");
+		System.out.println("");
+		//TODO ViajesService.deleteRating()
 	}
 	@Override
 	public String describe() {

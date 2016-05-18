@@ -20,7 +20,7 @@ public class ListarUsuarios implements Action{
 		List<User> users =userService.findAll();
 
 		for(User u:users){
-			System.out.println(u.getLogin() + "\t" +u.getName() + "\t" + u.getSurname() + "\t");// + tripService.findPromotedTrips() + \t + tripService.findParticipatedTrips);
+			System.out.println(u.getLogin() + "\t" +u.getName() + "\t" + u.getSurname() + "\t");//TODO + tripService.findPromotedTrips() + \t + tripService.findParticipatedTrips);
 		}
 	}
 
