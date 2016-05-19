@@ -2,12 +2,15 @@ package com.sdi.business.impl;
 
 import java.util.List;
 
-import com.sdi.business.ValoracionesService;
+import javax.ejb.Stateless;
+import javax.jws.WebService;
+
 import com.sdi.business.impl.classes.valoraciones.ValoracionFinder;
 import com.sdi.business.impl.classes.valoraciones.removeValoracion;
 import com.sdi.model.Rating;
-
-public class EJBValoracionesService implements ValoracionesService {
+@WebService(name="ValoracionesService")
+@Stateless
+public class EJBValoracionesService implements RemoteValoracionesService, LocalValoracionesService {
 
 	@Override
 	public List<Rating> findAllOrdered() {

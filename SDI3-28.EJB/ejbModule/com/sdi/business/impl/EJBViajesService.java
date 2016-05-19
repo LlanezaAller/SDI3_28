@@ -3,6 +3,7 @@ package com.sdi.business.impl;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.jws.WebService;
 
 import com.sdi.business.exception.EntityAlreadyExistsException;
 import com.sdi.business.exception.EntityNotFoundException;
@@ -19,6 +20,7 @@ import com.sdi.model.TripUser;
 import com.sdi.model.User;
 import com.sdi.model.type.TripStatus;
 
+@WebService(name="ViajesService")
 @Stateless
 public class EJBViajesService implements RemoteViajesService, LocalViajesService {
 

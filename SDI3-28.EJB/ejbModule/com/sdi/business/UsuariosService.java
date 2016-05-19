@@ -21,8 +21,10 @@ public interface UsuariosService {
 
 	Trip promoterManageApplication(SeatStatus status, String login, Long tripId);
 
-	void aplicar(Set<User> apps, Trip trip);
+	void aplicarUsuarios(Set<User> apps, Trip trip);
 
 	List<User> findAll();
+
+	void disableUser(String login);
 
 }

@@ -42,7 +42,7 @@ public class Main {
 	public void initializeActionMap(BufferedReader console){
 		actions = new HashMap<>();
 		actions.put(1, new ListarUsuarios());
-		actions.put(2, new DeshabilitarUsuario());
+		actions.put(2, new DeshabilitarUsuario(console));
 		actions.put(3, new ListarValoraciones());
 		actions.put(4, new EliminarValoracion(console));
 		actions.put(5, new ExitAction());		

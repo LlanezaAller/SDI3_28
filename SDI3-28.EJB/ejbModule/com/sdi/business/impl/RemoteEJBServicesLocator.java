@@ -12,18 +12,12 @@ import com.sdi.business.ValoracionesService;
 import com.sdi.business.ViajesService;
 
 public class RemoteEJBServicesLocator implements ServicesFactory {
-	private static final String USUARIOS_SERVICE_JNDI_KEY = "java:global/"
-			+ "SDI3-28/" + "SDI3-28.EJB/" + "EJBUsuariosService!"
-			+ "com.sdi.business.impl.RemoteUsuariosService";
-	private static final String VIAJES_SERVICE_JNDI_KEY = "java:global/"
-			+ "SDI3-28/" + "SDI3-28.EJB/" + "EJBViajesService!"
-			+ "com.sdi.business.impl.RemoteViajesService";
-	private static final String ASIENTOS_SERVICE_JNDI_KEY = "java:global/"
-			+ "SDI3-28/" + "SDI3-28.EJB/" + "EJBAsientosService!"
-			+ "com.sdi.business.impl.RemoteAsientosService";
-	private static final String SYSTEM_SERVICE_JNDI_KEY = "java:global/"
-			+ "SDI3-28/" + "SDI3-28.EJB/" + "EJBSystemService!"
-			+ "com.sdi.business.impl.RemoteSystemService";
+	private static final String USUARIOS_SERVICE_JNDI_KEY = "/SDI3-28/SDI3-28.EJB/EJBUsuariosService!com.sdi.business.impl.RemoteUsuariosService";
+	private static final String VIAJES_SERVICE_JNDI_KEY = "/SDI3-28/SDI3-28.EJB/EJBViajesService!com.sdi.business.impl.RemoteViajesService";
+	private static final String ASIENTOS_SERVICE_JNDI_KEY = "/SDI3-28/SDI3-28.EJB/EJBAsientosService!com.sdi.business.impl.RemoteAsientosService";
+	private static final String SYSTEM_SERVICE_JNDI_KEY = "/SDI3-28/SDI3-28.EJB/EJBSystemService!com.sdi.business.impl.RemoteSystemService";
+	private static final String VALORACIONES_SERVICE_JNDI_KEY = "/SDI3-28/SDI3-28.EJB/EJBValoracionesService!com.sdi.business.impl.RemoteValoracionesService";
+	
 	@Override
 	public UsuariosService getUsuariosService() {
 		try {
@@ -63,12 +57,12 @@ public class RemoteEJBServicesLocator implements ServicesFactory {
 			throw new RuntimeException("JNDI problem", e);
 		}
 	}
-	
+
 	@Override
 	public ValoracionesService getValoracionesService() {
 		try {
 			Context ctx = new InitialContext();
-			return (ValoracionesService) ctx.lookup(SYSTEM_SERVICE_JNDI_KEY);
+			return (ValoracionesService) ctx.lookup(VALORACIONES_SERVICE_JNDI_KEY);
 		} catch (NamingException e) {
 			throw new RuntimeException("JNDI problem", e);
 		}

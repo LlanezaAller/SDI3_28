@@ -3,6 +3,7 @@ package com.sdi.business.impl;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.jws.WebService;
 
 import com.sdi.business.exception.EntityAlreadyExistsException;
 import com.sdi.business.exception.EntityNotFoundException;
@@ -12,7 +13,7 @@ import com.sdi.business.impl.classes.asientos.AsientoFinderByUserAndTrip;
 import com.sdi.business.impl.classes.asientos.CambiarEstadoAsiento;
 import com.sdi.model.Seat;
 import com.sdi.model.Trip;
-
+@WebService(name="AsientosService")
 @Stateless
 public class EJBAsientosService implements LocalAsientosService, RemoteAsientosService {
 

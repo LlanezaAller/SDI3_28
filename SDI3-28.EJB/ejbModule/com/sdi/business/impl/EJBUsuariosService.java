@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.ejb.Stateless;
+import javax.jws.WebService;
 
 import com.sdi.business.exception.EntityAlreadyExistsException;
 import com.sdi.business.exception.EntityNotFoundException;
@@ -11,13 +12,14 @@ import com.sdi.business.impl.classes.usuarios.AllUsuariosFinder;
 import com.sdi.business.impl.classes.usuarios.Aplicar;
 import com.sdi.business.impl.classes.usuarios.AplicarUsuarios;
 import com.sdi.business.impl.classes.usuarios.CancelarAplicacion;
+import com.sdi.business.impl.classes.usuarios.DesactivarUsuario;
 import com.sdi.business.impl.classes.usuarios.PromoterManageApplication;
 import com.sdi.business.impl.classes.usuarios.UsuariosAlta;
 import com.sdi.business.impl.classes.usuarios.UsuariosFinder;
 import com.sdi.model.Trip;
 import com.sdi.model.User;
 import com.sdi.model.type.SeatStatus;
-
+@WebService(name="UsuariosService")
 @Stateless
 public class EJBUsuariosService implements RemoteUsuariosService, LocalUsuariosService {
 
@@ -55,8 +57,14 @@ public class EJBUsuariosService implements RemoteUsuariosService, LocalUsuariosS
 	}
 
 	@Override
-	public void aplicar(Set<User> apps, Trip trip) {
+	public void aplicarUsuarios(Set<User> apps, Trip trip) {
 		new AplicarUsuarios(apps, trip).execute();
+	}
+
+	@Override
+	public void disableUser(String login) {
+		new DesactivarUsuario(login).execute();
+		
 	}
 
 }
