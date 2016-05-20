@@ -26,5 +26,7 @@ public interface UsuariosService {
 	List<User> findAll();
 
 	void disableUser(String login);
+	
+	long getIdByLogin(String login) throws EntityNotFoundException;
 
 }

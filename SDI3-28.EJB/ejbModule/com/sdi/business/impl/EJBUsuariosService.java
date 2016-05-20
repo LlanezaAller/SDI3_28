@@ -67,4 +67,9 @@ public class EJBUsuariosService implements RemoteUsuariosService, LocalUsuariosS
 		
 	}
 
+	@Override
+	public long getIdByLogin(String login) throws EntityNotFoundException {
+		return ((User) new UsuariosFinder(login).execute()).getId();
+	}
+
 }
