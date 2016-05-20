@@ -22,6 +22,13 @@ public class UserFinderImpl implements UserFinder {
 				.setParameter(1, login).getResultList();
 		return (usuarios.size() > 0) ? usuarios.get(0) : null;
 	}
+	@Override
+	public Long getIdByLogin(String login) {
+		List<User> usuarios = Jpa.getManager()
+				.createNamedQuery("User.findUserByLogin", User.class)
+				.setParameter(1, login).getResultList();
+		return (usuarios.size() > 0) ? usuarios.get(0).getId() : null;
+	}
 
 	@Override
 	public List<User> findUsersByTrip(Long id) {

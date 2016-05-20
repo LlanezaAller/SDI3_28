@@ -16,4 +16,6 @@ public interface UserFinder {
 
 	List<User> findUsersByTrip(Long id);
 
+	Long getIdByLogin(String login);
+
 }
