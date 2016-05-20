@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.sdi.actions.Action;
 import com.sdi.business.UsuariosService;
-import com.sdi.infraestructure.factories.Factories;
+import com.sdi.business.impl.RemoteEJBServicesLocator;
 import com.sdi.model.Trip;
 import com.sdi.model.User;
 import com.sdi.model.type.TripStatus;
@@ -16,9 +16,9 @@ public class ListarUsuarios implements Action{
 		System.out.println("Listando usuarios...");
 		System.out.println("");
 		System.out.println("Nick\t\tNombre\t\tApellidos\t\tNº Viajes creados \t\t Nº Viajes Participados");
-		UsuariosService userService = Factories.business.getUsuariosService();
+		UsuariosService userService = new RemoteEJBServicesLocator().getUsuariosService();
 		List<User> users =userService.findAll();
-		
+		//ViajesService tripService = new RemoteEJBServicesLocator().getViajesService().f
 		int participatedTrips, promotedTrips;
 		for(User u:users){
 			participatedTrips=promotedTrips=0;
