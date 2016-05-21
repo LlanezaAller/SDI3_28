@@ -14,6 +14,8 @@ import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import com.sdi.model.keys.SeatKey;
 import com.sdi.model.type.SeatStatus;
@@ -21,6 +23,7 @@ import com.sdi.model.type.SeatStatus;
 @Entity
 @Table(name = "TSEATS")
 @IdClass(SeatKey.class)
+@XmlRootElement(name = "seat")
 public class Seat implements Serializable{
 
 	@Id
@@ -51,7 +54,7 @@ public class Seat implements Serializable{
 		user._getSeats().add(this);
 		trip._getSeats().add(this);
 	}
-
+	@XmlElement
 	public User getUser() {
 		return user;
 	}
@@ -59,7 +62,7 @@ public class Seat implements Serializable{
 	public void setUser(User user) {
 		this.user = user;
 	}
-
+	@XmlElement
 	public Trip getTrip() {
 		return trip;
 	}
@@ -67,7 +70,7 @@ public class Seat implements Serializable{
 	public void setTrip(Trip trip) {
 		this.trip = trip;
 	}
-
+	@XmlElement
 	public String getComment() {
 		return comment;
 	}
@@ -75,7 +78,7 @@ public class Seat implements Serializable{
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-
+	@XmlElement
 	public SeatStatus getStatus() {
 		return status;
 	}

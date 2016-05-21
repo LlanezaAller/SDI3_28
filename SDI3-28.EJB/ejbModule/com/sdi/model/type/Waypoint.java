@@ -3,8 +3,11 @@ package com.sdi.model.type;
 import java.io.Serializable;
 
 import javax.persistence.Embeddable;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Embeddable
+@XmlRootElement(name = "waypoint")
 public class Waypoint implements Serializable{
 
 	private Double lat;
@@ -18,11 +21,11 @@ public class Waypoint implements Serializable{
 
 	public Waypoint() {
 	};
-
+	@XmlElement
 	public Double getLat() {
 		return lat;
 	}
-
+	@XmlElement
 	public Double getLon() {
 		return lon;
 	}

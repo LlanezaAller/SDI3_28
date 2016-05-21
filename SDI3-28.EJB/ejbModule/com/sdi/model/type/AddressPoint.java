@@ -4,8 +4,11 @@ import java.io.Serializable;
 
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Embeddable
+@XmlRootElement(name = "addresspoint")
 public class AddressPoint implements Serializable{
 
 	private String address;
@@ -35,7 +38,7 @@ public class AddressPoint implements Serializable{
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
+	
 	public void setCity(City city) {
 		this.city = city;
 	}
@@ -55,27 +58,27 @@ public class AddressPoint implements Serializable{
 	public void setWaypoint(Waypoint waypoint) {
 		this.waypoint = waypoint;
 	}
-
+	@XmlElement
 	public String getAddress() {
 		return address;
 	}
-
+	@XmlElement
 	public City getCity() {
 		return city;
 	}
-
+	@XmlElement
 	public String getState() {
 		return state;
 	}
-
+	@XmlElement
 	public String getCountry() {
 		return country;
 	}
-
+	@XmlElement
 	public String getZipCode() {
 		return zipCode;
 	}
-
+	@XmlElement
 	public Waypoint getWaypoint() {
 		return waypoint;
 	}

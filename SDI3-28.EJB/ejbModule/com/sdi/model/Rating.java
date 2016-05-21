@@ -7,9 +7,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "TRATING")
+@XmlRootElement(name = "rating")
 public class Rating implements Serializable{
 
 	@Id
@@ -40,15 +43,15 @@ public class Rating implements Serializable{
 
 	public Rating() {
 	};
-
+	@XmlElement
 	public Seat getFromSeat() {
 		return fromSeat;
 	}
-
+	
 	public void setFromSeat(Seat fromSeat) {
 		this.fromSeat = fromSeat;
 	}
-
+	@XmlElement
 	public Seat getAboutSeat() {
 		return aboutSeat;
 	}
@@ -56,11 +59,11 @@ public class Rating implements Serializable{
 	public void setAboutSeat(Seat aboutSeat) {
 		this.aboutSeat = aboutSeat;
 	}
-
+	@XmlElement
 	public Long getId() {
 		return id;
 	}
-
+	@XmlElement
 	public String getComment() {
 		return comment;
 	}
@@ -68,7 +71,7 @@ public class Rating implements Serializable{
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-
+	@XmlElement
 	public Integer getValue() {
 		return value;
 	}

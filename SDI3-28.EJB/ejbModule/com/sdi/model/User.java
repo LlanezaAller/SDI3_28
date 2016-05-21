@@ -14,11 +14,14 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import com.sdi.model.type.UserStatus;
 
 @Entity
 @Table(name = "TUSERS")
+@XmlRootElement(name = "user")
 public class User implements Serializable{
 	@Id
 	@GeneratedValue
@@ -64,7 +67,8 @@ public class User implements Serializable{
 		this.email = u.getEmail();
 		this.status = u.getStatus();
 	}
-
+	
+	@XmlElement
 	public String getEmail() {
 		return email;
 	}
@@ -72,7 +76,8 @@ public class User implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+	
+	@XmlElement
 	public UserStatus getStatus() {
 		return status;
 	}
@@ -80,19 +85,22 @@ public class User implements Serializable{
 	public void setStatus(UserStatus status) {
 		this.status = status;
 	}
-
+	
+	@XmlElement
 	public Long getId() {
 		return id;
 	}
-
+	
+	@XmlElement
 	public String getLogin() {
 		return login;
 	}
-
+	
 	public void setLogin(String login) {
 		this.login = login;
 	}
-
+	
+	@XmlElement
 	public String getPassword() {
 		return password;
 	}
@@ -100,7 +108,8 @@ public class User implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	
+	@XmlElement
 	public String getName() {
 		return name;
 	}
@@ -108,7 +117,7 @@ public class User implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	@XmlElement
 	public String getSurname() {
 		return surname;
 	}
