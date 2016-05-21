@@ -16,7 +16,7 @@ import com.sdi.model.Seat;
 import com.sdi.model.Trip;
 
 @Path("/AsientosService")
-public interface AsientosService {
+public interface AsientosServiceRest {
 	
 	@POST
 	@Path("/saveSeat")
