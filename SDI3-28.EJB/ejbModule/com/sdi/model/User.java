@@ -32,6 +32,7 @@ public class User implements Serializable{
 	private String name;
 	private String surname;
 	private String email;
+	private String token;
 
 	@Enumerated(EnumType.STRING)
 	private UserStatus status;
@@ -66,6 +67,7 @@ public class User implements Serializable{
 		this.surname = u.getSurname();
 		this.email = u.getEmail();
 		this.status = u.getStatus();
+		this.token = u.getToken();
 	}
 	
 	@XmlElement
@@ -124,6 +126,14 @@ public class User implements Serializable{
 
 	public void setSurname(String surname) {
 		this.surname = surname;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 	@Override
