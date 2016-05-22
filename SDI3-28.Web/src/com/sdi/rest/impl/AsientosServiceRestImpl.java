@@ -1,4 +1,4 @@
-package com.sdi.rest;
+package com.sdi.rest.impl;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import com.sdi.business.exception.EntityNotFoundException;
 import com.sdi.infraestructure.factories.Factories;
 import com.sdi.model.Seat;
 import com.sdi.model.Trip;
+import com.sdi.rest.AsientosServiceRest;
 
 public class AsientosServiceRestImpl implements AsientosServiceRest {
 	AsientosService service = Factories.business.getAsientosService();

@@ -1,4 +1,4 @@
-package com.sdi.rest;
+package com.sdi.rest.impl;
 
 import java.util.List;
 import java.util.Set;
@@ -10,6 +10,7 @@ import com.sdi.infraestructure.factories.Factories;
 import com.sdi.model.Trip;
 import com.sdi.model.User;
 import com.sdi.model.type.SeatStatus;
+import com.sdi.rest.UsuariosServicesRest;
 
 public class UsuariosServicesRestImpl implements UsuariosServicesRest {
 	UsuariosService service = Factories.business.getUsuariosService();

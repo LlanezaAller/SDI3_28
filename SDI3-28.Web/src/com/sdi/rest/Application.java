@@ -3,6 +3,11 @@ package com.sdi.rest;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.sdi.rest.impl.AsientosServiceRestImpl;
+import com.sdi.rest.impl.UsuariosServicesRestImpl;
+import com.sdi.rest.impl.ValoracionesServiceRestImpl;
+import com.sdi.rest.impl.ViajesServiceRestImpl;
+
 public class Application extends javax.ws.rs.core.Application {
 	@Override
 	public Set<Class<?>> getClasses() {

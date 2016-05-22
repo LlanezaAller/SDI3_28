@@ -1,4 +1,4 @@
-package com.sdi.rest;
+package com.sdi.rest.impl;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ import com.sdi.model.Trip;
 import com.sdi.model.TripUser;
 import com.sdi.model.User;
 import com.sdi.model.type.TripStatus;
+import com.sdi.rest.ViajesServiceRest;
 
 public class ViajesServiceRestImpl implements ViajesServiceRest{
 	ViajesService service = Factories.business.getViajesService();
