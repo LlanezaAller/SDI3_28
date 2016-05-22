@@ -21,20 +21,12 @@ public class Seat implements Serializable{
 	private SeatStatus status;
 
 
-	private Set<Rating> ratingsFrom = new HashSet<>();
+	private Set<Rating> ratingsFrom ;
 
 
-	private Set<Rating> ratingsAbout = new HashSet<>();
+	private Set<Rating> ratingsAbout;
 
 	public Seat() {
-	};
-
-	public Seat(User user, Trip trip) {
-		this.user = user;
-		this.trip = trip;
-
-		user._getSeats().add(this);
-		trip._getSeats().add(this);
 	}
 
 	public User getUser() {
@@ -69,66 +61,20 @@ public class Seat implements Serializable{
 		this.status = status;
 	}
 
-	@Override
-	public String toString() {
-		return "Seat [userId=" + user + ", tripId=" + trip + ", comment="
-				+ comment + ", status=" + status + "]";
-	}
-
-	// Relaciones
-
-	Set<Rating> _getRatingsFrom() {
+	public Set<Rating> getRatingsFrom() {
 		return ratingsFrom;
 	}
 
-	public void unlink() {
-		user._getApplications().remove(this);
-		trip._getApplications().remove(this);
-		this.user = null;
-		this.trip = null;
-	}
-
-	public Set<Rating> getRatingsFrom() {
-		return Collections.unmodifiableSet(ratingsFrom);
-	}
-
-	Set<Rating> _getRatingsAbout() {
-		return ratingsAbout;
+	public void setRatingsFrom(Set<Rating> ratingsFrom) {
+		this.ratingsFrom = ratingsFrom;
 	}
 
 	public Set<Rating> getRatingsAbout() {
-		return Collections.unmodifiableSet(ratingsAbout);
+		return ratingsAbout;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((trip == null) ? 0 : trip.hashCode());
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
-		return result;
+	public void setRatingsAbout(Set<Rating> ratingsAbout) {
+		this.ratingsAbout = ratingsAbout;
 	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Seat other = (Seat) obj;
-		if (trip == null) {
-			if (other.trip != null)
-				return false;
-		} else if (!trip.equals(other.trip))
-			return false;
-		if (user == null) {
-			if (other.user != null)
-				return false;
-		} else if (!user.equals(other.user))
-			return false;
-		return true;
-	}
-
+	
 }

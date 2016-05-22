@@ -30,46 +30,14 @@ public class User implements Serializable{
 	private Set<Trip> trips = new HashSet<>();
 
 	public User() {
-	};
-
-	public User(String login, String password, String name, String surname,
-			String email, UserStatus status) {
-		super();
-		this.login = login;
-		this.password = password;
-		this.name = name;
-		this.surname = surname;
-		this.email = email;
-		this.status = status;
-	}
-
-	public void update(User u) {
-		this.login = u.getLogin();
-		this.password = u.getPassword();
-		this.name = u.getName();
-		this.surname = u.getSurname();
-		this.email = u.getEmail();
-		this.status = u.getStatus();
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public UserStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(UserStatus status) {
-		this.status = status;
 	}
 
 	public Long getId() {
 		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getLogin() {
@@ -104,78 +72,44 @@ public class User implements Serializable{
 		this.surname = surname;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((login == null) ? 0 : login.hashCode());
-		return result;
+	public String getEmail() {
+		return email;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		if (login == null) {
-			if (other.login != null)
-				return false;
-		} else if (!login.equals(other.login))
-			return false;
-		return true;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", login=" + login + ", password=" + password
-				+ ", name=" + name + ", surname=" + surname + ", status="
-				+ status + ", email=" + email + "]";
+	public UserStatus getStatus() {
+		return status;
 	}
 
-	// Metodos de relacion
+	public void setStatus(UserStatus status) {
+		this.status = status;
+	}
 
-	Set<Trip> _getApplications() {
+	public Set<Trip> getAplicaciones() {
 		return aplicaciones;
 	}
 
-	public Set<Trip> getApplications() {
-		return Collections.unmodifiableSet(aplicaciones);
-	}
-
-	Set<Seat> _getSeats() {
-		return seats;
+	public void setAplicaciones(Set<Trip> aplicaciones) {
+		this.aplicaciones = aplicaciones;
 	}
 
 	public Set<Seat> getSeats() {
-		return Collections.unmodifiableSet(seats);
+		return seats;
 	}
 
-	Set<Trip> _getTrips() {
-		return trips;
+	public void setSeats(Set<Seat> seats) {
+		this.seats = seats;
 	}
 
 	public Set<Trip> getTrips() {
-		return Collections.unmodifiableSet(trips);
+		return trips;
 	}
 
-	// Fin de aplicación
-	public void finAplicacion(Trip trip) {
-		for (Trip t : aplicaciones) {
-			if (t.equals(trip)) {
-				t._getApplications().remove(this);
-				aplicaciones.remove(t);
-			}
-		}
+	public void setTrips(Set<Trip> trips) {
+		this.trips = trips;
 	}
-
-	// Usuario intenta aplicar
-	public void aplicar(Trip t) {
-		aplicaciones.add(t);
-		t._getApplications().add(this);
-	}
-
+	
 }

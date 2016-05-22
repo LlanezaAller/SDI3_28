@@ -44,27 +44,11 @@ public class Main {
 	
 
 	private List<Trip> getTripsByIdAsXmlString(User usuario) {
-		GenericType<List<Trip>> listt = new GenericType<List<Trip>>() {};
-		
-		String tips = ClientBuilder
-				.newClient()
-				// .register(new Authenticator("sdi", "password"))
-				.target(REST_SERVICE_URL + "/ViajesService/findTrip")
-				.path("4")
-				.request()
-				.accept( MediaType.APPLICATION_XML )
-				.get()
-				.readEntity(String.class);
 		List<Trip> trips = ClientBuilder
 				.newClient()
-				// .register(new Authenticator("sdi", "password"))
-				.target(REST_SERVICE_URL + "/ViajesService/findAllTripsByPromoterID")
-				.path("1")
-				.request()
-				.accept( MediaType.APPLICATION_XML )
-				.get()
-				.readEntity(listt);
-		
+				.target(REST_SERVICE_URL + "/ViajesService/findAllTripsByPromoterID/1")
+				.request(MediaType.APPLICATION_XML)
+				.get(new GenericType<List<Trip>>() {});
 		return trips;
 	}
 

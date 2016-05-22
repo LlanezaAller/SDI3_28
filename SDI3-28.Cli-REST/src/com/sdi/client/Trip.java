@@ -6,10 +6,13 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import com.sdi.client.type.AddressPoint;
 import com.sdi.client.type.TripStatus;
 
 
+@XmlRootElement(name = "trip")
 public class Trip implements Serializable{
 
 
@@ -32,9 +35,9 @@ public class Trip implements Serializable{
 
 	private Date closingDate;
 
-	private Integer availablePax = 0;
-	private Integer maxPax = 0;
-	private Double estimatedCost = 0.0;
+	private Integer availablePax;
+	private Integer maxPax;
+	private Double estimatedCost;
 	private String comments;
 
 
@@ -50,30 +53,14 @@ public class Trip implements Serializable{
 	private User promoter;
 
 	public Trip() {
-	};
-
-	public Trip(AddressPoint departure, AddressPoint destination,
-			Date arrivalDate, Date departureDate, Date closingDate,
-			Integer availablePax, Integer maxPax, Double estimatedCost,
-			String comments, TripStatus status, User promoter) {
-		super();
-
-		this.departure = departure;
-		this.destination = destination;
-		this.arrivalDate = arrivalDate;
-		this.departureDate = departureDate;
-		this.closingDate = closingDate;
-		this.availablePax = availablePax;
-		this.maxPax = maxPax;
-		this.estimatedCost = estimatedCost;
-		this.comments = comments;
-		this.status = status;
-		this.promoter = promoter;
-		promoter._getTrips().add(this);
 	}
 
-	public void setPromoter(User promoter) {
-		this.promoter = promoter;
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public AddressPoint getDeparture() {
@@ -82,18 +69,6 @@ public class Trip implements Serializable{
 
 	public void setDeparture(AddressPoint departure) {
 		this.departure = departure;
-	}
-
-	public TripStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(TripStatus status) {
-		this.status = status;
-	}
-
-	public Long getId() {
-		return id;
 	}
 
 	public AddressPoint getDestination() {
@@ -160,91 +135,38 @@ public class Trip implements Serializable{
 		this.comments = comments;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((arrivalDate == null) ? 0 : arrivalDate.hashCode());
-		result = prime * result
-				+ ((closingDate == null) ? 0 : closingDate.hashCode());
-		result = prime * result
-				+ ((departure == null) ? 0 : departure.hashCode());
-		result = prime * result
-				+ ((destination == null) ? 0 : destination.hashCode());
-		result = prime * result + ((status == null) ? 0 : status.hashCode());
-		return result;
+	public TripStatus getStatus() {
+		return status;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Trip other = (Trip) obj;
-		if (arrivalDate == null) {
-			if (other.arrivalDate != null)
-				return false;
-		} else if (!arrivalDate.equals(other.arrivalDate))
-			return false;
-		if (closingDate == null) {
-			if (other.closingDate != null)
-				return false;
-		} else if (!closingDate.equals(other.closingDate))
-			return false;
-		if (departure == null) {
-			if (other.departure != null)
-				return false;
-		} else if (!departure.equals(other.departure))
-			return false;
-		if (destination == null) {
-			if (other.destination != null)
-				return false;
-		} else if (!destination.equals(other.destination))
-			return false;
-		if (status != other.status)
-			return false;
-		return true;
+	public void setStatus(TripStatus status) {
+		this.status = status;
 	}
 
-	@Override
-	public String toString() {
-		return "Trip [id=" + id + ", departure=" + departure + ", destination="
-				+ destination + ", arrivalDate=" + arrivalDate
-				+ ", departureDate=" + departureDate + ", closingDate="
-				+ closingDate + ", availablePax=" + availablePax + ", maxPax="
-				+ maxPax + ", estimatedCost=" + estimatedCost + ", comments="
-				+ comments + ", status=" + status + ", promoterId=" + promoter
-				+ "]";
-	}
-
-	// Metodos de relacion
-
-	Set<User> _getApplications() {
+	public Set<User> getAplicadores() {
 		return aplicadores;
 	}
 
-	public Set<User> getApplications() {
-		return Collections.unmodifiableSet(aplicadores);
-	}
-
-	Set<Seat> _getSeats() {
-		return seats;
+	public void setAplicadores(Set<User> aplicadores) {
+		this.aplicadores = aplicadores;
 	}
 
 	public Set<Seat> getSeats() {
-		return Collections.unmodifiableSet(seats);
+		return seats;
+	}
+
+	public void setSeats(Set<Seat> seats) {
+		this.seats = seats;
 	}
 
 	public User getPromoter() {
 		return promoter;
 	}
 
-	void _setPromoter(User promoter) {
+	public void setPromoter(User promoter) {
 		this.promoter = promoter;
 	}
+	
+
 
 }
