@@ -5,9 +5,11 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import com.sdi.client.type.SeatStatus;
 
-
+@XmlRootElement(name = "seat")
 public class Seat implements Serializable{
 
 

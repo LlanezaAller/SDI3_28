@@ -14,6 +14,7 @@ import com.sdi.business.impl.classes.usuarios.AplicarUsuarios;
 import com.sdi.business.impl.classes.usuarios.CancelarAplicacion;
 import com.sdi.business.impl.classes.usuarios.DesactivarUsuario;
 import com.sdi.business.impl.classes.usuarios.PromoterManageApplication;
+import com.sdi.business.impl.classes.usuarios.UsersFromTripFinder;
 import com.sdi.business.impl.classes.usuarios.UsuariosAlta;
 import com.sdi.business.impl.classes.usuarios.UsuariosFinder;
 import com.sdi.model.Trip;
@@ -70,6 +71,11 @@ public class EJBUsuariosService implements RemoteUsuariosService, LocalUsuariosS
 	@Override
 	public long getIdByLogin(String login) throws EntityNotFoundException {
 		return ((User) new UsuariosFinder(login).execute()).getId();
+	}
+
+	@Override
+	public List<User> findUsersByTrip(long id) {
+		return (List<User>) new UsersFromTripFinder(id).execute();
 	}
 
 }

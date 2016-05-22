@@ -2,7 +2,9 @@ package com.sdi.client;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "rating")
 public class Rating implements Serializable{
 
 

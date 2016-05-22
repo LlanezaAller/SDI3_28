@@ -62,4 +62,9 @@ public class UsuariosServicesRestImpl implements UsuariosServicesRest {
 		return service.getIdByLogin(login);
 	}
 
+	@Override
+	public List<User> findUsersByTrip(long id) {
+		return service.findUsersByTrip(id);
+	}
+
 }

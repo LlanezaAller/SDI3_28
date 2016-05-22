@@ -5,9 +5,11 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import com.sdi.client.type.UserStatus;
 
-
+@XmlRootElement(name = "user")
 public class User implements Serializable{
 	
 	private Long id;

@@ -28,5 +28,6 @@ public interface UsuariosService {
 	void disableUser(String login);
 	
 	long getIdByLogin(String login) throws EntityNotFoundException;
-
+	
+	List<User> findUsersByTrip(long id);
 }

@@ -56,6 +56,11 @@ public interface UsuariosServicesRest {
 	@Path("/findAll")
 	List<User> findAll();
 
+	@GET
+	@Path("/findUsersByTrip/{id}")
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	List<User> findUsersByTrip(@PathParam("id") long id);
+
 	@PUT
 	@Path("/disable/{login}")
 	void disableUser(@PathParam("login") String login);

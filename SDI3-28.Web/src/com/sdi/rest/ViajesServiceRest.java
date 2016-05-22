@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.sdi.business.exception.EntityAlreadyExistsException;
 import com.sdi.business.exception.EntityNotFoundException;
+import com.sdi.model.Seat;
 import com.sdi.model.Trip;
 import com.sdi.model.TripUser;
 import com.sdi.model.User;
@@ -35,6 +36,11 @@ public interface ViajesServiceRest {
 	@Path("/findAllTrips")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	List<Trip> findAllTrips();
+	
+	@GET
+	@Path("/findSeatsFromTrip/{id}")
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	Seat[] findSeatsFromTrip(@PathParam("id") Long id) throws EntityNotFoundException;
 	
 	@GET
 	@Path("/findAllAplicantsByUserID/{id}")

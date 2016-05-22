@@ -6,6 +6,7 @@ import com.sdi.business.ViajesService;
 import com.sdi.business.exception.EntityAlreadyExistsException;
 import com.sdi.business.exception.EntityNotFoundException;
 import com.sdi.infraestructure.factories.Factories;
+import com.sdi.model.Seat;
 import com.sdi.model.Trip;
 import com.sdi.model.TripUser;
 import com.sdi.model.User;
@@ -53,6 +54,11 @@ public class ViajesServiceRestImpl implements ViajesServiceRest{
 	@Override
 	public int cancelTrips(List<TripUser> selectedTripsRelation, User user) {
 		return service.cancelTrips(selectedTripsRelation, user);
+	}
+
+	@Override
+	public Seat[] findSeatsFromTrip(Long id) throws EntityNotFoundException {
+		return service.findSeatsFromTrip(id);
 	}
 
 }
