@@ -9,13 +9,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class TripUser implements Serializable{
 	private Trip trip;
 	private String relation;
-
+	
+	public TripUser(){}
+	
 	public TripUser(Trip trip, String relation) {
 		super();
 		this.trip = trip;
 		this.relation = relation;
 	}
-
+	@XmlElement
 	public Trip getTrip() {
 		return trip;
 	}
@@ -27,7 +29,7 @@ public class TripUser implements Serializable{
 	public String getRelation() {
 		return relation;
 	}
-	@XmlElement
+	
 	public void setRelation(String relation) {
 		this.relation = relation;
 	}
