@@ -1,7 +1,6 @@
 package com.sdi.business.impl;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.ejb.Stateless;
 import javax.jws.WebService;
@@ -14,6 +13,7 @@ import com.sdi.business.impl.classes.usuarios.AplicarUsuarios;
 import com.sdi.business.impl.classes.usuarios.CancelarAplicacion;
 import com.sdi.business.impl.classes.usuarios.DesactivarUsuario;
 import com.sdi.business.impl.classes.usuarios.PromoterManageApplication;
+import com.sdi.business.impl.classes.usuarios.UnconfirmedUsersFromTripFinder;
 import com.sdi.business.impl.classes.usuarios.UsersFromTripFinder;
 import com.sdi.business.impl.classes.usuarios.UsuariosAlta;
 import com.sdi.business.impl.classes.usuarios.UsuariosFinder;
@@ -58,7 +58,7 @@ public class EJBUsuariosService implements RemoteUsuariosService, LocalUsuariosS
 	}
 
 	@Override
-	public void aplicarUsuarios(Set<User> apps, Trip trip) {
+	public void aplicarUsuarios(List<User> apps, Trip trip) {
 		new AplicarUsuarios(apps, trip).execute();
 	}
 
@@ -76,6 +76,11 @@ public class EJBUsuariosService implements RemoteUsuariosService, LocalUsuariosS
 	@Override
 	public List<User> findUsersByTrip(long id) {
 		return (List<User>) new UsersFromTripFinder(id).execute();
+	}
+
+	@Override
+	public List<User> findUnconfirmedUsersByTrip(long id) {
+		return (List<User>) new UnconfirmedUsersFromTripFinder(id).execute();
 	}
 
 }

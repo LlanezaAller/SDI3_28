@@ -15,6 +15,7 @@ import com.sdi.business.impl.classes.viajes.ListarViajesPromotor;
 import com.sdi.business.impl.classes.viajes.ViajeAlta;
 import com.sdi.business.impl.classes.viajes.ViajeUpdate;
 import com.sdi.business.impl.classes.viajes.ViajesFinder;
+import com.sdi.business.util.SdiUtil;
 import com.sdi.model.Seat;
 import com.sdi.model.Trip;
 import com.sdi.model.TripUser;
@@ -76,6 +77,17 @@ public class EJBViajesService implements RemoteViajesService, LocalViajesService
 	@Override
 	public Seat[] findSeatsFromTrip(Long id) throws EntityNotFoundException {
 		return findTrip(id).getSeats().toArray(new Seat[]{});
+	}
+
+	@Override
+	public boolean checkHasApplication(User user,Trip trip) {
+		return SdiUtil.assertHasApplication(user, trip);
+		
+	}
+
+	@Override
+	public boolean checkHasSeat(User user, Trip trip) throws EntityNotFoundException {
+		return SdiUtil.assertHasSeat(user, trip);
 	}
 
 }

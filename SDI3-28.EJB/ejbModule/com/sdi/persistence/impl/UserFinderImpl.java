@@ -37,6 +37,13 @@ public class UserFinderImpl implements UserFinder {
 				.setParameter(1, id).getResultList();
 		return (usuarios != null) ? usuarios : new ArrayList<User>();
 	}
+	@Override
+	public List<User> findUnconfirmedUsersByTrip(Long id) {
+		List<User> usuarios = Jpa.getManager()
+				.createNamedQuery("User.findUnconfirmedUsersByTrip", User.class)
+				.setParameter(1, id).getResultList();
+		return (usuarios != null) ? usuarios : new ArrayList<User>();
+	}
 
 	@Override
 	public void update(User usuario) {

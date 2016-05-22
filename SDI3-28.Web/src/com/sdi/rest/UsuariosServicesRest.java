@@ -50,16 +50,16 @@ public interface UsuariosServicesRest {
 	@POST
 	@Path("/applyUserSet")
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	void aplicarUsuarios(Set<User> apps, Trip trip);
+	void aplicarUsuarios(List<User> apps, Trip trip);
 
 	@GET
 	@Path("/findAll")
 	List<User> findAll();
 
 	@GET
-	@Path("/findUsersByTrip/{id}")
+	@Path("/findUnconfirmedUsersByTrip/{id}")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	List<User> findUsersByTrip(@PathParam("id") long id);
+	List<User> findUnconfirmedUsersByTrip(@PathParam("id") long id);
 
 	@PUT
 	@Path("/disable/{login}")

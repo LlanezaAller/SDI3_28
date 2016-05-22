@@ -63,7 +63,14 @@ public class Main {
 			}
 		}
 		
+		List<User> usuarios = getUnconfirmedUsersByTripIdAsXmlString(tripActual);
 		System.out.println("Seleccione el usuario a confirmar:");
+		for(User us : usuarios){
+			System.out.println("Nombre:");
+			System.out.println("\t"+us.getName());
+			System.out.println("Apellido:");
+			System.out.println("\t"+us.getSurname());
+		}
 		
 		System.out.println("\n-- ws REST JAX-RS remote client ended -");
 	}
@@ -79,15 +86,26 @@ public class Main {
 		return trips;
 	}
 
+	private List<User> getUnconfirmedUsersByTripIdAsXmlString(Trip trip) {
+		List<User> usuarios = ClientBuilder
+				.newClient()
+				.target(REST_SERVICE_URL
+						+ "/UsuariosService/findUnconfirmedUsersByTrip/")
+				.path(""+trip.getId())
+				.request(MediaType.APPLICATION_XML)
+				.get(new GenericType<List<User>>() {
+				});
+		return usuarios;
+	}
 	private List<Seat> getSeatsByTripIdAsXmlString(Trip trip) {
 		List<Seat> seats = ClientBuilder
 				.newClient()
 				.target(REST_SERVICE_URL
 						+ "/ViajesService/findSeatsFromTrip/")
-				.path(""+trip.getId())
-				.request(MediaType.APPLICATION_XML)
-				.get(new GenericType<List<Seat>>() {
-				});
+						.path(""+trip.getId())
+						.request(MediaType.APPLICATION_XML)
+						.get(new GenericType<List<Seat>>() {
+						});
 		return seats;
 	}
 

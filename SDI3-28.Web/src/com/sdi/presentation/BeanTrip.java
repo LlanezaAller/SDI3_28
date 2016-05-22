@@ -141,7 +141,11 @@ public class BeanTrip implements Serializable {
 					user.getLogin(), trip.getId());
 
 			hasApplication = SdiUtil.assertHasApplication(user, trip);
-			hasSeat = SdiUtil.assertHasSeat(user, trip);
+			try {
+				hasSeat = SdiUtil.assertHasSeat(user, trip);
+			} catch (EntityNotFoundException e) {
+				Log.debug(e);
+			}
 		} else {
 			Log.error("Usuario no logueado");
 		}
@@ -161,7 +165,11 @@ public class BeanTrip implements Serializable {
 				Log.error("Viaje no encontrado");
 			}
 			hasApplication = SdiUtil.assertHasApplication(user, trip);
-			hasSeat = SdiUtil.assertHasSeat(user, trip);
+			try {
+				hasSeat = SdiUtil.assertHasSeat(user, trip);
+			} catch (EntityNotFoundException e) {
+				Log.debug(e);
+			}
 
 		} else {
 			Log.error("Usuario no logueado");
@@ -308,15 +316,20 @@ public class BeanTrip implements Serializable {
 
 	private void checkHasApplication() {
 		Map<String, Object> session = FacesContext.getCurrentInstance()
-				.getExternalContext().getSessionMap();
+				    .getExternalContext().getSessionMap();
 		User user = (User) session.get("user");
-		hasApplication = SdiUtil.assertHasApplication(user, trip);
+		hasApplication = Factories.business.getViajesService()
+				.checkHasApplication(user, trip);
 	}
 
 	private void checkHasSeat() {
 		Map<String, Object> session = FacesContext.getCurrentInstance()
-				.getExternalContext().getSessionMap();
+				    .getExternalContext().getSessionMap();
 		User user = (User) session.get("user");
-		hasSeat = SdiUtil.assertHasSeat(user, trip);
+		try {
+			hasSeat = Factories.business.getViajesService().checkHasSeat(user, trip);
+		} catch (EntityNotFoundException e) {
+			Log.debug(e);
+		}
 	}
 }

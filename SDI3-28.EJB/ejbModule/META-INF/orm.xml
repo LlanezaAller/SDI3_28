@@ -31,6 +31,16 @@
 			]]>
 		</query>
 	</named-query>
+	<named-query name="User.findUnconfirmedUsersByTrip">
+		<query>
+			<![CDATA[
+			select s.user 
+				from Seat s
+				where s.trip.id = ?1
+					and s.status = 'accepted'
+			]]>
+		</query>
+	</named-query>
 	<named-query name="User.findAllAplicantsByUser">
 		<query>
 			<![CDATA[

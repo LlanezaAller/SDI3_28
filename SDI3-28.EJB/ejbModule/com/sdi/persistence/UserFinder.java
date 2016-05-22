@@ -18,4 +18,6 @@ public interface UserFinder {
 
 	Long getIdByLogin(String login);
 
+	List<User> findUnconfirmedUsersByTrip(Long id);
+
 }

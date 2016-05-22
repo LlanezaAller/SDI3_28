@@ -1,6 +1,6 @@
 package com.sdi.business.impl.classes.usuarios;
 
-import java.util.Set;
+import java.util.List;
 
 import com.sdi.business.Command;
 import com.sdi.infraestructure.factories.Factories;
@@ -10,10 +10,10 @@ import com.sdi.persistence.UserFinder;
 
 public class AplicarUsuarios implements Command {
 
-	Set<User> usuarios;
+	List<User> usuarios;
 	Trip trip;
 
-	public AplicarUsuarios(Set<User> apps, Trip trip) {
+	public AplicarUsuarios(List<User> apps, Trip trip) {
 		this.usuarios = apps;
 		this.trip = trip;
 	}

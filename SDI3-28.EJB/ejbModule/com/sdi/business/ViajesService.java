@@ -29,4 +29,9 @@ public interface ViajesService {
 	void update(Trip t);
 
 	int cancelTrips(List<TripUser> selectedTripsRelation, User user);
+	
+	boolean checkHasApplication(User user, Trip trip);
+	
+	boolean checkHasSeat(User user, Trip trip) throws EntityNotFoundException;
+	
 }

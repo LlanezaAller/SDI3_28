@@ -21,7 +21,7 @@ public interface UsuariosService {
 
 	Trip promoterManageApplication(SeatStatus status, String login, Long tripId);
 
-	void aplicarUsuarios(Set<User> apps, Trip trip);
+	void aplicarUsuarios(List<User> apps, Trip trip);
 
 	List<User> findAll();
 
@@ -30,4 +30,6 @@ public interface UsuariosService {
 	long getIdByLogin(String login) throws EntityNotFoundException;
 	
 	List<User> findUsersByTrip(long id);
+
+	List<User> findUnconfirmedUsersByTrip(long id);
 }

@@ -42,7 +42,7 @@ public class UsuariosServicesRestImpl implements UsuariosServicesRest {
 	}
 
 	@Override
-	public void aplicarUsuarios(Set<User> apps, Trip trip) {
+	public void aplicarUsuarios(List<User> apps, Trip trip) {
 		service.aplicarUsuarios(apps, trip);
 	}
 
@@ -63,8 +63,8 @@ public class UsuariosServicesRestImpl implements UsuariosServicesRest {
 	}
 
 	@Override
-	public List<User> findUsersByTrip(long id) {
-		return service.findUsersByTrip(id);
+	public List<User> findUnconfirmedUsersByTrip(long id) {
+		return service.findUnconfirmedUsersByTrip(id);
 	}
 
 }
