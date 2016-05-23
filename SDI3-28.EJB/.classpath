@@ -13,5 +13,7 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="lib/hibernate-core-5.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="lib/jboss-jms-api_1.1_spec-1.0.0.Final.jar"/>
+	<classpathentry kind="lib" path="S:/wildfly/bin/client/jboss-client.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

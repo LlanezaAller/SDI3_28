@@ -1,4 +1,4 @@
-package com.academic.simulator;
+package com.sdi.business.integration;
 
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
@@ -12,19 +12,17 @@ public class Jndi {
 		Context ctx;
 		try {
 			ctx = new InitialContext();
-			return ctx.lookup( jndiKey );
+			return ctx.lookup(jndiKey);
 
 		} catch (NamingException e) {
-			throw new RuntimeException( "JNDI problem", e );
+			throw new RuntimeException("JNDI problem", e);
 		}
 	}
-
 
 	public static ConnectionFactory getConnectionFactory(
 			String jmsConnectionFactory) {
 		return (ConnectionFactory) find(jmsConnectionFactory);
 	}
-
 
 	public static Destination getDestination(String notaneitorQueue) {
 		return (Destination) find(notaneitorQueue);
