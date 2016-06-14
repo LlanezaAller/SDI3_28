@@ -12,11 +12,11 @@ import com.sdi.actions.impl.ExitAction;
 import com.sdi.actions.impl.ListarUsuarios;
 import com.sdi.actions.impl.ListarValoraciones;
 
-public class MainEJB {
+public class MainSOAP {
 	private Map<Integer, Action> actions;
 	public static void main(String[] args){
 		try {
-			new MainEJB().run();
+			new MainSOAP().run();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

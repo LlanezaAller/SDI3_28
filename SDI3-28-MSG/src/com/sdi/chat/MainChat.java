@@ -3,6 +3,7 @@ package com.sdi.chat;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.jms.JMSException;
@@ -10,6 +11,8 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 
+import com.sdi.chat.model.Seat;
+import com.sdi.chat.model.SeatStatus;
 import com.sdi.chat.model.Trip;
 import com.sdi.chat.model.User;
 
@@ -50,20 +53,38 @@ public class MainChat {
 
 	}
 	
-	private User login(String login, String password){
+	private User login(String login, String password){//TODO LOGUEO
 		User u = new User();
 		u.setLogin(login);
-		u.setId(1l);
+		if(login.equals("usuario1"))
+			u.setId(1l);
+		else if(login.equals("usuario2"))
+			u.setId(2l);
+		else if(login.equals("usuario3"))
+			u.setId(3l);
 		return u;
 	}
 	
 	private List<Trip> findTrips(User user){
-		List<Trip> trips = ClientBuilder
+		/*List<Trip> tripsPromoted = ClientBuilder
 				.newClient()
 				.target(REST_SERVICE_URL
 						+ "/ViajesService/findAllTripsByPromoterID/" + user.getId())
 				.request(MediaType.APPLICATION_XML)
-				.get(new GenericType<List<Trip>>() {});
+				.get(new GenericType<List<Trip>>() {});*/
+		List<Seat> seatList = ClientBuilder
+				.newClient()
+				.target(REST_SERVICE_URL
+						+ "/AsientosService/findByUser/" + user.getId())
+				.request(MediaType.APPLICATION_XML)
+				.get(new GenericType<List<Seat>>() {});
+		
+		trips = new ArrayList<>();
+		for(Seat s: seatList){
+			if(s.getStatus()==SeatStatus.ACCEPTED || s.getTrip().getPromoter().getId()==user.getId())
+				trips.add(s.getTrip());
+		}
+		
 		return trips;
 	}
 	
@@ -72,14 +93,14 @@ public class MainChat {
 			System.out.println("ID\tSalida\tDestino\tEstado");
 			int id=0;
 			for(Trip t:trips){
-				System.out.println(id+"\t"+t.getDeparture().getCity()+"\t" + t.getDestination().getCity()+ t.getStatus());
+				System.out.println(id + "(" +t.getId() +") "+"\t"+t.getDeparture().getCity()+"\t" + t.getDestination().getCity()+ t.getStatus());
 				id++;
 			}
 			System.out.println("Introduzca id del viaje");
 			try {
-				Long tripID = Long.valueOf(console.readLine());
+				int tripID = Integer.valueOf(console.readLine());
 				if(tripID>=0 && tripID<trips.size()){
-					Chat c = new Chat(console, tripID, user.getLogin());
+					Chat c = new Chat(console, trips.get(tripID).getId(), user.getLogin());
 					c.start();
 				}else {
 					System.out.println("ID inválido");

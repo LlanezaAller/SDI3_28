@@ -30,7 +30,7 @@ public interface AsientosServiceRest {
 			throws EntityNotFoundException;
 	
 	@GET
-	@Path("/findByUser/{id}")
+	@Path("/findByUser/{idUser}")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	List<Seat> findByUser(@PathParam("idUser") Long idUser);
 	

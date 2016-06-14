@@ -23,7 +23,7 @@ import com.sdi.model.Trip;
 import com.sdi.model.User;
 import com.sdi.model.type.SeatStatus;
 
-@MessageDriven(activationConfig = { @ActivationConfigProperty(propertyName = "destination", propertyValue = "topic/SDI3-28-ShareMytrip-Sender") })
+@MessageDriven(activationConfig = { @ActivationConfigProperty(propertyName = "destination", propertyValue = "queue/SDI3-28-ShareMytrip-Sender") })
 public class ChatListener implements MessageListener {
 	
 	private static final String JMS_CONNECTION_FACTORY = "java:/ConnectionFactory";
@@ -45,9 +45,9 @@ public class ChatListener implements MessageListener {
 		try {
 			if(arg0 instanceof MapMessage){
 				MapMessage msg = (MapMessage) arg0;
-				String userLogin = "usuario1"; //msg.getString("userLogin");
+				String userLogin = msg.getString("userLogin");
 				User sender = Factories.business.getUsuariosService().findUser(userLogin);
-				long tripID = 4; //msg.getLong("tripID");
+				long tripID = msg.getLong("tripID");
 				String text = msg.getString("text");
 				if (seatService.findByUserAndTrip(sender.getId(), tripID).getStatus() == SeatStatus.ACCEPTED) {
 					Trip t = tripService.findTrip(tripID);
@@ -66,6 +66,7 @@ public class ChatListener implements MessageListener {
 							forward.setString("destinyLogin", s.getUser().getLogin());
 							forward.setString("text", text);
 							forward.setLong("tripID", tripID);
+							Log.debug("Redirigiendo mensaje del usuario %s al usuario %s", userLogin,  s.getUser().getLogin());
 							receiver.send(forward);
 						}
 					}

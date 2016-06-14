@@ -13,11 +13,12 @@ import javax.jms.MessageConsumer;
 import javax.jms.MessageListener;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
+import javax.jms.Topic;
 
 public class Chat implements MessageListener {
 	private static final String JMS_CONNECTION_FACTORY = "jms/RemoteConnectionFactory";
 	private static final String SHAREMYTRIP_TOPIC_RECEIVER = "jms/topic/SDI3-28-ShareMytrip-Receiver";
-	private static final String SHAREMYTRIP_TOPIC_SENDER= "jms/topic/SDI3-28-ShareMytrip-Sender";
+	private static final String SHAREMYTRIP_TOPIC_SENDER= "jms/queue/SDI3-28-ShareMytrip-Sender";
 	
 	private BufferedReader console;
 
@@ -42,9 +43,11 @@ public class Chat implements MessageListener {
 		
 		try {
 			connection = factory.createConnection("sdi", "password");
+			connection.setClientID(userLogin);
 			session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 			sender = session.createProducer(topic_sender);
-			receiver = session.createConsumer(topic_receiver);
+			//receiver = session.createConsumer(topic_receiver);
+			receiver = session.createDurableSubscriber((Topic) topic_receiver, userLogin);
 			receiver.setMessageListener(this);
 			connection.start();
 		} catch (JMSException e) {
@@ -62,6 +65,8 @@ public class Chat implements MessageListener {
 				if (input != null && !input.isEmpty()) {
 					if (input.equals("!exit")){
 						connection.stop();
+						session.close();
+						connection.close();
 						return;
 					}else {
 						sendMessage(input);
