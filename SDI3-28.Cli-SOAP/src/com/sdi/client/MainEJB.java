@@ -16,6 +16,7 @@ public class MainEJB {
 	private Map<Integer, Action> actions;
 	public static void main(String[] args){
 		try {
+			LogConfig.config();
 			new MainEJB().run();
 		} catch (Exception e) {
 			e.printStackTrace();

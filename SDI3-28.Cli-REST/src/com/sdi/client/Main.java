@@ -12,6 +12,7 @@ public class Main {
 	private static final String REST_SERVICE_URL = "http://localhost:8280/SDI3-28.Web/rest";
 
 	public static void main(String[] args) {
+		LogConfig.config();
 		new Main().run();
 	}
 

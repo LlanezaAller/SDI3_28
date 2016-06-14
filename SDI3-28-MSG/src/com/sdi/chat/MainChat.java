@@ -26,6 +26,7 @@ public class MainChat {
 	private User user;
 	public static void main(String[] args) throws JMSException {
 		System.out.println("Bienvenido al chat de Share My Trip");
+		LogConfig.config();
 		new MainChat().run();
 	}
 

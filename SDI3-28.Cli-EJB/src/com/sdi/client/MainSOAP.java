@@ -16,6 +16,7 @@ public class MainSOAP {
 	private Map<Integer, Action> actions;
 	public static void main(String[] args){
 		try {
+			LogConfig.config();
 			new MainSOAP().run();
 		} catch (Exception e) {
 			e.printStackTrace();
