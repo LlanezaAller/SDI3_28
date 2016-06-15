@@ -24,47 +24,47 @@ public interface ViajesServiceRest {
 	
 	@GET
 	@Path("/findTrip/{id}")
-	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({MediaType.APPLICATION_XML})
 	Trip findTrip(@PathParam("id") Long id) throws EntityNotFoundException;
 	
 	@POST
 	@Path("/saveTrip")
-	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Consumes({MediaType.APPLICATION_XML})
 	void saveTrip(Trip viaje) throws EntityAlreadyExistsException;
 	
 	@GET
 	@Path("/findAllTrips")
-	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({MediaType.APPLICATION_XML})
 	List<Trip> findAllTrips();
 	
 	@GET
 	@Path("/findSeatsFromTrip/{id}")
-	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({MediaType.APPLICATION_XML})
 	Seat[] findSeatsFromTrip(@PathParam("id") Long id) throws EntityNotFoundException;
 	
 	@GET
 	@Path("/findAllAplicantsByUserID/{id}")
-	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({MediaType.APPLICATION_XML})
 	List<Trip> findAllAplicantsByUserId(@PathParam("id") Long id);
 	
 	@GET
 	@Path("/findAllByStatus")
-	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Consumes({MediaType.APPLICATION_XML})
+	@Produces({MediaType.APPLICATION_XML})
 	List<Trip> findAllByStatus(TripStatus status);
 	
 	@GET
 	@Path("/findAllTripsByPromoterID/{id}")
-	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({MediaType.APPLICATION_XML})
 	List<Trip> findAllTripsByPromoterId(@PathParam("id") Long id);
 	
 	@PUT
 	@Path("/update")
-	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Consumes({MediaType.APPLICATION_XML})
 	void update(Trip t);
 	
 	@PUT
 	@Path("/cancelTrips")
-	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({MediaType.APPLICATION_XML})
 	int cancelTrips(List<TripUser> selectedTripsRelation, User user);
 }

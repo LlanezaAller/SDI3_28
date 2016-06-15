@@ -1,4 +1,4 @@
-package com.sdi.client;
+package com.sdi.client.model;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -7,7 +7,7 @@ import java.util.Set;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.sdi.client.type.UserStatus;
+import com.sdi.client.model.type.UserStatus;
 
 @XmlRootElement(name = "user")
 public class User implements Serializable{

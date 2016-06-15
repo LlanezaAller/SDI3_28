@@ -33,6 +33,7 @@ public class EJBUsuariosService implements RemoteUsuariosService, LocalUsuariosS
 	public User findUser(String user) throws EntityNotFoundException {
 		return (User) new UsuariosFinder(user).execute();
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> findAll(){
 		return (List<User>) new AllUsuariosFinder().execute();
@@ -73,11 +74,13 @@ public class EJBUsuariosService implements RemoteUsuariosService, LocalUsuariosS
 		return ((User) new UsuariosFinder(login).execute()).getId();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> findUsersByTrip(long id) {
 		return (List<User>) new UsersFromTripFinder(id).execute();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> findUnconfirmedUsersByTrip(long id) {
 		return (List<User>) new UnconfirmedUsersFromTripFinder(id).execute();

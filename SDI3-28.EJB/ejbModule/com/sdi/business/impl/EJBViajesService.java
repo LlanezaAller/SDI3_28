@@ -22,9 +22,10 @@ import com.sdi.model.TripUser;
 import com.sdi.model.User;
 import com.sdi.model.type.TripStatus;
 
-@WebService(name="ViajesService")
+@WebService(name = "ViajesService")
 @Stateless
-public class EJBViajesService implements RemoteViajesService, LocalViajesService {
+public class EJBViajesService implements RemoteViajesService,
+		LocalViajesService {
 
 	@Override
 	public Trip findTrip(Long id) throws EntityNotFoundException {
@@ -45,22 +46,19 @@ public class EJBViajesService implements RemoteViajesService, LocalViajesService
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Trip> findAllAplicantsByUserId(Long id) {
-		return (List<Trip>) 
-				new ListarViajesAplicados(id).execute();
+		return (List<Trip>) new ListarViajesAplicados(id).execute();
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Trip> findAllByStatus(TripStatus status) {
-		return (List<Trip>) 
-				new ListarViajesEstado(status).execute();
+		return (List<Trip>) new ListarViajesEstado(status).execute();
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Trip> findAllTripsByPromoterId(Long id) {
-		return (List<Trip>) 
-				new ListarViajesPromotor(id).execute();
+		return (List<Trip>) new ListarViajesPromotor(id).execute();
 	}
 
 	@Override
@@ -70,23 +68,23 @@ public class EJBViajesService implements RemoteViajesService, LocalViajesService
 
 	@Override
 	public int cancelTrips(List<TripUser> selectedTripsRelation, User user) {
-		return (int) new CancelarViajes(
-				selectedTripsRelation, user).execute();
+		return (int) new CancelarViajes(selectedTripsRelation, user).execute();
 	}
 
 	@Override
 	public Seat[] findSeatsFromTrip(Long id) throws EntityNotFoundException {
-		return findTrip(id).getSeats().toArray(new Seat[]{});
+		return findTrip(id).getSeats().toArray(new Seat[] {});
 	}
 
 	@Override
-	public boolean checkHasApplication(User user,Trip trip) {
+	public boolean checkHasApplication(User user, Trip trip) {
 		return SdiUtil.assertHasApplication(user, trip);
-		
+
 	}
 
 	@Override
-	public boolean checkHasSeat(User user, Trip trip) throws EntityNotFoundException {
+	public boolean checkHasSeat(User user, Trip trip)
+			throws EntityNotFoundException {
 		return SdiUtil.assertHasSeat(user, trip);
 	}
 

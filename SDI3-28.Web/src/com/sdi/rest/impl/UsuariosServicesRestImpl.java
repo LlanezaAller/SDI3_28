@@ -1,15 +1,14 @@
 package com.sdi.rest.impl;
 
 import java.util.List;
-import java.util.Set;
 
 import com.sdi.business.UsuariosService;
 import com.sdi.business.exception.EntityAlreadyExistsException;
 import com.sdi.business.exception.EntityNotFoundException;
 import com.sdi.infraestructure.factories.Factories;
+import com.sdi.model.Seat;
 import com.sdi.model.Trip;
 import com.sdi.model.User;
-import com.sdi.model.type.SeatStatus;
 import com.sdi.rest.UsuariosServicesRest;
 
 public class UsuariosServicesRestImpl implements UsuariosServicesRest {
@@ -35,10 +34,9 @@ public class UsuariosServicesRestImpl implements UsuariosServicesRest {
 	}
 
 	@Override
-	public Trip promoterManageApplication(SeatStatus status, String login,
-			Long tripId) {
-
-		return promoterManageApplication(status, login, tripId);
+	public Trip promoterManageApplication(Seat s) {
+		System.out.println("Promoter manager application: " + s.getTrip().getId() + ", " +  s.getUser().getId());
+		return service.promoterManageApplication(s.getStatus(), s.getUser().getLogin(), s.getTrip().getId());
 	}
 
 	@Override

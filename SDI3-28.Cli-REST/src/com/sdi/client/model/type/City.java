@@ -1,4 +1,4 @@
-package com.sdi.client.type;
+package com.sdi.client.model.type;
 
 import java.io.Serializable;
 

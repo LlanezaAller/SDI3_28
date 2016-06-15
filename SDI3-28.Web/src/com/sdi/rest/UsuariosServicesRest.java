@@ -1,7 +1,6 @@
 package com.sdi.rest;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -15,41 +14,41 @@ import javax.ws.rs.core.MediaType;
 
 import com.sdi.business.exception.EntityAlreadyExistsException;
 import com.sdi.business.exception.EntityNotFoundException;
+import com.sdi.model.Seat;
 import com.sdi.model.Trip;
 import com.sdi.model.User;
-import com.sdi.model.type.SeatStatus;
 
 @Path("/UsuariosService")
 public interface UsuariosServicesRest {
 	@POST
 	@Path("/save")
-	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Consumes({MediaType.APPLICATION_XML})
 	void saveUser(User user) throws EntityAlreadyExistsException;
 	
 	@GET
 	@Path("/findUser/{login}")
-	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({MediaType.APPLICATION_XML})
 	User findUser(@PathParam("login")String user) throws EntityNotFoundException;
 
 	@DELETE
 	@Path("/cancelApplication/{login}/{tripID}")
-	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({MediaType.APPLICATION_XML})
 	Trip cancelarAplicacion(@PathParam("login") String login,@PathParam("tripID") Long tripId);
 	
 	@POST
 	@Path("/apply/{login}/{tripID}")
-	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({MediaType.APPLICATION_XML})
 	Trip aplicar(@PathParam("login") String login,@PathParam("tripID") Long tripId);
 
 	@PUT
 	@Path("/manageApplication")
-	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	Trip promoterManageApplication(SeatStatus status, String login, Long tripId);
+	@Produces({MediaType.APPLICATION_XML})
+	@Consumes({MediaType.APPLICATION_XML})
+	Trip promoterManageApplication(Seat s);
 	
 	@POST
 	@Path("/applyUserSet")
-	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Consumes({MediaType.APPLICATION_XML})
 	void aplicarUsuarios(List<User> apps, Trip trip);
 
 	@GET
@@ -58,7 +57,7 @@ public interface UsuariosServicesRest {
 
 	@GET
 	@Path("/findUnconfirmedUsersByTrip/{id}")
-	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({MediaType.APPLICATION_XML})
 	List<User> findUnconfirmedUsersByTrip(@PathParam("id") long id);
 
 	@PUT
@@ -67,7 +66,7 @@ public interface UsuariosServicesRest {
 	
 	@GET
 	@Path("/getID/{login}")
-	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({MediaType.APPLICATION_XML})
 	long getIdByLogin(@PathParam("login") String login) throws EntityNotFoundException;
 
 }

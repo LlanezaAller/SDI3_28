@@ -2,14 +2,22 @@ package com.sdi.client;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 
+import com.sdi.client.action.RESTService;
+import com.sdi.client.model.Seat;
+import com.sdi.client.model.Trip;
+import com.sdi.client.model.User;
+import com.sdi.client.model.type.TripStatus;
+
 public class Main {
-	private static final String REST_SERVICE_URL = "http://localhost:8280/SDI3-28.Web/rest";
+	
+	private RESTService rest;
 
 	public static void main(String[] args) {
 		LogConfig.config();
@@ -34,80 +42,64 @@ public class Main {
 		// a = createNewStudent(); // A PUT operation
 		// updateStudent(alumnos.get(0));// A POST operation
 		// deleteStudent(alumnos.get(1));// A DELETE operation
-		String con = "";
+		
+		rest = new RESTService();
+		
+		
 		User u = new User();
+		u.setId(1l);
 		u.setLogin("usuario1");
 		u.setPassword("usuario1");
 
 		Trip tripActual = null;
-		List<Trip> trips = getTripsByIdAsXmlString(u);
+		List<Trip> trips = rest.getUserTrips(u);
 
-		int c = 1;
-		System.out.println("Selecciona uno de los siguientes viajes:");
-		for (Trip t : trips) {
-			System.out.println("Viaje numero " + c++);
-			System.out.println("Salida:");
-			System.out.println("\t" + t.getDeparture().getCity());
-			System.out.println("Llegada:");
-			System.out.println("\t" + t.getDestination().getCity());
-			System.out.println("************************");
-
-		}
+		showTrips(trips);
+		
 		BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
+		String input = "";
 		while (true) {
 			try {
-				con = console.readLine();
-				tripActual = trips.get(Integer.parseInt(con));
-				break;
+				input = console.readLine();
+				int selectedTrip = Integer.parseInt(input);
+				if(selectedTrip>0 && selectedTrip<trips.size()){
+					tripActual = trips.get(selectedTrip);
+					if(tripActual.getStatus()==TripStatus.OPEN){
+						System.out.println(">Seleccionado viaje nº" + selectedTrip + ", con salida [" + tripActual.getDeparture().getCity() + "] y destino [" + tripActual.getDestination().getCity() + "]");
+						List<User> aplicaciones = showTripApplications(tripActual);
+						input = console.readLine();
+						int selectedUser = Integer.parseInt(input);
+						rest.confirmUser(aplicaciones.get(selectedUser), tripActual);
+						break;
+					}else
+						System.out.println("Viaje cerrado, seleccione otro.");
+				}
 			} catch (Exception e) {
-				System.out.println("Introduzca un índice válido");
+				System.out.println("Introduzca un índice válido\n");
+				showTrips(trips);
 			}
-		}
-		
-		List<User> usuarios = getUnconfirmedUsersByTripIdAsXmlString(tripActual);
-		System.out.println("Seleccione el usuario a confirmar:");
-		for(User us : usuarios){
-			System.out.println("Nombre:");
-			System.out.println("\t"+us.getName());
-			System.out.println("Apellido:");
-			System.out.println("\t"+us.getSurname());
-		}
-		
+		}		
 		System.out.println("\n-- ws REST JAX-RS remote client ended -");
 	}
-
-	private List<Trip> getTripsByIdAsXmlString(User usuario) {
-		List<Trip> trips = ClientBuilder
-				.newClient()
-				.target(REST_SERVICE_URL
-						+ "/ViajesService/findAllTripsByPromoterID/1")
-				.request(MediaType.APPLICATION_XML)
-				.get(new GenericType<List<Trip>>() {
-				});
-		return trips;
-	}
-
-	private List<User> getUnconfirmedUsersByTripIdAsXmlString(Trip trip) {
-		List<User> usuarios = ClientBuilder
-				.newClient()
-				.target(REST_SERVICE_URL
-						+ "/UsuariosService/findUnconfirmedUsersByTrip/")
-				.path(""+trip.getId())
-				.request(MediaType.APPLICATION_XML)
-				.get(new GenericType<List<User>>() {
-				});
+	
+	private List<User> showTripApplications(Trip t){
+		List<User> usuarios = rest.getUnconfirmedUsers(t);
+		System.out.println("Seleccione el usuario a confirmar:");
+		System.out.println("Nº\tNombre\tApellido");
+		int c=0;
+		for(User us : usuarios){
+			System.out.println(c++ + "\t" + us.getName() + "\t" + us.getSurname());
+		}
 		return usuarios;
 	}
-	private List<Seat> getSeatsByTripIdAsXmlString(Trip trip) {
-		List<Seat> seats = ClientBuilder
-				.newClient()
-				.target(REST_SERVICE_URL
-						+ "/ViajesService/findSeatsFromTrip/")
-						.path(""+trip.getId())
-						.request(MediaType.APPLICATION_XML)
-						.get(new GenericType<List<Seat>>() {
-						});
-		return seats;
+	
+	private void showTrips(List<Trip> trips){
+		int c = 0;
+		System.out.println("Selecciona uno de los siguientes viajes:");
+		System.out.println("Nº\tSalida\t\tLlegada\tEstado");
+		for (Trip t : trips) {
+			System.out.println(c++ + "(" + t.getId() + ")\t" + t.getDeparture().getCity() + "\t" + t.getDestination().getCity()+"\t"+ t.getStatus());
+		}
 	}
 
 }

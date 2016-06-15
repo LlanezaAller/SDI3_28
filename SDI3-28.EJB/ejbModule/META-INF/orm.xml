@@ -34,10 +34,10 @@
 	<named-query name="User.findUnconfirmedUsersByTrip">
 		<query>
 			<![CDATA[
-			select s.user 
-				from Seat s
-				where s.trip.id = ?1
-					and s.status = 'accepted'
+			select a 
+			from Trip t 
+				join t.aplicadores a 
+				where t.id = ?1 
 			]]>
 		</query>
 	</named-query>

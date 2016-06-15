@@ -1,4 +1,4 @@
-package com.sdi.client;
+package com.sdi.client.model;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -8,8 +8,8 @@ import java.util.Set;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.sdi.client.type.AddressPoint;
-import com.sdi.client.type.TripStatus;
+import com.sdi.client.model.type.AddressPoint;
+import com.sdi.client.model.type.TripStatus;
 
 
 @XmlRootElement(name = "trip")

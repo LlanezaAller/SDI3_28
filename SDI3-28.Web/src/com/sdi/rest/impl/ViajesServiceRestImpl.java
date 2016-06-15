@@ -41,7 +41,7 @@ public class ViajesServiceRestImpl implements ViajesServiceRest{
 	}
 
 	@Override
-	public List<Trip> findAllTripsByPromoterId(Long id) {
+	public List<Trip> findAllTripsByPromoterId(Long id) {		
 		return service.findAllTripsByPromoterId(id);
 	}
 
