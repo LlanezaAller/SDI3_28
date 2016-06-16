@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.sdi.client.model.type.SeatStatus;
@@ -30,7 +31,7 @@ public class Seat implements Serializable{
 
 	public Seat() {
 	}
-
+	@XmlElement
 	public User getUser() {
 		return user;
 	}
@@ -38,7 +39,7 @@ public class Seat implements Serializable{
 	public void setUser(User user) {
 		this.user = user;
 	}
-
+	@XmlElement
 	public Trip getTrip() {
 		return trip;
 	}
@@ -46,7 +47,7 @@ public class Seat implements Serializable{
 	public void setTrip(Trip trip) {
 		this.trip = trip;
 	}
-
+	@XmlElement
 	public String getComment() {
 		return comment;
 	}
@@ -54,7 +55,7 @@ public class Seat implements Serializable{
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-
+	@XmlElement
 	public SeatStatus getStatus() {
 		return status;
 	}
@@ -62,7 +63,7 @@ public class Seat implements Serializable{
 	public void setStatus(SeatStatus status) {
 		this.status = status;
 	}
-
+	@XmlElement
 	public Set<Rating> getRatingsFrom() {
 		return ratingsFrom;
 	}
@@ -70,7 +71,7 @@ public class Seat implements Serializable{
 	public void setRatingsFrom(Set<Rating> ratingsFrom) {
 		this.ratingsFrom = ratingsFrom;
 	}
-
+	@XmlElement
 	public Set<Rating> getRatingsAbout() {
 		return ratingsAbout;
 	}

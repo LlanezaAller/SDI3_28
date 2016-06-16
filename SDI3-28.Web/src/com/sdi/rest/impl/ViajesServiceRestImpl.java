@@ -1,6 +1,10 @@
 package com.sdi.rest.impl;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.core.Context;
 
 import com.sdi.business.ViajesService;
 import com.sdi.business.exception.EntityAlreadyExistsException;
@@ -39,10 +43,12 @@ public class ViajesServiceRestImpl implements ViajesServiceRest{
 	public List<Trip> findAllByStatus(TripStatus status) {
 		return service.findAllByStatus(status);
 	}
-
+	
+	
 	@Override
-	public List<Trip> findAllTripsByPromoterId(Long id) {		
-		return service.findAllTripsByPromoterId(id);
+	public List<Trip> findAllTripsByPromoterId(@Context HttpServletRequest request) {
+		User u = (User) request.getAttribute("user");
+		return service.findAllTripsByPromoterId(u.getId());
 	}
 
 	@Override
@@ -60,5 +66,7 @@ public class ViajesServiceRestImpl implements ViajesServiceRest{
 	public Seat[] findSeatsFromTrip(Long id) throws EntityNotFoundException {
 		return service.findSeatsFromTrip(id);
 	}
+
+	
 
 }

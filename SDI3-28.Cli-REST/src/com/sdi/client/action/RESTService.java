@@ -14,12 +14,21 @@ import com.sdi.client.model.type.SeatStatus;
 
 public class RESTService {
 	private static final String REST_SERVICE_URL = "http://localhost:8280/SDI3-28.Web/rest";
-	
-	public List<Trip> getUserTrips(User usuario) {
+
+	private String usuario;
+	private String pass;
+
+	public RESTService(String usuario, String pass) {
+		this.usuario = usuario;
+		this.pass = pass;
+	}
+
+	public List<Trip> getUserTrips() {
 		List<Trip> trips = ClientBuilder
 				.newClient()
+				.register(new Authenticator(usuario, pass))
 				.target(REST_SERVICE_URL
-						+ "/ViajesService/findAllTripsByPromoterID/1")
+						+ "/ViajesService/findAllTripsByPromoterID")
 				.request(MediaType.APPLICATION_XML)
 				.get(new GenericType<List<Trip>>() {
 				});
@@ -29,15 +38,15 @@ public class RESTService {
 	public List<User> getUnconfirmedUsers(Trip trip) {
 		List<User> usuarios = ClientBuilder
 				.newClient()
+				.register(new Authenticator(usuario, pass))
 				.target(REST_SERVICE_URL
 						+ "/UsuariosService/findUnconfirmedUsersByTrip/")
-				.path(""+trip.getId())
-				.request(MediaType.APPLICATION_XML)
+				.path("" + trip.getId()).request(MediaType.APPLICATION_XML)
 				.get(new GenericType<List<User>>() {
 				});
 		return usuarios;
 	}
-	
+
 	public void confirmUser(User u, Trip t) {
 		Seat s = new Seat();
 		s.setUser(u);
@@ -45,10 +54,10 @@ public class RESTService {
 		s.setStatus(SeatStatus.ACCEPTED);
 		ClientBuilder
 				.newClient()
+				.register(new Authenticator(usuario, pass))
 				.target(REST_SERVICE_URL
-						+ "/UsuariosService/manageApplication/")
-				.request()
-				.put(Entity.entity(s, MediaType.APPLICATION_XML));
+						+ "/UsuariosService/manageApplication/").request()
+				.put(Entity.xml(s));
 	}
-	
+
 }

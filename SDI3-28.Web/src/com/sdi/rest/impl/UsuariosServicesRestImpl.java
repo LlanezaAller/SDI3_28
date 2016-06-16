@@ -35,7 +35,7 @@ public class UsuariosServicesRestImpl implements UsuariosServicesRest {
 
 	@Override
 	public Trip promoterManageApplication(Seat s) {
-		System.out.println("Promoter manager application: " + s.getTrip().getId() + ", " +  s.getUser().getId());
+		System.out.println("Promoter manager application: "+ s.getStatus() + ", " + s.getTrip().getId() + ", " +  s.getUser().getLogin());
 		return service.promoterManageApplication(s.getStatus(), s.getUser().getLogin(), s.getTrip().getId());
 	}
 

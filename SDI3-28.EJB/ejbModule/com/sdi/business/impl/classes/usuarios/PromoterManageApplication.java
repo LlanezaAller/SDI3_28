@@ -24,6 +24,7 @@ public class PromoterManageApplication implements Command {
 
 	@Override
 	public Object execute() {
+		Log.info("Buscando: " + tripId + ", " + login);
 		Trip trip = Factories.persistence.CreateTripFinder().findById(tripId);
 		User user = Factories.persistence.CreateUserFinder().findByLogin(login);
 

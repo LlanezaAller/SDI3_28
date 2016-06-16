@@ -1,6 +1,7 @@
 package com.sdi.presentation.filter;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
@@ -12,22 +13,24 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.xml.bind.DatatypeConverter;
 
 import alb.util.log.Log;
 
-/**
- * Servlet Filter implementation class LoginFilter
- */
-@WebFilter(dispatcherTypes = { DispatcherType.REQUEST }, urlPatterns = { "/user/*" }, initParams = { @WebInitParam(name = "LoginParam", value = "/index.xhtml") })
-public class LoginFilter implements Filter {
+import com.sdi.business.exception.EntityNotFoundException;
+import com.sdi.infraestructure.factories.Factories;
+import com.sdi.model.User;
+
+@WebFilter(dispatcherTypes = { DispatcherType.REQUEST }, urlPatterns = { "/rest/*" }, initParams = { @WebInitParam(name = "LoginParam", value = "/index.xhtml") })
+public class RestFilter implements Filter {
 	FilterConfig config = null;
 
 	/**
 	 * Default constructor.
 	 */
-	public LoginFilter() {
+	public RestFilter() {
 	
 	}
 
@@ -51,21 +54,26 @@ public class LoginFilter implements Filter {
 		// En el resto de casos se verifica que se haya hecho login previamente
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
-		HttpSession session = req.getSession();
-		if (session.getAttribute("user") == null) {
-			String loginForm = config.getInitParameter("LoginParam");
-			// Si no hay login, redirección al formulario de login
-			String url = "";
-			if (request instanceof HttpServletRequest) {
-				url = ((HttpServletRequest) request).getRequestURL().toString()
-						+ "/" + ((HttpServletRequest) request).getQueryString();
-			}
-			Log.error("Usuario no autorizado ha intentado acceder a %s", url);
-	
-			res.sendRedirect(req.getContextPath() + loginForm);
-			return;
+		String authHeader = req.getHeader("Authorization");
+		if (authHeader != null && authHeader.startsWith("Basic ")) {
+		        String credentialsBase64 = authHeader.substring("Basic ".length()).trim();
+		        String decodedCredentials = new String(DatatypeConverter.parseBase64Binary(credentialsBase64));
+		        String[] userAndPassword = decodedCredentials.split(":");
+		        if(userAndPassword.length==2){
+		        	try {
+						User user = Factories.business.getUsuariosService().findUser(userAndPassword[0]);
+						if(user.getPassword().equals(userAndPassword[1])){					
+							req.setAttribute("user", user);
+							chain.doFilter(req, response);
+				        	return;
+						}
+					} catch (EntityNotFoundException e) {
+						Log.error("Usuario no encontrado %s", userAndPassword[0]);
+					}
+		    	
+		        }
 		}
-		chain.doFilter(request, response);
+		res.sendError(HttpURLConnection.HTTP_UNAUTHORIZED);
 	}
 
 	/**

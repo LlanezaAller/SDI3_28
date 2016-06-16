@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.sdi.client.model.type.AddressPoint;
@@ -17,7 +18,6 @@ public class Trip implements Serializable{
 
 
 	private Long id;
-
 
 
 	private AddressPoint departure;
@@ -54,7 +54,7 @@ public class Trip implements Serializable{
 
 	public Trip() {
 	}
-
+	@XmlElement
 	public Long getId() {
 		return id;
 	}
@@ -62,7 +62,7 @@ public class Trip implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
-
+	@XmlElement
 	public AddressPoint getDeparture() {
 		return departure;
 	}
@@ -70,7 +70,7 @@ public class Trip implements Serializable{
 	public void setDeparture(AddressPoint departure) {
 		this.departure = departure;
 	}
-
+	@XmlElement
 	public AddressPoint getDestination() {
 		return destination;
 	}
@@ -78,7 +78,7 @@ public class Trip implements Serializable{
 	public void setDestination(AddressPoint destination) {
 		this.destination = destination;
 	}
-
+	@XmlElement
 	public Date getArrivalDate() {
 		return arrivalDate;
 	}
@@ -86,7 +86,7 @@ public class Trip implements Serializable{
 	public void setArrivalDate(Date arrivalDate) {
 		this.arrivalDate = arrivalDate;
 	}
-
+	@XmlElement
 	public Date getDepartureDate() {
 		return departureDate;
 	}
@@ -94,7 +94,7 @@ public class Trip implements Serializable{
 	public void setDepartureDate(Date departureDate) {
 		this.departureDate = departureDate;
 	}
-
+	@XmlElement
 	public Date getClosingDate() {
 		return closingDate;
 	}
@@ -102,7 +102,7 @@ public class Trip implements Serializable{
 	public void setClosingDate(Date closingDate) {
 		this.closingDate = closingDate;
 	}
-
+	@XmlElement
 	public Integer getAvailablePax() {
 		return availablePax;
 	}
@@ -110,7 +110,7 @@ public class Trip implements Serializable{
 	public void setAvailablePax(Integer availablePax) {
 		this.availablePax = availablePax;
 	}
-
+	@XmlElement
 	public Integer getMaxPax() {
 		return maxPax;
 	}
@@ -118,7 +118,7 @@ public class Trip implements Serializable{
 	public void setMaxPax(Integer maxPax) {
 		this.maxPax = maxPax;
 	}
-
+	@XmlElement
 	public Double getEstimatedCost() {
 		return estimatedCost;
 	}
@@ -126,7 +126,7 @@ public class Trip implements Serializable{
 	public void setEstimatedCost(Double estimatedCost) {
 		this.estimatedCost = estimatedCost;
 	}
-
+	@XmlElement
 	public String getComments() {
 		return comments;
 	}
@@ -134,7 +134,7 @@ public class Trip implements Serializable{
 	public void setComments(String comments) {
 		this.comments = comments;
 	}
-
+	@XmlElement
 	public TripStatus getStatus() {
 		return status;
 	}
@@ -142,7 +142,8 @@ public class Trip implements Serializable{
 	public void setStatus(TripStatus status) {
 		this.status = status;
 	}
-
+	
+	@XmlElement
 	public Set<User> getAplicadores() {
 		return aplicadores;
 	}
@@ -150,7 +151,7 @@ public class Trip implements Serializable{
 	public void setAplicadores(Set<User> aplicadores) {
 		this.aplicadores = aplicadores;
 	}
-
+	@XmlElement
 	public Set<Seat> getSeats() {
 		return seats;
 	}
@@ -158,7 +159,8 @@ public class Trip implements Serializable{
 	public void setSeats(Set<Seat> seats) {
 		this.seats = seats;
 	}
-
+	
+	@XmlElement
 	public User getPromoter() {
 		return promoter;
 	}
