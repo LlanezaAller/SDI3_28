@@ -6,12 +6,14 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.NotAuthorizedException;
+
 import com.sdi.client.action.RESTService;
 import com.sdi.client.model.Trip;
 import com.sdi.client.model.User;
 import com.sdi.client.model.type.TripStatus;
 
-public class Main {
+public class MainRest {
 	
 	private RESTService rest;
 	private BufferedReader console;
@@ -20,7 +22,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		LogConfig.config();
-		new Main().run();
+		new MainRest().run();
 	}
 
 	private void run() {		
@@ -39,6 +41,9 @@ public class Main {
 			showTrips(filterTrips(rest.getUserTrips(), TripStatus.OPEN));
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (NotAuthorizedException e){
+			System.out.println("Credenciales inválidas, vuelva a intentarlo.");
+			login();
 		}
 	}
 	private List<Trip> filterTrips(List<Trip> userTrips, TripStatus status) {

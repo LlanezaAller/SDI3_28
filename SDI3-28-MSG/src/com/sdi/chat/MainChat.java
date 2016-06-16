@@ -7,14 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.jms.JMSException;
+import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 
 import com.sdi.chat.model.Seat;
 import com.sdi.chat.model.SeatStatus;
+import com.sdi.chat.model.SimpleResponse;
 import com.sdi.chat.model.Trip;
 import com.sdi.chat.model.User;
+
 
 
 public class MainChat {
@@ -54,29 +57,32 @@ public class MainChat {
 
 	}
 	
-	private User login(String login, String password){//TODO LOGUEO
-		User u = new User();
-		u.setLogin(login);
-		if(login.equals("usuario1"))
-			u.setId(1l);
-		else if(login.equals("usuario2"))
-			u.setId(2l);
-		else if(login.equals("usuario3"))
-			u.setId(3l);
-		return u;
+	private User login(String login, String password){	
+		User user = new User();
+		try{
+		user.setLogin(login);
+		user.setPassword(password);
+		user.setId((Long) ClientBuilder
+				.newClient()
+				.register(new Authenticator(login, password))
+				.target(REST_SERVICE_URL
+						+ "/UsuariosService/getID")
+				.request(MediaType.APPLICATION_XML)
+				.get(SimpleResponse.class).getResponse()
+				);
+		} catch (NotAuthorizedException e){
+			System.out.println("Credenciales inválidas, vuelva a intentarlo.");
+			return null;
+		}
+		return user;
 	}
 	
 	private List<Trip> findTrips(User user){
-		/*List<Trip> tripsPromoted = ClientBuilder
-				.newClient()
-				.target(REST_SERVICE_URL
-						+ "/ViajesService/findAllTripsByPromoterID/" + user.getId())
-				.request(MediaType.APPLICATION_XML)
-				.get(new GenericType<List<Trip>>() {});*/
 		List<Seat> seatList = ClientBuilder
 				.newClient()
+				.register(new Authenticator(user.getLogin(), user.getPassword()))
 				.target(REST_SERVICE_URL
-						+ "/AsientosService/findByUser/" + user.getId())
+						+ "/AsientosService/findByUser")
 				.request(MediaType.APPLICATION_XML)
 				.get(new GenericType<List<Seat>>() {});
 		

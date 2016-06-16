@@ -2,12 +2,14 @@ package com.sdi.rest;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import com.sdi.business.exception.EntityAlreadyExistsException;
@@ -30,9 +32,9 @@ public interface AsientosServiceRest {
 			throws EntityNotFoundException;
 	
 	@GET
-	@Path("/findByUser/{idUser}")
+	@Path("/findByUser")
 	@Produces({MediaType.APPLICATION_XML})
-	List<Seat> findByUser(@PathParam("idUser") Long idUser);
+	List<Seat> findByUser(@Context HttpServletRequest request);
 	
 	@POST
 	@Path("/cambiarEstadoAsiento")

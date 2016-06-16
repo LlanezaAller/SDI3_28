@@ -2,6 +2,7 @@ package com.sdi.rest;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -10,11 +11,13 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import com.sdi.business.exception.EntityAlreadyExistsException;
 import com.sdi.business.exception.EntityNotFoundException;
 import com.sdi.model.Seat;
+import com.sdi.model.SimpleResponse;
 import com.sdi.model.Trip;
 import com.sdi.model.User;
 
@@ -65,8 +68,8 @@ public interface UsuariosServicesRest {
 	void disableUser(@PathParam("login") String login);
 	
 	@GET
-	@Path("/getID/{login}")
+	@Path("/getID")
 	@Produces({MediaType.APPLICATION_XML})
-	long getIdByLogin(@PathParam("login") String login) throws EntityNotFoundException;
+	SimpleResponse<Long> getIdByLogin(@Context HttpServletRequest request) throws EntityNotFoundException;
 
 }

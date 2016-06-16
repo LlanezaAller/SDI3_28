@@ -13,7 +13,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.DatatypeConverter;
 
@@ -62,7 +61,7 @@ public class RestFilter implements Filter {
 		        if(userAndPassword.length==2){
 		        	try {
 						User user = Factories.business.getUsuariosService().findUser(userAndPassword[0]);
-						if(user.getPassword().equals(userAndPassword[1])){					
+						if(user!=null && user.getPassword().equals(userAndPassword[1])){					
 							req.setAttribute("user", user);
 							chain.doFilter(req, response);
 				        	return;

@@ -2,11 +2,15 @@ package com.sdi.rest.impl;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.core.Context;
+
 import com.sdi.business.UsuariosService;
 import com.sdi.business.exception.EntityAlreadyExistsException;
 import com.sdi.business.exception.EntityNotFoundException;
 import com.sdi.infraestructure.factories.Factories;
 import com.sdi.model.Seat;
+import com.sdi.model.SimpleResponse;
 import com.sdi.model.Trip;
 import com.sdi.model.User;
 import com.sdi.rest.UsuariosServicesRest;
@@ -56,10 +60,10 @@ public class UsuariosServicesRestImpl implements UsuariosServicesRest {
 	}
 
 	@Override
-	public long getIdByLogin(String login) throws EntityNotFoundException {
-		return service.getIdByLogin(login);
+	public SimpleResponse<Long> getIdByLogin(@Context HttpServletRequest request) throws EntityNotFoundException {
+		return new SimpleResponse<Long>(((User) request.getAttribute("user")).getId());
 	}
-
+	
 	@Override
 	public List<User> findUnconfirmedUsersByTrip(long id) {
 		return service.findUnconfirmedUsersByTrip(id);
