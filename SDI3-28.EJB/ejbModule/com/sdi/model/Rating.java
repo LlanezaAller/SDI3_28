@@ -3,6 +3,7 @@ package com.sdi.model;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -14,15 +15,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "TRATING")
 @XmlRootElement(name = "rating")
 public class Rating implements Serializable{
-
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue
 	private Long id;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	private Seat fromSeat;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	private Seat aboutSeat;
 
 	private String comment;

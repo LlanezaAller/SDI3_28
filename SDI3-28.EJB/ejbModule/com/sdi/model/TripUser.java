@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "tripuser")
 public class TripUser implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private Trip trip;
 	private String relation;
 	

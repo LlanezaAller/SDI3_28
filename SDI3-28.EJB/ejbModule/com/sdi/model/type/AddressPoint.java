@@ -11,6 +11,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "addresspoint")
 public class AddressPoint implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String address;
 	private City city;
 	private String state;

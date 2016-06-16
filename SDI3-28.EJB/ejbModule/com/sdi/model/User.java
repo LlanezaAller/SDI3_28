@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -23,6 +24,11 @@ import com.sdi.model.type.UserStatus;
 @Table(name = "TUSERS")
 @XmlRootElement(name = "user")
 public class User implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -37,13 +43,13 @@ public class User implements Serializable{
 	@Enumerated(EnumType.STRING)
 	private UserStatus status;
 
-	@ManyToMany(mappedBy = "aplicadores")
+	@ManyToMany(mappedBy = "aplicadores", fetch=FetchType.EAGER)
 	private Set<Trip> aplicaciones = new HashSet<>();
 
-	@OneToMany(mappedBy = "user", cascade = (CascadeType.REMOVE))
+	@OneToMany(mappedBy = "user", cascade = (CascadeType.REMOVE), fetch=FetchType.EAGER)
 	private Set<Seat> seats = new HashSet<>();
 
-	@OneToMany(mappedBy = "promoter", cascade = (CascadeType.REMOVE))
+	@OneToMany(mappedBy = "promoter", cascade = (CascadeType.REMOVE), fetch=FetchType.EAGER)
 	private Set<Trip> trips = new HashSet<>();
 
 	public User() {
@@ -196,11 +202,16 @@ public class User implements Serializable{
 
 	// Fin de aplicación
 	public void finAplicacion(Trip trip) {
+		Trip target=null;
 		for (Trip t : aplicaciones) {
 			if (t.equals(trip)) {
-				t._getApplications().remove(this);
-				aplicaciones.remove(t);
+				target = t;
+				break;
 			}
+		}
+		if(target!=null){
+			target._getApplications().remove(this);
+			aplicaciones.remove(target);
 		}
 	}
 

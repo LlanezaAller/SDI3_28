@@ -6,7 +6,6 @@ import java.util.Locale;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
-import javax.transaction.Transactional;
 
 import com.sdi.infraestructure.factories.Factories;
 
@@ -19,10 +18,6 @@ public class BeanSettings implements Serializable {
 	private Locale locale = new Locale("es");
 
 	public Locale getLocale() {
-		// Aqui habria que cambiar algo de código para coger locale del
-		// navegador
-		// la primera vez que se accede a getLocale(), de momento dejamos como
-		// idioma de partida “es”
 		return (locale);
 	}
 

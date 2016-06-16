@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "waypoint")
 public class Waypoint implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	private Double lat;
 	private Double lon;
 

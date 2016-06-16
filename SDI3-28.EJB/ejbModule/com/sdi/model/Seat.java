@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
@@ -25,12 +26,12 @@ import com.sdi.model.type.SeatStatus;
 @IdClass(SeatKey.class)
 @XmlRootElement(name = "seat")
 public class Seat implements Serializable{
-
+	private static final long serialVersionUID = 1L;
 	@Id
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	private User user;
 	@Id
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	private Trip trip;
 
 	private String comment;
@@ -38,10 +39,10 @@ public class Seat implements Serializable{
 	@Enumerated(EnumType.STRING)
 	private SeatStatus status;
 
-	@OneToMany(mappedBy = "fromSeat", cascade = (CascadeType.REMOVE))
+	@OneToMany(mappedBy = "fromSeat", cascade = (CascadeType.REMOVE), fetch=FetchType.EAGER)
 	private Set<Rating> ratingsFrom = new HashSet<>();
 
-	@OneToMany(mappedBy = "aboutSeat", cascade = (CascadeType.REMOVE))
+	@OneToMany(mappedBy = "aboutSeat", cascade = (CascadeType.REMOVE), fetch=FetchType.EAGER)
 	private Set<Rating> ratingsAbout = new HashSet<>();
 
 	public Seat() {

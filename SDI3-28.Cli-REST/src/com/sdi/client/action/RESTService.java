@@ -56,7 +56,8 @@ public class RESTService {
 				.newClient()
 				.register(new Authenticator(usuario, pass))
 				.target(REST_SERVICE_URL
-						+ "/UsuariosService/manageApplication/").request()
+						+ "/UsuariosService/manageApplication/")
+				.request()
 				.put(Entity.xml(s));
 	}
 

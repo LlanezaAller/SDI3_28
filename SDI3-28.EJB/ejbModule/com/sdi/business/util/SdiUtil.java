@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import java.util.regex.Pattern;
 
 import com.sdi.business.exception.EntityNotFoundException;
@@ -58,7 +57,7 @@ public class SdiUtil {
 					result = true;
 				}
 			}
-			Factories.business.getUsuariosService().aplicarUsuarios(apps, trip);
+			//Factories.business.getUsuariosService().aplicarUsuarios(apps, trip);
 		}
 		return result;
 	}

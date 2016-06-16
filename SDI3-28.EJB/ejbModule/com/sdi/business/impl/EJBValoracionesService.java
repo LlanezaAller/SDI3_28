@@ -12,6 +12,7 @@ import com.sdi.model.Rating;
 @Stateless
 public class EJBValoracionesService implements RemoteValoracionesService, LocalValoracionesService {
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Rating> findAllOrdered() {
 		return (List<Rating>) new ValoracionFinder().execute();
