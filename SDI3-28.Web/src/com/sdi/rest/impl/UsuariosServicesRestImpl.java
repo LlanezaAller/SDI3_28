@@ -9,10 +9,10 @@ import com.sdi.business.UsuariosService;
 import com.sdi.business.exception.EntityAlreadyExistsException;
 import com.sdi.business.exception.EntityNotFoundException;
 import com.sdi.infraestructure.factories.Factories;
-import com.sdi.model.Seat;
 import com.sdi.model.SimpleResponse;
 import com.sdi.model.Trip;
 import com.sdi.model.User;
+import com.sdi.model.type.SeatStatus;
 import com.sdi.rest.UsuariosServicesRest;
 
 public class UsuariosServicesRestImpl implements UsuariosServicesRest {
@@ -38,9 +38,9 @@ public class UsuariosServicesRestImpl implements UsuariosServicesRest {
 	}
 
 	@Override
-	public Trip promoterManageApplication(Seat s) {
-		System.out.println("Promoter manager application: "+ s.getStatus() + ", " + s.getTrip().getId() + ", " +  s.getUser().getLogin());
-		return service.promoterManageApplication(s.getStatus(), s.getUser().getLogin(), s.getTrip().getId());
+	public Trip confirmUser(String login, Long tripID) {
+		System.out.println("Confirmando usuario: " + login + tripID);
+		return service.promoterManageApplication(SeatStatus.ACCEPTED, login, tripID);
 	}
 
 	@Override

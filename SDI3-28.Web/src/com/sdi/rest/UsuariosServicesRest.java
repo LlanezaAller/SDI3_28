@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -16,7 +17,6 @@ import javax.ws.rs.core.MediaType;
 
 import com.sdi.business.exception.EntityAlreadyExistsException;
 import com.sdi.business.exception.EntityNotFoundException;
-import com.sdi.model.Seat;
 import com.sdi.model.SimpleResponse;
 import com.sdi.model.Trip;
 import com.sdi.model.User;
@@ -44,10 +44,10 @@ public interface UsuariosServicesRest {
 	Trip aplicar(@PathParam("login") String login,@PathParam("tripID") Long tripId);
 
 	@PUT
-	@Path("/manageApplication")
+	@Path("/confirmUser")
 	@Produces({MediaType.APPLICATION_XML})
-	@Consumes({MediaType.APPLICATION_XML})
-	Trip promoterManageApplication(Seat s);
+	@Consumes({MediaType.APPLICATION_FORM_URLENCODED})
+	Trip confirmUser(@FormParam("userLogin") String login, @FormParam("tripID") Long tripID);
 	
 	@POST
 	@Path("/applyUserSet")

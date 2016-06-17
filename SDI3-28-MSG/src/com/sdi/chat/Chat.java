@@ -46,8 +46,9 @@ public class Chat implements MessageListener {
 			connection.setClientID(userLogin);
 			session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 			sender = session.createProducer(topic_sender);
-			//receiver = session.createConsumer(topic_receiver);
-			receiver = session.createDurableSubscriber((Topic) topic_receiver, userLogin);
+			receiver = session.createConsumer(topic_receiver);
+			//Si quisiesemos hacer la suscripción durable usaríamos este método. Necesitamos el permiso <permission type="createDurableQueue" roles="guest"/>
+			//receiver = session.createDurableSubscriber((Topic) topic_receiver, userLogin);
 			receiver.setMessageListener(this);
 			connection.start();
 		} catch (JMSException e) {
