@@ -13,7 +13,6 @@ import javax.jms.MessageConsumer;
 import javax.jms.MessageListener;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
-import javax.jms.Topic;
 
 public class Chat implements MessageListener {
 	private static final String JMS_CONNECTION_FACTORY = "jms/RemoteConnectionFactory";
@@ -47,7 +46,7 @@ public class Chat implements MessageListener {
 			session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 			sender = session.createProducer(topic_sender);
 			receiver = session.createConsumer(topic_receiver);
-			//Si quisiesemos hacer la suscripción durable usaríamos este método. Necesitamos el permiso <permission type="createDurableQueue" roles="guest"/>
+			//Si quisiesemos hacer la suscripcoión durable usaríamos este método. Necesitamos el permiso <permission type="createDurableQueue" roles="guest"/>
 			//receiver = session.createDurableSubscriber((Topic) topic_receiver, userLogin);
 			receiver.setMessageListener(this);
 			connection.start();

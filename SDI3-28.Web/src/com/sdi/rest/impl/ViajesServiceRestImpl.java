@@ -1,8 +1,6 @@
 package com.sdi.rest.impl;
 
 import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Context;
 

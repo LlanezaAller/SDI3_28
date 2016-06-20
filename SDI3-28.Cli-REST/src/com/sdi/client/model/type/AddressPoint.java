@@ -5,6 +5,10 @@ import java.io.Serializable;
 
 public class AddressPoint implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String address;
 	private City city;
 	private String state;

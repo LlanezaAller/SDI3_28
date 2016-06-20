@@ -1,11 +1,13 @@
 package com.sdi.actions.impl;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import com.sdi.actions.Action;
-import com.sdi.ws.EJBValoracionesServiceService;
-import com.sdi.ws.Rating;
-import com.sdi.ws.ValoracionesService;
+import com.sdi.business.ValoracionesService;
+import com.sdi.business.impl.RemoteEJBServicesLocator;
+import com.sdi.model.Rating;
 
 public class ListarValoraciones implements Action {
 
@@ -14,12 +16,15 @@ public class ListarValoraciones implements Action {
 		System.out.println("Listando valoraciones...");
 		System.out.println("");
 		System.out.println("ID\tCiudad destino\tUsuario valorado\tAutor valoración\tValoración\tComentario");
-		Date limitDate = new Date(System.currentTimeMillis() - 30 * 24 * 60 * 60 * 1000);
-		ValoracionesService valoracionesService = new EJBValoracionesServiceService().getValoracionesServicePort();
+		Calendar cal = new GregorianCalendar();
+		cal.add(Calendar.DAY_OF_MONTH, -30);
+		Date limitDate = cal.getTime();
+		ValoracionesService valoracionesService = new RemoteEJBServicesLocator().getValoracionesService();
+		Date tripDate;
 		for (Rating r :valoracionesService.findAllOrdered()) {
-			if(r.getAboutSeat().getTrip().getArrivalDate().toGregorianCalendar().getTime().before(limitDate))
-					return;
-			System.out.println(r.getId() + "\t" + r.getAboutSeat().getTrip().getDestination()
+			tripDate = r.getAboutSeat().getTrip().getArrivalDate();
+			if(tripDate.after(limitDate))
+				System.out.println(r.getId() + "\t" + r.getAboutSeat().getTrip().getDestination()
 					.getCity()
 					+ "\t" + r.getAboutSeat().getUser().getName()
 					+ "\t" + r.getFromSeat().getUser().getName()

@@ -3,13 +3,13 @@ package com.sdi.actions.impl;
 import java.util.List;
 
 import com.sdi.actions.Action;
-import com.sdi.business.UsuariosService;
-import com.sdi.business.ViajesService;
-import com.sdi.business.exception.EntityNotFoundException;
-import com.sdi.business.impl.RemoteEJBServicesLocator;
-import com.sdi.model.Trip;
-import com.sdi.model.User;
-import com.sdi.model.type.TripStatus;
+import com.sdi.ws.AsientosService;
+import com.sdi.ws.EJBAsientosServiceService;
+import com.sdi.ws.EJBUsuariosServiceService;
+import com.sdi.ws.Seat;
+import com.sdi.ws.TripStatus;
+import com.sdi.ws.User;
+import com.sdi.ws.UsuariosService;
 
 public class ListarUsuarios implements Action {
 
@@ -19,31 +19,24 @@ public class ListarUsuarios implements Action {
 		System.out.println("");
 		System.out
 				.println("Nick\t\tNombre\t\tApellidos\t\tNº Viajes creados \t\t Nº Viajes Participados");
-		UsuariosService userService = new RemoteEJBServicesLocator()
-				.getUsuariosService();
+		UsuariosService userService = new EJBUsuariosServiceService().getUsuariosServicePort();
 		List<User> users = userService.findAll();
-		ViajesService tripService = new RemoteEJBServicesLocator()
-				.getViajesService();
-
+		AsientosService seatService = new EJBAsientosServiceService().getAsientosServicePort();
 		int participatedTrips, promotedTrips;
-		long userID;
-		try {
-			for (User u : users) {
-				userID = userService.getIdByLogin(u.getLogin());
-				participatedTrips = promotedTrips = 0;
-				for (Trip t : tripService.findAllTripsByPromoterId(userID)) {
-					if (t.getStatus() == TripStatus.DONE)
-						participatedTrips++;
-					if (t.getPromoter().getId() == u.getId())
-						promotedTrips++;
-				}
-				System.out.println(u.getLogin() + "\t" + u.getName() + "\t"
-						+ u.getSurname() + "\t" + promotedTrips + "\t"
-						+ participatedTrips);
+		
+		for (User u : users) {
+			participatedTrips = promotedTrips = 0;
+			for (Seat s : seatService.findByUser(u.getId())) {
+				if (s.getTrip().getStatus() == TripStatus.DONE)
+					participatedTrips++;
+				if (s.getTrip().getPromoter().getId().equals(u.getId()))
+					promotedTrips++;
 			}
-		} catch (EntityNotFoundException e) {
-			e.printStackTrace();
+			System.out.println(u.getLogin() + "\t" + u.getName() + "\t"
+					+ u.getSurname() + "\t" + promotedTrips + "\t"
+					+ participatedTrips);
 		}
+		
 	}
 
 	@Override

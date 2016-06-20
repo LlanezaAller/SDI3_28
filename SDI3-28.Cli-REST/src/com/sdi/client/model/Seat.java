@@ -1,8 +1,6 @@
 package com.sdi.client.model;
 
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -13,6 +11,11 @@ import com.sdi.client.model.type.SeatStatus;
 @XmlRootElement(name = "seat")
 public class Seat implements Serializable{
 
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private User user;
 

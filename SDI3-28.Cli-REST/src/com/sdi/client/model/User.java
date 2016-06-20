@@ -1,7 +1,6 @@
 package com.sdi.client.model;
 
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,6 +12,11 @@ import com.sdi.client.model.type.UserStatus;
 @XmlRootElement(name = "user")
 public class User implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private Long id;
 
 	private String login;

@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 import com.sdi.actions.Action;
-import com.sdi.ws.EJBValoracionesServiceService;
+import com.sdi.business.impl.RemoteEJBServicesLocator;
 
 public class EliminarValoracion  implements Action{
 	private BufferedReader console;
@@ -17,7 +17,7 @@ public class EliminarValoracion  implements Action{
 		System.out.println("Introduzca el id de la valoración a eliminar...");	
 		try {
 			long id = Integer.valueOf(console.readLine());
-			new EJBValoracionesServiceService().getValoracionesServicePort().remove(id);
+			new RemoteEJBServicesLocator().getValoracionesService().remove(id);
 			System.out.println("Valoración [" + id + "] eliminado");
 		} catch (NumberFormatException | IOException e) {
 			System.out.println("Error con el id de la valoración");

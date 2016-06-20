@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 import com.sdi.actions.Action;
-import com.sdi.ws.EJBUsuariosServiceService;
+import com.sdi.business.impl.RemoteEJBServicesLocator;
 
 public class DeshabilitarUsuario  implements Action{
 
@@ -18,7 +18,7 @@ private BufferedReader console;
 		System.out.println("Introduzca el login del usuario a deshabilitar...");	
 			try {
 				String login = console.readLine();
-				new EJBUsuariosServiceService().getUsuariosServicePort().disableUser(login);
+				new RemoteEJBServicesLocator().getUsuariosService().disableUser(login);
 				System.out.println("Usuario [" + login + "] desactivado");
 			} catch (IOException e) {
 				System.out.println("Error con el login del usuario");

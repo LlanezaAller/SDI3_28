@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import com.sdi.infraestructure.factories.Factories;
+import com.sdi.model.Rating;
 import com.sdi.model.Seat;
 import com.sdi.model.Trip;
 import com.sdi.model.User;
@@ -57,11 +58,21 @@ public class SystemFinderImpl implements SystemFinder {
 		for (Trip t : viajes)
 			Factories.persistence.CreateTripFinder().newTrip(t);
 
-		// Creacion Seats y Application
+		// Creacion Seats y Application y ratings 
 		seats = createSeats(viajes);
-		for (Seat s : seats)
-			Factories.persistence.CreateSeatFinder().newSeat(s);
-
+		int c=0;
+		for (Seat s1 : seats) {
+			Factories.persistence.CreateSeatFinder().newSeat(s1);
+			if(s1.getTrip().getStatus()==TripStatus.DONE && s1.getStatus()==SeatStatus.ACCEPTED){
+				for(Seat s2: seats){
+					if(s1.getTrip().getId().equals(s2.getTrip().getId())){
+						if(!s2.equals(s1) && s2.getStatus()==SeatStatus.ACCEPTED){
+							Factories.persistence.CreateRatingFinder().newRating(new Rating(s1, s2, "Comentario genérico " + c++, 10));
+						}
+					}
+				}
+			}
+		}
 	}
 
 	private ArrayList<Seat> createSeats(List<Trip> viajes) {
@@ -96,7 +107,6 @@ public class SystemFinderImpl implements SystemFinder {
 				}
 			}
 		}
-
 		return asientos;
 	}
 

@@ -1,7 +1,6 @@
 package com.sdi.client.model;
 
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,6 +14,12 @@ import com.sdi.client.model.type.TripStatus;
 
 @XmlRootElement(name = "trip")
 public class Trip implements Serializable{
+
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 
 	private Long id;
