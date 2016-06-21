@@ -38,7 +38,7 @@ public class BeanTripList implements Serializable {
 
 	public void loadOpenedTrips(ComponentSystemEvent event) {
 		List<Trip> openedTrips = Factories.business.getViajesService()
-				.findAllByStatus(TripStatus.OPEN);
+				.findAllTripsByStatus(TripStatus.OPEN);
 		trips = new ArrayList<>();
 		Log.info("Cargado lista de viajes disponibles...");
 		for (int i = 0; i < openedTrips.size(); i++) {
@@ -60,7 +60,7 @@ public class BeanTripList implements Serializable {
 				.getResourceBundle(facesContext, "msgs");
 		if (user != null) {
 			List<Trip> notConfirmedTrips = Factories.business
-					.getViajesService().findAllAplicantsByUserId(
+					.getViajesService().findAllUserApplications(
 							user.getId());
 			for (Trip t : notConfirmedTrips) {
 				if (t.getStatus() == TripStatus.CANCELLED) {

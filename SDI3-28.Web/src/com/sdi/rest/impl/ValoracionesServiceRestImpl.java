@@ -12,7 +12,7 @@ public class ValoracionesServiceRestImpl implements ValoracionesServiceRest{
 	
 	@Override
 	public List<Rating> findAllOrdered() {
-		return service.findAllOrdered();
+		return service.findAll();
 	}
 
 	@Override

@@ -50,7 +50,7 @@ public class ChatListener implements MessageListener {
 				long tripID = msg.getLong("tripID");
 				String text = msg.getString("text");
 				if (seatService.findByUserAndTrip(sender.getId(), tripID).getStatus() == SeatStatus.ACCEPTED) {
-					Trip t = tripService.findTrip(tripID);
+					Trip t = tripService.findTripByID(tripID);
 					ConnectionFactory factory = Jndi
 							.getConnectionFactory(JMS_CONNECTION_FACTORY);
 					Destination queue_log = Jndi.getDestination(LOG_QUEUE); 

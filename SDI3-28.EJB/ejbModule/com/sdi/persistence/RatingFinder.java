@@ -1,5 +1,6 @@
 package com.sdi.persistence;
 
+import java.util.Date;
 import java.util.List;
 
 import com.sdi.model.Rating;
@@ -21,8 +22,10 @@ public interface RatingFinder {
 
 	void deleteRating(Rating rating);
 
-	List<Rating> findAllOrdered();
+	List<Rating> findAll();
 
 	Rating findById(long id);
+
+	List<Rating> findLatestRatings(Date limitDate);
 
 }

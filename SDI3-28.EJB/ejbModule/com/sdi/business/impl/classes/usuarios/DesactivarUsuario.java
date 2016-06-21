@@ -2,7 +2,7 @@ package com.sdi.business.impl.classes.usuarios;
 
 import com.sdi.business.Command;
 import com.sdi.infraestructure.factories.Factories;
-import com.sdi.model.Trip;
+import com.sdi.model.Seat;
 import com.sdi.model.User;
 import com.sdi.model.type.SeatStatus;
 import com.sdi.model.type.TripStatus;
@@ -22,9 +22,9 @@ public class DesactivarUsuario implements Command {
 		User user = Factories.persistence.CreateUserFinder().findByLogin(login);
 		SeatFinder seatService = Factories.persistence.CreateSeatFinder();
 		user.setStatus(UserStatus.CANCELLED);
-		for(Trip t: user.getTrips())
-			if(t.getStatus()==TripStatus.OPEN){
-				seatService.findByUserAndTrip(user.getId(), t.getId()).setStatus(SeatStatus.EXCLUDED);
+		for(Seat s:seatService.findByUser(user.getId()))
+			if(s.getTrip().getStatus()==TripStatus.OPEN){
+				s.setStatus(SeatStatus.EXCLUDED);
 			}
 		return null;		
 	

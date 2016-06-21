@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.sdi.model.Trip;
+import com.sdi.model.type.SeatStatus;
 import com.sdi.model.type.TripStatus;
 
 public interface TripFinder {
@@ -23,5 +24,8 @@ public interface TripFinder {
 	List<Trip> findAllStatus(TripStatus status);
 
 	List<Trip> findAllAplicantsByUserId(Long id);
+
+	List<Trip> findByUserAndStatus(long userID, TripStatus tripStatus,
+			SeatStatus seatStatus);
 
 }

@@ -20,8 +20,8 @@ public class EliminarValoracion  implements Action{
 			new EJBValoracionesServiceService().getValoracionesServicePort().remove(id);
 			System.out.println("Valoración [" + id + "] eliminado");
 		} catch (NumberFormatException | IOException e) {
-			System.out.println("Error con el id de la valoración");
-			e.printStackTrace();
+			System.out.println("ID no válido. Reintentar.");
+			execute();
 		}
 		
 	}

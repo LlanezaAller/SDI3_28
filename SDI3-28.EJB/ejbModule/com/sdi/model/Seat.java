@@ -9,7 +9,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
@@ -28,10 +27,10 @@ import com.sdi.model.type.SeatStatus;
 public class Seat implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne
 	private User user;
 	@Id
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne
 	private Trip trip;
 
 	private String comment;
@@ -39,10 +38,10 @@ public class Seat implements Serializable{
 	@Enumerated(EnumType.STRING)
 	private SeatStatus status;
 
-	@OneToMany(mappedBy = "fromSeat", cascade = (CascadeType.REMOVE), fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "fromSeat", cascade = (CascadeType.REMOVE))
 	private Set<Rating> ratingsFrom = new HashSet<>();
 
-	@OneToMany(mappedBy = "aboutSeat", cascade = (CascadeType.REMOVE), fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "aboutSeat", cascade = (CascadeType.REMOVE))
 	private Set<Rating> ratingsAbout = new HashSet<>();
 
 	public Seat() {
@@ -55,7 +54,8 @@ public class Seat implements Serializable{
 		user._getSeats().add(this);
 		trip._getSeats().add(this);
 	}
-	@XmlElement
+	
+	@XmlElement(name = "usera")
 	public User getUser() {
 		return user;
 	}
@@ -63,7 +63,8 @@ public class Seat implements Serializable{
 	public void setUser(User user) {
 		this.user = user;
 	}
-	@XmlElement
+	
+	@XmlElement(name = "tripa")
 	public Trip getTrip() {
 		return trip;
 	}

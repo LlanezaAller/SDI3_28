@@ -8,7 +8,7 @@ public class ValoracionFinder implements Command {
 	@Override
 	public Object execute() {
 		return Factories.persistence.CreateRatingFinder()
-				.findAllOrdered();
+				.findAll();
 	}
 
 }

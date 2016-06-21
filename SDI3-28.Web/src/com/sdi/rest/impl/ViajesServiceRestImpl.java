@@ -19,7 +19,7 @@ public class ViajesServiceRestImpl implements ViajesServiceRest{
 	ViajesService service = Factories.business.getViajesService();
 	@Override
 	public Trip findTrip(Long id) throws EntityNotFoundException {
-		return service.findTrip(id);
+		return service.findTripByID(id);
 	}
 
 	@Override
@@ -34,12 +34,12 @@ public class ViajesServiceRestImpl implements ViajesServiceRest{
 
 	@Override
 	public List<Trip> findAllAplicantsByUserId(Long id) {
-		return service.findAllAplicantsByUserId(id);
+		return service.findAllUserApplications(id);
 	}
 
 	@Override
 	public List<Trip> findAllByStatus(TripStatus status) {
-		return service.findAllByStatus(status);
+		return service.findAllTripsByStatus(status);
 	}
 	
 	

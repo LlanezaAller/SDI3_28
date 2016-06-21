@@ -9,7 +9,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -43,13 +42,13 @@ public class User implements Serializable{
 	@Enumerated(EnumType.STRING)
 	private UserStatus status;
 
-	@ManyToMany(mappedBy = "aplicadores", fetch=FetchType.EAGER)
+	@ManyToMany(mappedBy = "aplicadores")
 	private Set<Trip> aplicaciones = new HashSet<>();
 
-	@OneToMany(mappedBy = "user", cascade = (CascadeType.REMOVE), fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "user", cascade = (CascadeType.REMOVE))
 	private Set<Seat> seats = new HashSet<>();
 
-	@OneToMany(mappedBy = "promoter", cascade = (CascadeType.REMOVE), fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "promoter", cascade = (CascadeType.REMOVE))
 	private Set<Trip> trips = new HashSet<>();
 
 	public User() {

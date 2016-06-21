@@ -14,7 +14,6 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
@@ -33,7 +32,7 @@ import com.sdi.model.type.TripStatus;
 @Entity
 @Table(name = "TTRIPS")
 @XmlRootElement(name = "trip")
-public class Trip implements Serializable{
+public class Trip implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue
@@ -79,14 +78,14 @@ public class Trip implements Serializable{
 	private TripStatus status;
 
 	// Relaciones
-	@ManyToMany(cascade = (CascadeType.REMOVE), fetch=FetchType.EAGER)
+	@ManyToMany(cascade = (CascadeType.REMOVE))
 	@JoinTable(name = "TAPLICATIONS")
 	private Set<User> aplicadores = new HashSet<>();
 
-	@OneToMany(mappedBy = "trip", cascade = (CascadeType.REMOVE), fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "trip", cascade = (CascadeType.REMOVE))
 	private Set<Seat> seats = new HashSet<>();
 
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne
 	private User promoter;
 
 	public Trip() {

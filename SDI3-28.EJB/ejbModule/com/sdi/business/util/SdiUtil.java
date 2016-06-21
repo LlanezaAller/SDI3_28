@@ -42,14 +42,10 @@ public class SdiUtil {
 		return null;
 	}
 
-	public void generateDatabaseElements() {
-		// Factories.persistence.createSystemGateway().deleteAll();
-	}
 
 	public static boolean assertHasApplication(User user, Trip trip) {
 		boolean result = false;
 		if (user != null) {
-			// Set<User> apps = trip.getApplications();
 			List<User> apps = Factories.business.getUsuariosService()
 					.findUsersByTrip(trip.getId());
 			for (User u : apps) {
@@ -57,7 +53,6 @@ public class SdiUtil {
 					result = true;
 				}
 			}
-			//Factories.business.getUsuariosService().aplicarUsuarios(apps, trip);
 		}
 		return result;
 	}

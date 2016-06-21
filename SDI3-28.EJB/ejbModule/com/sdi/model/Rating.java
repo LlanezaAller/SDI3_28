@@ -3,7 +3,6 @@ package com.sdi.model;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -20,10 +19,10 @@ public class Rating implements Serializable{
 	@GeneratedValue
 	private Long id;
 
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne
 	private Seat fromSeat;
 
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne
 	private Seat aboutSeat;
 
 	private String comment;

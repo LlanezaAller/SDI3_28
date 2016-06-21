@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.sdi.model.Trip;
+import com.sdi.model.type.SeatStatus;
 import com.sdi.model.type.TripStatus;
 import com.sdi.persistence.TripFinder;
 import com.sdi.persistence.util.Jpa;
@@ -68,6 +69,18 @@ public class TripFinderImpl implements TripFinder {
 	@Override
 	public void updateTrip(Trip trip) {
 		Jpa.getManager().merge(trip);
+	}
+
+	@Override
+	public List<Trip> findByUserAndStatus(long userID, TripStatus tripStatus,
+			SeatStatus seatStatus) {
+		List<Trip> trips = Jpa.getManager()
+				.createNamedQuery("Trip.findByUserAndStatus", Trip.class)
+				.setParameter(1, tripStatus)
+				.setParameter(2, userID)
+				.setParameter(3, seatStatus)
+				.getResultList();
+		return (trips != null) ? trips : new ArrayList<Trip>();
 	}
 
 }

@@ -11,11 +11,9 @@ import com.sdi.model.type.SeatStatus;
 public class CambiarEstadoAsiento implements Command {
 
 	Seat seat;
-	String userLogin;
 
 	public CambiarEstadoAsiento(Seat seat, String userLogin) {
 		this.seat = seat;
-		this.userLogin = userLogin;
 	}
 
 	@Override

@@ -8,11 +8,12 @@ import com.sdi.model.Seat;
 import com.sdi.model.Trip;
 import com.sdi.model.TripUser;
 import com.sdi.model.User;
+import com.sdi.model.type.SeatStatus;
 import com.sdi.model.type.TripStatus;
 
 public interface ViajesService {
 
-	Trip findTrip(Long id) throws EntityNotFoundException;
+	Trip findTripByID(Long id) throws EntityNotFoundException;
 	
 	Seat[] findSeatsFromTrip(Long id) throws EntityNotFoundException;
 
@@ -20,18 +21,20 @@ public interface ViajesService {
 
 	List<Trip> findAllTrips();
 
-	List<Trip> findAllAplicantsByUserId(Long id);
+	List<Trip> findAllUserApplications(Long id);
 
-	List<Trip> findAllByStatus(TripStatus status);
+	List<Trip> findAllTripsByStatus(TripStatus status);
 
 	List<Trip> findAllTripsByPromoterId(Long id);
+	
+	List<Trip> findTripsByUserAndStatus(Long userID, TripStatus tripStatus, SeatStatus seatStatus);
 
 	void update(Trip t);
 
 	int cancelTrips(List<TripUser> selectedTripsRelation, User user);
 	
-	boolean checkHasApplication(User user, Trip trip);
+	boolean hasUserApplication(User user, Trip trip);
 	
-	boolean checkHasSeat(User user, Trip trip) throws EntityNotFoundException;
+	boolean hasUserSeat(User user, Trip trip) throws EntityNotFoundException;
 	
 }

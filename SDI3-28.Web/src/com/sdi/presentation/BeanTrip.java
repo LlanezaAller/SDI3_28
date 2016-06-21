@@ -46,7 +46,7 @@ public class BeanTrip implements Serializable {
 			if (tripID != null) {
 				Log.info("Intentando cargar el viaje con id %s", tripID);
 				Long id = Long.parseLong(tripID);
-				trip = Factories.business.getViajesService().findTrip(id);
+				trip = Factories.business.getViajesService().findTripByID(id);
 				if (trip != null) {
 					checkHasApplication();
 					checkHasSeat();
@@ -159,7 +159,7 @@ public class BeanTrip implements Serializable {
 			try {
 				Factories.business.getUsuariosService().cancelarAplicacion(
 						user.getLogin(), trip.getId());
-				trip = Factories.business.getViajesService().findTrip(
+				trip = Factories.business.getViajesService().findTripByID(
 						trip.getId());
 			} catch (EntityNotFoundException e) {
 				Log.error("Viaje no encontrado");
@@ -319,7 +319,7 @@ public class BeanTrip implements Serializable {
 				    .getExternalContext().getSessionMap();
 		User user = (User) session.get("user");
 		hasApplication = Factories.business.getViajesService()
-				.checkHasApplication(user, trip);
+				.hasUserApplication(user, trip);
 	}
 
 	private void checkHasSeat() {
@@ -327,7 +327,7 @@ public class BeanTrip implements Serializable {
 				    .getExternalContext().getSessionMap();
 		User user = (User) session.get("user");
 		try {
-			hasSeat = Factories.business.getViajesService().checkHasSeat(user, trip);
+			hasSeat = Factories.business.getViajesService().hasUserSeat(user, trip);
 		} catch (EntityNotFoundException e) {
 			Log.debug(e);
 		}

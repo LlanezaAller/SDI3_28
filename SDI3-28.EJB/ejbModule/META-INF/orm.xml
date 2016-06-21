@@ -60,6 +60,8 @@
 			<![CDATA[
 			select t
 				from Trip t
+				left join fetch t.seats
+				left join fetch t.aplicadores
 				where t.id = ?1 
 			]]>
 		</query>
@@ -102,7 +104,18 @@
 			]]>
 		</query>
 	</named-query>
-
+	<named-query name="Trip.findByUserAndStatus">
+		<query>
+			<![CDATA[
+			select t
+				from Trip t
+				inner join t.seats s
+				where t.status = ?1
+				and s.user.id= ?2
+				and s.status= ?3
+			]]>
+		</query>
+	</named-query>
 
 	<!-- Seat queries -->
 	<named-query name="Seat.findByUserAndTrip">
@@ -173,7 +186,23 @@
 			<![CDATA[
 				select r
 					from Rating r
-					order by r.fromSeat.trip.departureDate
+					order by r.fromSeat.trip.departureDate DESC
+			]]>
+		</query>
+	</named-query>
+	<named-query name="Rating.findLatestRatings">
+		<query>
+			<![CDATA[
+				select r
+					from Rating r
+						left join fetch r.aboutSeat abse
+							left join fetch abse.trip
+							left join fetch abse.user
+						left join fetch r.fromSeat frse
+							left join fetch frse.trip
+							left join fetch frse.user
+					where r.aboutSeat.trip.arrivalDate > ?1
+					order by r.fromSeat.trip.departureDate DESC
 			]]>
 		</query>
 	</named-query>
