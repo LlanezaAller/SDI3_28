@@ -62,7 +62,7 @@ public class SdiUtil {
 			Seat[] asientos = Factories.business.getViajesService()
 					.findSeatsFromTrip(trip.getId());
 			for (Seat s : asientos) {
-				if (s.getUser().getId().equals(user.getId())) {
+				if (s.getSeatUser().getId().equals(user.getId())) {
 					return true;
 				}
 			}

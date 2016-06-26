@@ -9,15 +9,15 @@ public class SeatKey implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	Long user;
-	Long trip;
+	Long seatUser;
+	Long seatTrip;
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((trip == null) ? 0 : trip.hashCode());
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		result = prime * result + ((seatTrip == null) ? 0 : seatTrip.hashCode());
+		result = prime * result + ((seatUser == null) ? 0 : seatUser.hashCode());
 		return result;
 	}
 
@@ -30,15 +30,15 @@ public class SeatKey implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		SeatKey other = (SeatKey) obj;
-		if (trip == null) {
-			if (other.trip != null)
+		if (seatTrip == null) {
+			if (other.seatTrip != null)
 				return false;
-		} else if (!trip.equals(other.trip))
+		} else if (!seatTrip.equals(other.seatTrip))
 			return false;
-		if (user == null) {
-			if (other.user != null)
+		if (seatUser == null) {
+			if (other.seatUser != null)
 				return false;
-		} else if (!user.equals(other.user))
+		} else if (!seatUser.equals(other.seatUser))
 			return false;
 		return true;
 	}

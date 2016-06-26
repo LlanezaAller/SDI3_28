@@ -25,9 +25,9 @@
 	<named-query name="User.findAllByTrip">
 		<query>
 			<![CDATA[
-			select s.user 
+			select s.seatUser 
 				from Seat s
-				where s.trip.id = ?1
+				where s.seatTrip.id = ?1
 			]]>
 		</query>
 	</named-query>
@@ -111,7 +111,7 @@
 				from Trip t
 				inner join t.seats s
 				where t.status = ?1
-				and s.user.id= ?2
+				and s.seatUser.id= ?2
 				and s.status= ?3
 			]]>
 		</query>
@@ -123,8 +123,8 @@
 			<![CDATA[
 			select s
 				from Seat s
-				where s.user.id = ?1
-				and s.trip.id =?2
+				where s.seatUser.id = ?1
+				and s.seatTrip.id =?2
 			]]>
 		</query>
 	</named-query>
@@ -133,7 +133,7 @@
 			<![CDATA[
 			select s
 				from Seat s
-				where s.user.id = ?1
+				where s.seatUser.id = ?1
 			]]>
 		</query>
 	</named-query>
@@ -146,8 +146,8 @@
 			<![CDATA[
 				select r
 					from Rating r
-					where r.aboutSeat.user.id = ?1
-					and r.aboutSeat.trip.id =?2
+					where r.aboutSeat.seatUser.id = ?1
+					and r.aboutSeat.seatTrip.id =?2
 			]]>
 		</query>
 	</named-query>
@@ -156,8 +156,8 @@
 			<![CDATA[
 				select r
 					from Rating r
-					where r.fromSeat.user.id = ?1
-					and r.fromSeat.trip.id =?2
+					where r.fromSeat.seatUser.id = ?1
+					and r.fromSeat.seatTrip.id =?2
 			]]>
 		</query>
 	</named-query>
@@ -167,7 +167,7 @@
 			<![CDATA[
 				select r
 					from Rating r
-					where r.aboutSeat.user.id = ?1
+					where r.aboutSeat.seatUser.id = ?1
 			]]>
 		</query>
 	</named-query>
@@ -176,7 +176,7 @@
 			<![CDATA[
 				select r
 					from Rating r
-					where r.fromSeat.user.id = ?1
+					where r.fromSeat.seatUser.id = ?1
 			]]>
 		</query>
 	</named-query>
@@ -186,7 +186,7 @@
 			<![CDATA[
 				select r
 					from Rating r
-					order by r.fromSeat.trip.departureDate DESC
+					order by r.fromSeat.seatTrip.departureDate DESC
 			]]>
 		</query>
 	</named-query>
@@ -196,13 +196,13 @@
 				select r
 					from Rating r
 						left join fetch r.aboutSeat abse
-							left join fetch abse.trip
-							left join fetch abse.user
+							left join fetch abse.seatTrip
+							left join fetch abse.seatUser
 						left join fetch r.fromSeat frse
-							left join fetch frse.trip
-							left join fetch frse.user
-					where r.aboutSeat.trip.arrivalDate > ?1
-					order by r.fromSeat.trip.departureDate DESC
+							left join fetch frse.seatTrip
+							left join fetch frse.seatUser
+					where r.aboutSeat.seatTrip.arrivalDate > ?1
+					order by r.fromSeat.seatTrip.departureDate DESC
 			]]>
 		</query>
 	</named-query>

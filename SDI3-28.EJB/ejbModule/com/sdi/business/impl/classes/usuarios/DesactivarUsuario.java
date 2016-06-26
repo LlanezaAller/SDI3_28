@@ -23,7 +23,7 @@ public class DesactivarUsuario implements Command {
 		SeatFinder seatService = Factories.persistence.CreateSeatFinder();
 		user.setStatus(UserStatus.CANCELLED);
 		for(Seat s:seatService.findByUser(user.getId()))
-			if(s.getTrip().getStatus()==TripStatus.OPEN){
+			if(s.getSeatTrip().getStatus()==TripStatus.OPEN){
 				s.setStatus(SeatStatus.EXCLUDED);
 			}
 		return null;		

@@ -36,28 +36,28 @@
 				<h2>#{msgs.travellers}</h2>
 				<p:dataTable var="s" value="#{trip.trip.seats}">
 					<p:column headerText="#{msgs.nameLabel}">
-						<h:outputText value="#{s.user.name}" />
+						<h:outputText value="#{s.seatUser.name}" />
 					</p:column>
 					<p:column headerText="#{msgs.surnameLabel}">
-						<h:outputText value="#{s.user.surname}" />
+						<h:outputText value="#{s.seatUser.surname}" />
 					</p:column>
 					<p:column headerText="#{msgs.userLabel}" >
-						<h:outputText value="#{s.user.login}" />
+						<h:outputText value="#{s.seatUser.login}" />
 					</p:column>
 					<p:column headerText="#{msgs.tripUserStatus}"
 						>
 						<h:outputText value="#{msgs.seatAccepted}"
-							rendered="#{s.trip.promoter.id != s.user.id and s.status=='ACCEPTED'}" />
+							rendered="#{s.seatTrip.promoter.id != s.seatUser.id and s.status=='ACCEPTED'}" />
 						<h:outputText value="#{msgs.seatRejected}"
-							rendered="#{s.trip.promoter.id != s.user.id and s.status=='EXCLUDED'}" />
+							rendered="#{s.seatTrip.promoter.id != s.seatUser.id and s.status=='EXCLUDED'}" />
 						<h:outputText value="#{msgs.tripPromoter}"
-							rendered="#{s.trip.promoter.id == s.user.id}" />
+							rendered="#{s.seatTrip.promoter.id == s.seatUser.id}" />
 						<p:commandButton actionListener="#{trip.rejectSeat(s)}"
 							update="@form" value="#{msgs.reject}"
-							rendered="#{trip.isEditable==true and s.trip.promoter.id == user.id and s.status=='ACCEPTED' and s.trip.promoter.id != s.user.id}" />
+							rendered="#{trip.isEditable==true and s.seatTrip.promoter.id == user.id and s.status=='ACCEPTED' and s.seatTrip.promoter.id != s.seatUser.id}" />
 						<p:commandButton actionListener="#{trip.confirmSeat(s)}"
 							update="@form" value="#{msgs.accept}"
-							rendered="#{trip.isEditable==true and s.trip.promoter.id == user.id and s.status=='EXCLUDED' and s.trip.promoter.id != s.user.id}" />
+							rendered="#{trip.isEditable==true and s.seatTrip.promoter.id == user.id and s.status=='EXCLUDED' and s.seatTrip.promoter.id != s.seatUser.id}" />
 					</p:column>
 				</p:dataTable>
 			</h:form>

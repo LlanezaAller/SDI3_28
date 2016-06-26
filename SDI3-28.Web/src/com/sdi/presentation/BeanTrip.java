@@ -68,7 +68,7 @@ public class BeanTrip implements Serializable {
 		User user = (User) session.get("user");
 		Log.info("Rechazando asiento...");
 		if (user != null) {
-			if (s.getTrip().getPromoter().getId().equals(user.getId())) {
+			if (s.getSeatTrip().getPromoter().getId().equals(user.getId())) {
 				trip = Factories.business.getAsientosService()
 						.cambiarEstadoAsiento(s, user.getLogin());
 			} else {
@@ -88,7 +88,7 @@ public class BeanTrip implements Serializable {
 		User user = (User) session.get("user");
 		Log.info("Confirmando asiento...");
 		if (user != null) {
-			if (s.getTrip().getPromoter().getId().equals(user.getId())) {
+			if (s.getSeatTrip().getPromoter().getId().equals(user.getId())) {
 				trip = Factories.business.getAsientosService()
 						.cambiarEstadoAsiento(s, user.getLogin());
 			} else {

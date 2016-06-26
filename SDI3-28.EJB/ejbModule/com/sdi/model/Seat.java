@@ -28,10 +28,10 @@ public class Seat implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@ManyToOne
-	private User user;
+	private User seatUser;
 	@Id
 	@ManyToOne
-	private Trip trip;
+	private Trip seatTrip;
 
 	private String comment;
 
@@ -48,29 +48,29 @@ public class Seat implements Serializable{
 	};
 
 	public Seat(User user, Trip trip) {
-		this.user = user;
-		this.trip = trip;
+		this.seatUser = user;
+		this.seatTrip = trip;
 
 		user._getSeats().add(this);
 		trip._getSeats().add(this);
 	}
 	
-	@XmlElement(name = "usera")
-	public User getUser() {
-		return user;
+	@XmlElement(name = "seatUser")
+	public User getSeatUser() {
+		return seatUser;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setSeatUser(User user) {
+		this.seatUser = user;
 	}
 	
-	@XmlElement(name = "tripa")
-	public Trip getTrip() {
-		return trip;
+	@XmlElement(name = "seatTrip")
+	public Trip getSeatTrip() {
+		return seatTrip;
 	}
 
-	public void setTrip(Trip trip) {
-		this.trip = trip;
+	public void setSeatTrip(Trip trip) {
+		this.seatTrip = trip;
 	}
 	@XmlElement
 	public String getComment() {
@@ -91,7 +91,7 @@ public class Seat implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Seat [userId=" + user + ", tripId=" + trip + ", comment="
+		return "Seat [userId=" + seatUser + ", tripId=" + seatTrip + ", comment="
 				+ comment + ", status=" + status + "]";
 	}
 
@@ -102,10 +102,10 @@ public class Seat implements Serializable{
 	}
 
 	public void unlink() {
-		user._getApplications().remove(this);
-		trip._getApplications().remove(this);
-		this.user = null;
-		this.trip = null;
+		seatUser._getApplications().remove(this);
+		seatTrip._getApplications().remove(this);
+		this.seatUser = null;
+		this.seatTrip = null;
 	}
 
 	public Set<Rating> getRatingsFrom() {
@@ -124,8 +124,8 @@ public class Seat implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((trip == null) ? 0 : trip.hashCode());
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		result = prime * result + ((seatTrip == null) ? 0 : seatTrip.hashCode());
+		result = prime * result + ((seatUser == null) ? 0 : seatUser.hashCode());
 		return result;
 	}
 
@@ -138,15 +138,15 @@ public class Seat implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Seat other = (Seat) obj;
-		if (trip == null) {
-			if (other.trip != null)
+		if (seatTrip == null) {
+			if (other.seatTrip != null)
 				return false;
-		} else if (!trip.equals(other.trip))
+		} else if (!seatTrip.equals(other.seatTrip))
 			return false;
-		if (user == null) {
-			if (other.user != null)
+		if (seatUser == null) {
+			if (other.seatUser != null)
 				return false;
-		} else if (!user.equals(other.user))
+		} else if (!seatUser.equals(other.seatUser))
 			return false;
 		return true;
 	}

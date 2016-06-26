@@ -77,19 +77,19 @@ public class BeanTripList implements Serializable {
 			List<Seat> seats = Factories.business.getAsientosService()
 					.findByUser(user.getId());
 			for (Seat s : seats) {
-				if (user.getId().equals(s.getTrip().getPromoter().getId())) {
-					tripsRelation.add(new TripUser(s.getTrip(), bundle
+				if (user.getId().equals(s.getSeatTrip().getPromoter().getId())) {
+					tripsRelation.add(new TripUser(s.getSeatTrip(), bundle
 							.getString("tripPromoter")));
 				} else {
-					if (s.getTrip().getStatus() == TripStatus.CANCELLED) {
-						tripsRelation.add(new TripUser(s.getTrip(), bundle
+					if (s.getSeatTrip().getStatus() == TripStatus.CANCELLED) {
+						tripsRelation.add(new TripUser(s.getSeatTrip(), bundle
 								.getString("tripCancelled")));
 					} else {
 						if (s.getStatus() == SeatStatus.ACCEPTED)
-							tripsRelation.add(new TripUser(s.getTrip(), bundle
+							tripsRelation.add(new TripUser(s.getSeatTrip(), bundle
 									.getString("seatAccepted")));
 						else if (s.getStatus() == SeatStatus.EXCLUDED)
-							tripsRelation.add(new TripUser(s.getTrip(), bundle
+							tripsRelation.add(new TripUser(s.getSeatTrip(), bundle
 									.getString("seatRejected")));
 					}
 				}

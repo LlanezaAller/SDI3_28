@@ -45,7 +45,7 @@ public class User implements Serializable{
 	@ManyToMany(mappedBy = "aplicadores")
 	private Set<Trip> aplicaciones = new HashSet<>();
 
-	@OneToMany(mappedBy = "user", cascade = (CascadeType.REMOVE))
+	@OneToMany(mappedBy = "seatUser", cascade = (CascadeType.REMOVE))
 	private Set<Seat> seats = new HashSet<>();
 
 	@OneToMany(mappedBy = "promoter", cascade = (CascadeType.REMOVE))

@@ -17,9 +17,9 @@ public class Seat implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private User user;
+	private User seatUser;
 
-	private Trip trip;
+	private Trip seatTrip;
 
 	private String comment;
 
@@ -35,20 +35,20 @@ public class Seat implements Serializable{
 	public Seat() {
 	}
 	@XmlElement
-	public User getUser() {
-		return user;
+	public User getSeatUser() {
+		return seatUser;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setSeatUser(User user) {
+		this.seatUser = user;
 	}
 	@XmlElement
-	public Trip getTrip() {
-		return trip;
+	public Trip getSeatTrip() {
+		return seatTrip;
 	}
 
-	public void setTrip(Trip trip) {
-		this.trip = trip;
+	public void setSeatTrip(Trip trip) {
+		this.seatTrip = trip;
 	}
 	@XmlElement
 	public String getComment() {

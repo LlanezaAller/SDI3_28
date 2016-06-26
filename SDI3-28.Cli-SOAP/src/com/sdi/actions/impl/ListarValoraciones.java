@@ -8,7 +8,7 @@ import javax.xml.datatype.DatatypeFactory;
 
 import com.sdi.actions.Action;
 import com.sdi.ws.EJBValoracionesServiceService;
-import com.sdi.ws.SimpleRating;
+import com.sdi.ws.Rating;
 import com.sdi.ws.ValoracionesService;
 
 public class ListarValoraciones implements Action {
@@ -25,13 +25,13 @@ public class ListarValoraciones implements Action {
 				.getValoracionesServicePort();
 
 		try {
-			for (SimpleRating r : valoracionesService
+			for (Rating r : valoracionesService
 					.findLatestRatings(DatatypeFactory.newInstance()
 							.newXMLGregorianCalendar(limitDate))) {
 				System.out.println(r.getId() + "\t"
-						+ r.getAboutTrip().getDestination().getCity() + "\t"
-						+ r.getAbout().getName() + "\t" + r.getFrom().getName()
-						+ "\t" + r.getRating() + "\t" + r.getComment());
+						+ r.getAboutSeat().getSeatTrip().getDestination().getCity() + "\t"
+						+ r.getAboutSeat().getSeatUser().getName() + "\t" + r.getFromSeat().getSeatUser().getName()
+						+ "\t" + r.getValue() + "\t" + r.getComment());
 			}
 		} catch (DatatypeConfigurationException e) {
 			e.printStackTrace();

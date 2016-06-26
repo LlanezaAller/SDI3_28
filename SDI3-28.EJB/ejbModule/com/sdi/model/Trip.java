@@ -82,7 +82,7 @@ public class Trip implements Serializable {
 	@JoinTable(name = "TAPLICATIONS")
 	private Set<User> aplicadores = new HashSet<>();
 
-	@OneToMany(mappedBy = "trip", cascade = (CascadeType.REMOVE))
+	@OneToMany(mappedBy = "seatTrip", cascade = (CascadeType.REMOVE))
 	private Set<Seat> seats = new HashSet<>();
 
 	@ManyToOne

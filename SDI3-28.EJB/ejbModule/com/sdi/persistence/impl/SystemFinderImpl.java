@@ -63,9 +63,9 @@ public class SystemFinderImpl implements SystemFinder {
 		int c=0;
 		for (Seat s1 : seats) {
 			Factories.persistence.CreateSeatFinder().newSeat(s1);
-			if(s1.getTrip().getStatus()==TripStatus.DONE && s1.getStatus()==SeatStatus.ACCEPTED){
+			if(s1.getSeatTrip().getStatus()==TripStatus.DONE && s1.getStatus()==SeatStatus.ACCEPTED){
 				for(Seat s2: seats){
-					if(s1.getTrip().getId().equals(s2.getTrip().getId())){
+					if(s1.getSeatTrip().getId().equals(s2.getSeatTrip().getId())){
 						if(!s2.equals(s1) && s2.getStatus()==SeatStatus.ACCEPTED){
 							Factories.persistence.CreateRatingFinder().newRating(new Rating(s1, s2, "Comentario genérico " + c++, 10));
 						}

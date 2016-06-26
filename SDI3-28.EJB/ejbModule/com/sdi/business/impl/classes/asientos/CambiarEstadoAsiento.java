@@ -19,19 +19,19 @@ public class CambiarEstadoAsiento implements Command {
 	@Override
 	public Object execute() {
 		seat = Factories.persistence.CreateSeatFinder().findByUserAndTrip(
-				seat.getUser().getId(), seat.getTrip().getId());
+				seat.getSeatUser().getId(), seat.getSeatTrip().getId());
 		Trip trip = Factories.persistence.CreateTripFinder().findById(
-				seat.getTrip().getId());
+				seat.getSeatTrip().getId());
 
 		if (seat.getStatus() == SeatStatus.ACCEPTED) {
 			seat.setStatus(SeatStatus.EXCLUDED);
-			seat.getTrip()
-					.setAvailablePax(seat.getTrip().getAvailablePax() + 1);
+			seat.getSeatTrip()
+					.setAvailablePax(seat.getSeatTrip().getAvailablePax() + 1);
 			Log.info("Asiento rechazado satisfactoriamente");
 		} else if (seat.getStatus() == SeatStatus.EXCLUDED
 				&& trip.getAvailablePax() > 0) {
 			seat.setStatus(SeatStatus.ACCEPTED);
-			seat.getTrip().setAvailablePax(trip.getAvailablePax() - 1);
+			seat.getSeatTrip().setAvailablePax(trip.getAvailablePax() - 1);
 			Log.info("Asiento confirmado satisfactoriamente");
 		}
 

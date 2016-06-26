@@ -63,10 +63,10 @@ public class ChatListener implements MessageListener {
 						if (s.getStatus() == SeatStatus.ACCEPTED){
 							MapMessage forward = session.createMapMessage();
 							forward.setString("senderLogin", userLogin);
-							forward.setString("destinyLogin", s.getUser().getLogin());
+							forward.setString("destinyLogin", s.getSeatUser().getLogin());
 							forward.setString("text", text);
 							forward.setLong("tripID", tripID);
-							Log.debug("Redirigiendo mensaje del usuario %s al usuario %s", userLogin,  s.getUser().getLogin());
+							Log.debug("Redirigiendo mensaje del usuario %s al usuario %s", userLogin,  s.getSeatUser().getLogin());
 							receiver.send(forward);
 						}
 					}
