@@ -22,9 +22,9 @@ public class SimpleRating implements Serializable {
 
 	public SimpleRating(Rating r) {
 		id = r.getId();
-		about = r.getAboutSeat().getUser();
-		from = r.getFromSeat().getUser();
-		aboutTrip = r.getAboutSeat().getTrip();
+		about = r.getAboutSeat().getSeatUser();
+		from = r.getFromSeat().getSeatUser();
+		aboutTrip = r.getAboutSeat().getSeatTrip();
 		comment = r.getComment();
 		rating = r.getValue();
 	}
