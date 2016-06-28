@@ -88,8 +88,8 @@ public class MainChat {
 		
 		trips = new ArrayList<>();
 		for(Seat s: seatList){
-			if(s.getStatus()==SeatStatus.ACCEPTED || s.getTrip().getPromoter().getId()==user.getId())
-				trips.add(s.getTrip());
+			if(s.getStatus()==SeatStatus.ACCEPTED || s.getSeatTrip().getPromoter().getId()==user.getId())
+				trips.add(s.getSeatTrip());
 		}
 		
 		return trips;
