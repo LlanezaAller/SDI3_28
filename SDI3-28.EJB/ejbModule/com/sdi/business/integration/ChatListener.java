@@ -25,50 +25,61 @@ import com.sdi.model.type.SeatStatus;
 
 @MessageDriven(activationConfig = { @ActivationConfigProperty(propertyName = "destination", propertyValue = "queue/SDI3-28-ShareMytrip-Sender") })
 public class ChatListener implements MessageListener {
-	
+
 	private static final String JMS_CONNECTION_FACTORY = "java:/ConnectionFactory";
 	private static final String SHAREMYTRIP_TOPIC_RECEIVER = "java://topic/SDI3-28-ShareMytrip-Receiver";
 	private static final String LOG_QUEUE = "java:/queue/LogQueue";
-	
+
 	private Session session;
 	private Connection connection;
-	
+
 	private MessageProducer log;
 	private MessageProducer receiver;
-	
-	//private ViajesService tripService = Factories.business.getViajesService();
-	//private AsientosService seatService = Factories.business.getAsientosService();
+
+	public ChatListener() {
+		ConnectionFactory factory = Jndi
+				.getConnectionFactory(JMS_CONNECTION_FACTORY);
+		Destination queue_log = Jndi.getDestination(LOG_QUEUE);
+		Destination topic_receiver = Jndi
+				.getDestination(SHAREMYTRIP_TOPIC_RECEIVER);
+		try {
+			connection = factory.createConnection("sdi", "password");
+			session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+			log = session.createProducer(queue_log);
+			receiver = session.createProducer(topic_receiver);
+		} catch (JMSException e) {
+			Log.error(e);
+		}
+	}
 
 	@Override
 	public void onMessage(Message arg0) {
 		try {
-			if(arg0 instanceof MapMessage){
-				ViajesService tripService = Factories.business.getViajesService();
+			if (arg0 instanceof MapMessage) {
+				ViajesService tripService = Factories.business
+						.getViajesService();
 				AsientosService seatService = Factories.business
 						.getAsientosService();
 				MapMessage msg = (MapMessage) arg0;
 				String userLogin = msg.getString("userLogin");
-				User sender = Factories.business.getUsuariosService().findUser(userLogin);
+				User sender = Factories.business.getUsuariosService().findUser(
+						userLogin);
 				long tripID = msg.getLong("tripID");
 				String text = msg.getString("text");
-				if (seatService.findByUserAndTrip(sender.getId(), tripID).getStatus() == SeatStatus.ACCEPTED) {
+				if (seatService.findByUserAndTrip(sender.getId(), tripID)
+						.getStatus() == SeatStatus.ACCEPTED) {
 					Trip t = tripService.findTripByID(tripID);
-					ConnectionFactory factory = Jndi
-							.getConnectionFactory(JMS_CONNECTION_FACTORY);
-					Destination queue_log = Jndi.getDestination(LOG_QUEUE); 
-					Destination topic_receiver = Jndi.getDestination(SHAREMYTRIP_TOPIC_RECEIVER);
-					connection = factory.createConnection("sdi", "password");
-					session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-					log = session.createProducer(queue_log);
-					receiver = session.createProducer(topic_receiver);
 					for (Seat s : t.getSeats()) {
-						if (s.getStatus() == SeatStatus.ACCEPTED){
+						if (s.getStatus() == SeatStatus.ACCEPTED) {
 							MapMessage forward = session.createMapMessage();
 							forward.setString("senderLogin", userLogin);
-							forward.setString("destinyLogin", s.getSeatUser().getLogin());
+							forward.setString("destinyLogin", s.getSeatUser()
+									.getLogin());
 							forward.setString("text", text);
 							forward.setLong("tripID", tripID);
-							Log.debug("Redirigiendo mensaje del usuario %s al usuario %s", userLogin,  s.getSeatUser().getLogin());
+							Log.debug(
+									"Redirigiendo mensaje del usuario %s al usuario %s",
+									userLogin, s.getSeatUser().getLogin());
 							receiver.send(forward);
 						}
 					}
@@ -82,7 +93,7 @@ public class ChatListener implements MessageListener {
 			}
 		} catch (EntityNotFoundException | JMSException e) {
 			Log.error(e);
-		}	
+		}
 	}
 
 }
