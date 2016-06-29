@@ -17,6 +17,11 @@ import javax.servlet.http.HttpSession;
 
 import alb.util.log.Log;
 
+import com.sdi.business.exception.EntityNotFoundException;
+import com.sdi.infraestructure.factories.Factories;
+import com.sdi.model.User;
+import com.sdi.model.type.UserStatus;
+
 /**
  * Servlet Filter implementation class LoginFilter
  */
@@ -43,27 +48,32 @@ public class LoginFilter implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
-		// Si no es petición HTTP nada que hacer
+
 		if (!(request instanceof HttpServletRequest)) {
 			chain.doFilter(request, response);
 			return;
 		}
-		// En el resto de casos se verifica que se haya hecho login previamente
+
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
 		HttpSession session = req.getSession();
-		if (session.getAttribute("user") == null) {
-			String loginForm = config.getInitParameter("LoginParam");
-			// Si no hay login, redirección al formulario de login
-			String url = "";
-			if (request instanceof HttpServletRequest) {
-				url = ((HttpServletRequest) request).getRequestURL().toString()
-						+ "/" + ((HttpServletRequest) request).getQueryString();
+		User user = (User) session.getAttribute("user");
+		try {
+			if (user == null || Factories.business.getUsuariosService().findUser(user.getLogin()).getStatus()==UserStatus.CANCELLED) {
+				String loginForm = config.getInitParameter("LoginParam");
+
+				String url = "";
+				if (request instanceof HttpServletRequest) {
+					url = ((HttpServletRequest) request).getRequestURL().toString()
+							+ "/" + ((HttpServletRequest) request).getQueryString();
+				}
+				Log.error("Usuario no autorizado ha intentado acceder a %s", url);
+
+				res.sendRedirect(req.getContextPath() + loginForm);
+				return;
 			}
-			Log.error("Usuario no autorizado ha intentado acceder a %s", url);
-	
-			res.sendRedirect(req.getContextPath() + loginForm);
-			return;
+		} catch (EntityNotFoundException e) {
+			Log.error("El usuario no existe, ", e);
 		}
 		chain.doFilter(request, response);
 	}

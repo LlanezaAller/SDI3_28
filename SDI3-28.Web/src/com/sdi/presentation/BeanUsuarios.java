@@ -26,6 +26,7 @@ public class BeanUsuarios implements Serializable {
 
 	public String register() {
 		try {
+			user.setStatus(UserStatus.ACTIVE);
 			Factories.business.getUsuariosService().saveUser(user);
 			login();
 		} catch (EntityAlreadyExistsException e) {
@@ -42,19 +43,19 @@ public class BeanUsuarios implements Serializable {
 	public String login() {
 		if (SdiUtil.assertCampos(user.getLogin(), user.getPassword())) {
 			if (SdiUtil.assertCampos(user.getPassword(), user.getLogin())) {
-				User u;
+				User userDB;
 				try {
-					u = Factories.business.getUsuariosService().findUser(
+					userDB = Factories.business.getUsuariosService().findUser(
 							user.getLogin());
 					FacesContext context = FacesContext.getCurrentInstance();
 					ResourceBundle bundle = context.getApplication()
 							.getResourceBundle(context, "msgs");
-					if (u != null) {
-						if (user.getPassword().equals(u.getPassword()) && user.getStatus() == UserStatus.ACTIVE) {
-							user = u;
+					if (userDB != null) {
+						if (user.getPassword().equals(userDB.getPassword()) && userDB.getStatus() == UserStatus.ACTIVE) {
+							user = userDB;
 
 							context.getExternalContext().getSessionMap()
-									.put("user", u);
+									.put("user", userDB);
 							context.getExternalContext().getFlash()
 									.setKeepMessages(true);
 							context.addMessage(

@@ -21,6 +21,7 @@ import alb.util.log.Log;
 import com.sdi.business.exception.EntityNotFoundException;
 import com.sdi.infraestructure.factories.Factories;
 import com.sdi.model.User;
+import com.sdi.model.type.UserStatus;
 
 @WebFilter(dispatcherTypes = { DispatcherType.REQUEST }, urlPatterns = { "/rest/*" }, initParams = { @WebInitParam(name = "LoginParam", value = "/index.xhtml") })
 public class RestFilter implements Filter {
@@ -45,12 +46,12 @@ public class RestFilter implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
-		// Si no es petición HTTP nada que hacer
+
 		if (!(request instanceof HttpServletRequest)) {
 			chain.doFilter(request, response);
 			return;
 		}
-		// En el resto de casos se verifica que se haya hecho login previamente
+
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
 		String authHeader = req.getHeader("Authorization");
@@ -61,7 +62,7 @@ public class RestFilter implements Filter {
 		        if(userAndPassword.length==2){
 		        	try {
 						User user = Factories.business.getUsuariosService().findUser(userAndPassword[0]);
-						if(user!=null && user.getPassword().equals(userAndPassword[1])){					
+						if(user!=null && user.getPassword().equals(userAndPassword[1]) && user.getStatus()==UserStatus.ACTIVE){					
 							req.setAttribute("user", user);
 							chain.doFilter(req, response);
 				        	return;
