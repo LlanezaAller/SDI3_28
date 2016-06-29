@@ -16,6 +16,7 @@ import com.sdi.business.exception.EntityNotFoundException;
 import com.sdi.business.util.SdiUtil;
 import com.sdi.infraestructure.factories.Factories;
 import com.sdi.model.User;
+import com.sdi.model.type.UserStatus;
 
 @ManagedBean
 @SessionScoped
@@ -49,7 +50,7 @@ public class BeanUsuarios implements Serializable {
 					ResourceBundle bundle = context.getApplication()
 							.getResourceBundle(context, "msgs");
 					if (u != null) {
-						if (user.getPassword().equals(u.getPassword())) {
+						if (user.getPassword().equals(u.getPassword()) && user.getStatus() == UserStatus.ACTIVE) {
 							user = u;
 
 							context.getExternalContext().getSessionMap()

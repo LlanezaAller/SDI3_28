@@ -3,11 +3,9 @@ package com.sdi.business.util;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.regex.Pattern;
 
 import com.sdi.business.exception.EntityNotFoundException;
-import com.sdi.infraestructure.factories.Factories;
 import com.sdi.model.Seat;
 import com.sdi.model.Trip;
 import com.sdi.model.User;
@@ -46,9 +44,7 @@ public class SdiUtil {
 	public static boolean assertHasApplication(User user, Trip trip) {
 		boolean result = false;
 		if (user != null) {
-			List<User> apps = Factories.business.getUsuariosService()
-					.findUsersByTrip(trip.getId());
-			for (User u : apps) {
+			for (User u : trip.getApplications()) {
 				if (user.getId().equals(u.getId())) {
 					result = true;
 				}
@@ -59,9 +55,7 @@ public class SdiUtil {
 
 	public static boolean assertHasSeat(User user, Trip trip) throws EntityNotFoundException {
 		if (user != null) {
-			Seat[] asientos = Factories.business.getViajesService()
-					.findSeatsFromTrip(trip.getId());
-			for (Seat s : asientos) {
+			for (Seat s : trip.getSeats()) {
 				if (s.getSeatUser().getId().equals(user.getId())) {
 					return true;
 				}
