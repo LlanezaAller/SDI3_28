@@ -17,7 +17,7 @@ import javax.jms.Session;
 public class Chat implements MessageListener {
 	private static final String JMS_CONNECTION_FACTORY = "jms/RemoteConnectionFactory";
 	private static final String SHAREMYTRIP_TOPIC_RECEIVER = "jms/topic/SDI3-28-ShareMytrip-Receiver";
-	private static final String SHAREMYTRIP_TOPIC_SENDER= "jms/queue/SDI3-28-ShareMytrip-Sender";
+	private static final String SHAREMYTRIP_QUEUE_SENDER= "jms/queue/SDI3-28-ShareMytrip-Sender";
 	
 	private BufferedReader console;
 
@@ -37,7 +37,7 @@ public class Chat implements MessageListener {
 
 		ConnectionFactory factory = Jndi
 				.getConnectionFactory(JMS_CONNECTION_FACTORY);
-		Destination topic_sender = Jndi.getDestination(SHAREMYTRIP_TOPIC_SENDER); 
+		Destination topic_sender = Jndi.getDestination(SHAREMYTRIP_QUEUE_SENDER); 
 		Destination topic_receiver = Jndi.getDestination(SHAREMYTRIP_TOPIC_RECEIVER);
 		
 		try {
@@ -46,7 +46,7 @@ public class Chat implements MessageListener {
 			session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 			sender = session.createProducer(topic_sender);
 			receiver = session.createConsumer(topic_receiver);
-			//Si quisiesemos hacer la suscripcoión durable usaríamos este método. Necesitamos el permiso <permission type="createDurableQueue" roles="guest"/>
+			//Si quisiesemos hacer la suscripción durable usaríamos este método. Necesitamos el permiso <permission type="createDurableQueue" roles="guest"/>
 			//receiver = session.createDurableSubscriber((Topic) topic_receiver, userLogin);
 			receiver.setMessageListener(this);
 			connection.start();

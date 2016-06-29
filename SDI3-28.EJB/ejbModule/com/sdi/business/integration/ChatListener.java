@@ -36,14 +36,16 @@ public class ChatListener implements MessageListener {
 	private MessageProducer log;
 	private MessageProducer receiver;
 	
-	private ViajesService tripService = Factories.business.getViajesService();
-	private AsientosService seatService = Factories.business
-			.getAsientosService();
+	//private ViajesService tripService = Factories.business.getViajesService();
+	//private AsientosService seatService = Factories.business.getAsientosService();
 
 	@Override
 	public void onMessage(Message arg0) {
 		try {
 			if(arg0 instanceof MapMessage){
+				ViajesService tripService = Factories.business.getViajesService();
+				AsientosService seatService = Factories.business
+						.getAsientosService();
 				MapMessage msg = (MapMessage) arg0;
 				String userLogin = msg.getString("userLogin");
 				User sender = Factories.business.getUsuariosService().findUser(userLogin);

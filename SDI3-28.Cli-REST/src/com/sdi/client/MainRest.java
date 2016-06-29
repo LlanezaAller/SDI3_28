@@ -31,7 +31,7 @@ public class MainRest {
 		System.out.println("Adios!");
 	}
 	private void login(){
-		System.out.println("Bienvenido a la app de ShareYourTrip, Por favor intruduzca sus credenciales.");
+		System.out.println("Bienvenido a la app de ShareYourTrip, Por favor introduzca sus credenciales.");
 		try {
 			System.out.print("Usuario: ");
 			usuario = console.readLine();

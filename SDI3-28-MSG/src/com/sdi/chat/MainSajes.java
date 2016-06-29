@@ -20,7 +20,7 @@ import com.sdi.chat.model.User;
 
 
 
-public class MainChat {
+public class MainSajes {
 	private static final String REST_SERVICE_URL = "http://localhost:8280/SDI3-28.Web/rest";
 	
 	private BufferedReader console;
@@ -30,7 +30,7 @@ public class MainChat {
 	public static void main(String[] args) throws JMSException {
 		System.out.println("Bienvenido al chat de Share My Trip");
 		LogConfig.config();
-		new MainChat().run();
+		new MainSajes().run();
 	}
 
 	
